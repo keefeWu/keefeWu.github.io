@@ -5,17 +5,17 @@
   
 
   
-  <title>Hexo</title>
+  <title>Keefe&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:title" content="Keefe&#39;s blog">
+<meta property="og:url" content="http://blog.357573.com/index.html">
+<meta property="og:site_name" content="Keefe&#39;s blog">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="Keefe&#39;s blog">
   
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="Keefe&#39;s blog" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -34,7 +34,7 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
+        <a href="/" id="logo">Keefe&#39;s blog</a>
       </h1>
       
     </div>
@@ -54,7 +54,7 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://blog.357573.com"></form>
       </div>
     </div>
   </div>
@@ -87,10 +87,10 @@
         <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> nvidia/cuda:<span class="number">9.0</span>-cudnn7-devel-ubuntu16.<span class="number">04</span></span><br></pre></td></tr></table></figure>
 <p>首先第一句写上系统的源，因为我要用到gpu，所以下了一个cuda版的ubuntu，具体有什么系统可以去hub.docker.com上去搜索，比如说搜索ubuntu，在tag里面就有各个不同的版本，把tag加到冒号后就可以了，具体的我不细讲了。如果要用到一些库的话，例如caffe，或者Apache这种，其实都已经自带系统了，所以说用那种库的源做系统也是可以的。</p>
 <p>第二行要指定维护人的邮箱</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LABEL</span><span class="bash"> maintainer keefe@whale.im</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LABEL</span> maintainer keefe@whale.im</span><br></pre></td></tr></table></figure>
 <p>紧接着就可以输入shell命令了</p>
 <p>进去之后要先激活apt</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span> apt-get update</span><br></pre></td></tr></table></figure>
 <p>进去之后自动是root权限，所以不需要sudo，执行shell命令就在命令前加上一个RUN就可以了</p>
 <p>然后就可以用apt安装库了，例如我要安装opencv</p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get install -y --no-install-recommends \</span><br><span class="line">        libopencv-dev</span><br></pre></td></tr></table></figure>
@@ -101,14 +101,14 @@
 <p>如果需要部署自己的代码进去，那么首先要执行拷贝操作，从本地拷贝到镜像里，有两种方法，一个是<code>ADD</code>另一个是<code>COPY</code>这两个操作基本上是一样的，不过<code>ADD</code>操作可以自动解压压缩包，具体的我没有试过。</p>
 <p>注意<code>COPY</code>的文件一定不能用<code>..</code>这种上级操作，如果要拷贝目录的话一定要加<code>/</code>目标路径也是的</p>
 <p>我一般会下载一个apt的国内源所以我会先执行</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ADD</span><span class="bash"> docker/sources.list /etc/apt/sources.list</span></span><br><span class="line"><span class="bash">RUN apt-get update</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ADD</span> docker/sources.list /etc/apt/sources.list</span><br><span class="line">RUN apt-get update</span><br></pre></td></tr></table></figure>
 <p>最后加上<code>CMD</code>,非必须，就是启动脚本，比方说要运行什么服务就用这个命令，但是注意到一旦用了这个命令，当命令执行完毕镜像就会关闭了。</p>
 <p>ps:尽量减少RUN的使用，每进行一个docker的操作，就会创建一个新的层，很多东西都是可以复用的，但是建了新层就没法复用了，导致最后镜像文件会非常大，所以最好用一条命令执行，使用<code>&amp;&amp;</code>隔开使用<code>\</code>换行</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/11/Dockerfile的编写/" data-id="cjpkx2ap40004btgjcbzq6tvr" class="article-share-link">Share</a>
+      <a data-url="http://blog.357573.com/2018/12/11/Dockerfile的编写/" data-id="cjpkx492d0000dpgjmiukg4j0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -159,7 +159,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/05/Docker基本操作/" data-id="cjpkx2ap30003btgju7i1s9rz" class="article-share-link">Share</a>
+      <a data-url="http://blog.357573.com/2018/12/05/Docker基本操作/" data-id="cjpkx492i0001dpgjvrfi0pss" class="article-share-link">Share</a>
       
       
     </footer>
@@ -202,7 +202,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/30/解释一下全连接层/" data-id="cjpkx2ap50005btgjoy0ry8qh" class="article-share-link">Share</a>
+      <a data-url="http://blog.357573.com/2018/11/30/解释一下全连接层/" data-id="cjpkx492o0005dpgj12vct7ye" class="article-share-link">Share</a>
       
       
     </footer>
@@ -239,7 +239,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/30/WebFace-错误人脸/" data-id="cjpkx2aow0000btgj396q9hin" class="article-share-link">Share</a>
+      <a data-url="http://blog.357573.com/2018/11/30/WebFace-错误人脸/" data-id="cjpkx492k0002dpgjahny9dsf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -381,7 +381,7 @@ http://blog.improvecfan.cn/ 这个是解析后的地址
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/30/用Hexo-github搭建自己的博客/" data-id="cjpkx2ap20002btgj60ye5x4h" class="article-share-link">Share</a>
+      <a data-url="http://blog.357573.com/2018/11/30/用Hexo-github搭建自己的博客/" data-id="cjpkx492n0004dpgjij7ug6fs" class="article-share-link">Share</a>
       
       
     </footer>
@@ -426,7 +426,7 @@ http://blog.improvecfan.cn/ 这个是解析后的地址
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/30/hello-world/" data-id="cjpkx2ap00001btgjcwbsfdd1" class="article-share-link">Share</a>
+      <a data-url="http://blog.357573.com/2018/11/30/hello-world/" data-id="cjpkx492l0003dpgj6vja7yc2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -498,7 +498,7 @@ http://blog.improvecfan.cn/ 这个是解析后的地址
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2018 John Doe<br>
+      &copy; 2018 Keefe Ng<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
