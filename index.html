@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Keefe&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Keefe&#39;s blog">
+<meta property="og:url" content="http://blog.357573.com/index.html">
+<meta property="og:site_name" content="Keefe&#39;s blog">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Keefe&#39;s blog">
+  
+    <link rel="alternate" href="/atom.xml" title="Keefe&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Keefe&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://blog.357573.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-Dockerfile的编写" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/11/Dockerfile的编写/" class="article-date">
+  <time datetime="2018-12-11T02:25:56.000Z" itemprop="datePublished">2018-12-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/11/Dockerfile的编写/">Dockerfile的编写</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> nvidia/cuda:<span class="number">9.0</span>-cudnn7-devel-ubuntu16.<span class="number">04</span></span><br></pre></td></tr></table></figure>
+<p>首先第一句写上系统的源，因为我要用到gpu，所以下了一个cuda版的ubuntu，具体有什么系统可以去hub.docker.com上去搜索，比如说搜索ubuntu，在tag里面就有各个不同的版本，把tag加到冒号后就可以了，具体的我不细讲了。如果要用到一些库的话，例如caffe，或者Apache这种，其实都已经自带系统了，所以说用那种库的源做系统也是可以的。</p>
+<p>第二行要指定维护人的邮箱</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LABEL</span> maintainer keefe@whale.im</span><br></pre></td></tr></table></figure>
+<p>紧接着就可以输入shell命令了</p>
+<p>进去之后要先激活apt</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span> apt-get update</span><br></pre></td></tr></table></figure>
+<p>进去之后自动是root权限，所以不需要sudo，执行shell命令就在命令前加上一个RUN就可以了</p>
+<p>然后就可以用apt安装库了，例如我要安装opencv</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get install -y --no-install-recommends \</span><br><span class="line">        libopencv-dev</span><br></pre></td></tr></table></figure>
+<p>我使用了no-install-recommends参数，这样能保证安装的都是所需的，以降低镜像的大小。</p>
+<p>最后再把apt的缓存都删掉</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /var/lib/apt/lists/*</span><br></pre></td></tr></table></figure>
+<p>这样再次节省了空间，要是想进去之后apt装东西，再执行一下<code>apt update</code>就可以了</p>
+<p>如果需要部署自己的代码进去，那么首先要执行拷贝操作，从本地拷贝到镜像里，有两种方法，一个是<code>ADD</code>另一个是<code>COPY</code>这两个操作基本上是一样的，不过<code>ADD</code>操作可以自动解压压缩包，具体的我没有试过。</p>
+<p>注意<code>COPY</code>的文件一定不能用<code>..</code>这种上级操作，如果要拷贝目录的话一定要加<code>/</code>目标路径也是的</p>
+<p>我一般会下载一个apt的国内源所以我会先执行</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ADD</span> docker/sources.list /etc/apt/sources.list</span><br><span class="line">RUN apt-get update</span><br></pre></td></tr></table></figure>
+<p>最后加上<code>CMD</code>,非必须，就是启动脚本，比方说要运行什么服务就用这个命令，但是注意到一旦用了这个命令，当命令执行完毕镜像就会关闭了。</p>
+<p>ps:尽量减少RUN的使用，每进行一个docker的操作，就会创建一个新的层，很多东西都是可以复用的，但是建了新层就没法复用了，导致最后镜像文件会非常大，所以最好用一条命令执行，使用<code>&amp;&amp;</code>隔开使用<code>\</code>换行</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.357573.com/2018/12/11/Dockerfile的编写/" data-id="cjpkxeudk0000nmgj4xrh8i61" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Docker基本操作" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/05/Docker基本操作/" class="article-date">
+  <time datetime="2018-12-05T03:30:12.000Z" itemprop="datePublished">2018-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/05/Docker基本操作/">Docker基本操作</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>​    Docker镜像保存下来都是tar类型的一个压缩包，想要加载它，操作是</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat [filename].tar | sudo docker import - [groupname]/[projectname]:[tag]</span><br></pre></td></tr></table></figure>
+<p>其中<code>filename</code>就是保存的镜像文件路径 使用cat命令读取内容 然后将读取的输出作为参数执行<code>docker import</code>命令<br><code>groupname</code>和<code>projectname</code>都是自定的<code>tag</code>也是自定的，一般就是版本号</p>
+<p>执行以上命令，就可以打开这个docker镜像了。</p>
+<p>那么这个tar文件怎么制作呢？有两种方法。</p>
+<p>第一种是<code>编写Dockerfile</code></p>
+<p>Dockerfile的写法在另一篇博客里有详细的介绍，编写好之后就开始编译。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker build -t [groupname]/[projectname]:tag .</span><br></pre></td></tr></table></figure>
+<p>这里使用-t来指定编译好后的名称，以便以后直接用这个名称来run就可以了，最后一个参数<code>.</code>代表Dockerfile文件的路径，记住一定是这个名字，大小写不能错。</p>
+<p>编译好之后使用</p>
+<p>第二种是<code>进入docker镜像操作，然后save</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker save [dockername] | bzip2 -9 -c&gt;[output_filename]</span><br></pre></td></tr></table></figure>
+<p>这样就能通过镜像名字把自己操作好的镜像打包成一个压缩包了，一般输出的都是tar文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker load -i [filename]</span><br></pre></td></tr></table></figure>
+<p>这样就能够读取编写好的镜像了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.357573.com/2018/12/05/Docker基本操作/" data-id="cjpkxeudp0001nmgje9gcl1ve" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-解释一下全连接层" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/30/解释一下全连接层/" class="article-date">
+  <time datetime="2018-11-30T11:57:06.000Z" itemprop="datePublished">2018-11-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/30/解释一下全连接层/">解释一下全连接层</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在卷积神经网络的最后，往往会出现一两层全连接层，全连接一般会把卷积输出的二维特征图转化成一维的一个向量，这是怎么来的呢？目的何在呢？</p>
+<p>举个例子：</p>
+<p>最后的两列小圆球就是两个全连接层，在最后一层卷积结束后，进行了最后一次池化，输出了20个12<em>12的图像，然后通过了一个全连接层变成了1</em>100的向量。</p>
+<p>这是怎么做到的呢，其实就是有20<em>100个12</em>12的卷积核卷积出来的，对于输入的每一张图，用了一个和图像一样大小的核卷积，这样整幅图就变成了一个数了，如果厚度是20就是那20个核卷积完了之后相加求和。这样就能把一张图高度浓缩成一个数了。</p>
+<p>全连接的目的是什么呢？因为传统的网络我们的输出都是分类，也就是几个类别的概率甚至就是一个数–类别号，那么全连接层就是高度提纯的特征了，方便交给最后的分类器或者回归。</p>
+<p>但是全连接的参数实在是太多了，你想这张图里就有20<em>12</em>12<em>100个参数，前面随便一层卷积，假设卷积核是7</em>7的，厚度是64，那也才7<em>7</em>64，所以现在的趋势是尽量避免全连接，目前主流的一个方法是全局平均值。</p>
+<p>也就是最后那一层的feature map（最后一层卷积的输出结果），直接求平均值。有多少种分类就训练多少层，这十个数字就是对应的概率或者叫置信度。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.357573.com/2018/11/30/解释一下全连接层/" data-id="cjpkxeudu0005nmgjx77k83dp" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-WebFace-错误人脸" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/30/WebFace-错误人脸/" class="article-date">
+  <time datetime="2018-11-30T11:19:25.000Z" itemprop="datePublished">2018-11-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/30/WebFace-错误人脸/">WebFace 错误人脸</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>0000157/057.jpg</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.357573.com/2018/11/30/WebFace-错误人脸/" data-id="cjpkxeudr0002nmgj2va9lvvh" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-用Hexo-github搭建自己的博客" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/30/用Hexo-github搭建自己的博客/" class="article-date">
+  <time datetime="2018-11-30T11:06:15.000Z" itemprop="datePublished">2018-11-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/30/用Hexo-github搭建自己的博客/">用Hexo + github搭建自己的博客</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>每次Google自己不会的问题时，总会发现有很多的人都有自己的博客，不由自主的羡慕起来，于是按捺不住自己的躁动的心，说干就干。
+</code></pre><p>前言</p>
+<p>每次写博客之前都喜欢做一些科普啊巴拉巴拉的，写之前还想分析一波Hexo和jekyll，掰扯掰扯github，漫谈一下gitblog啥的。讲道理，我这个人比较浮躁，写那些乱七八糟的知识简直就是折磨，所以这次—不写了！！直接开搞。有啥问题别找我。<br>用Hexo在本地搭建一个博客<br>安装Hexo</p>
+<pre><code>安装nodejs
+
+    http://nodejs.cn/ 丢个链接自己装，傻瓜式安装
+
+安装git
+
+    https://git-scm.com/downloads 安装毫无技术含量
+
+使用npm安装Hexo
+</code></pre><p>   npm install -g hexo-cli<br>  //一键搞定</p>
+<p>快速开始</p>
+<p>1 随便找个文件夹下打开终端,输入</p>
+<pre><code>hexo i blog //init的缩写 blog是项目名
+cd blog //切换到站点根目录
+hexo g //generetor的缩写
+hexo s //server的缩写
+</code></pre><p>2 打开浏览器输入localhost:4000查看：</p>
+<pre><code>这里写图片描述
+</code></pre><p>看到这个样子就说明成功了，这个就是hexo默认的博客主题。现在你已经可以在这个主题下写博客了。</p>
+<p>当然，我是不喜欢这样的，幸好，github上有大量的主题可供选择，这里我选择使用nexT主题。<br>选择主题–nexT</p>
+<p>1 . 在站点根目录输入</p>
+<p>git clone <a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">https://github.com/iissnan/hexo-theme-next</a> themes/next</p>
+<p>2 . 完成后，打开 站点配置文件， 找到 theme 字段，并将其值更改为 next</p>
+<pre><code>配置文件就是根目录下的_config.yml文件
+
+这里写图片描述
+</code></pre><p>把landscape改为next</p>
+<p>3 . 在终端输入</p>
+<p>hexo clean  //清除缓存<br>hexo g  //重新生成代码<br>hexo s  //部署到本地</p>
+<p>//然后打开浏览器访问 localhost:4000 查看效果</p>
+<pre><code>这里写图片描述
+</code></pre><p>nexT主题有三种选择，这个只是最简洁的一种，我们选择最好看的那个。</p>
+<pre><code>Muse - 默认 Scheme，这是 NexT 最初的版本，黑白主调，大量留白
+Mist - Muse 的紧凑版本，整洁有序的单栏外观
+Pisces - 双栏 Scheme，小家碧玉似的清新
+</code></pre><p>4 . 配置nexT</p>
+<pre><code>这里写图片描述
+
+在 站点根目录/themes/next/_congig.yml 文件中修改
+</code></pre><p>然后重新clean，generator，查看效果:</p>
+<pre><code>这里写图片描述
+</code></pre><p>当然，你完全可以进行很多的自定义设置甚至修改源码，定制自己的主题。更多的设置请移步官方文档</p>
+<pre><code>http://theme-next.iissnan.com/getting-started.html
+</code></pre><p>将本地博客上传到github</p>
+<p>话不多做，直接开始。</p>
+<p>1 . 注册github账号</p>
+<pre><code>https://github.com/ 甩个链接自己看着办
+</code></pre><p>2 . 创建一个新项目</p>
+<pre><code>这里写图片描述
+</code></pre><p>3 . 按格式输入项目名称</p>
+<pre><code>这里写图片描述
+
+注意规范！！
+</code></pre><p>4 . 点击设置 创建一个page</p>
+<pre><code>这里写图片描述
+
+这里写图片描述
+
+这里写图片描述
+</code></pre><p>5 . 选择一个主题，没什么用，反正马上就被覆盖掉了。。</p>
+<pre><code>这里写图片描述
+</code></pre><p>这个时候访问一下你的链接，应该可以看到效果：</p>
+<pre><code>这里写图片描述
+</code></pre><p>接下来将我们Hexo的代码部署到github上。</p>
+<p>6 . 修改hexo站点的配置文件</p>
+<pre><code>这里写图片描述
+</code></pre><p>改成这样就好了，记得保存。</p>
+<pre><code>注意！！！冒号的后面一定一定一定要有一个空格！！
+</code></pre><p>7 . 部署一下就好了</p>
+<p>npm install hexo-deployer-git –save<br>//先装个插件压压惊<br>hexo d  //  部署的命令</p>
+<p>//等一会就好了</p>
+<pre><code>当然，你可能会很奇怪，我没输密码，没输用户名，就这么部署上去了，这不是很不安全？
+事实上，一般来说是要输入用户名和密码的（别人的教程都是这么说的），如果不想每次都输，就需要配置ssh啥的。不过我并不需要这一步，大概，是我下载了github客户端吧。
+所以，如果你不想每次都输密码，也懒得搞复杂的ssh，就在你的电脑下一个github客户端吧，而且我觉得，这个东西是必备的。。。
+</code></pre><p>再次访问你的网站：</p>
+<pre><code>这里写图片描述
+</code></pre><p>perfect！<br>发布你的第一篇博客</p>
+<p>根目录下输入 ：</p>
+<p>hexo new “postName”<br> //hexo n 也可以<br> //你自己的博客名称，名为postName.md的文件会建在目<br> //录/blog/source/_posts下。</p>
+<p>文章编辑完成后，终端在根目录文件夹下，执行如下命令来发布:</p>
+<p>hexo g //生成静态页面<br>hexo d //发布</p>
+<p>现在查看一下：</p>
+<pre><code>这里写图片描述
+</code></pre><p>已经发布上去咯。<br>后记</p>
+<p>本次的教程就先到这里，这只是最基础的，对于主题，你还有更多的选择更多的设置，甚至自己写一个静态博客界面。撤了Hexo，你还可以用其他的方式来搭建。如果你不喜欢github提供的域名，你可以自己买一个域名做绑定，不过我觉得没啥必要，所以我就不写了，毕竟很多大的组织也直接用github.io。生活嘛，就是用来折腾的。</p>
+<pre><code>https://hexo.io/themes/ 更多hexo主题
+
+https://www.zhihu.com/question/24422335 知乎上的hexo主题
+
+或者直接github搜hexo
+
+https://github.com/CleverFan 我的github
+
+https://cleverfan.github.io/ 我的博客主页
+
+http://blog.improvecfan.cn/ 这个是解析后的地址
+</code></pre><p>域名绑定</p>
+<p>万万没想到，我还是写了。。</p>
+<p>首先你得有一个域名，我用的腾讯的域名，因为我是学生，可以免费使用，不过需要实名认证和备案，挺麻烦的。</p>
+<p>实名认证和备案都搞定以后。到域名解析页面添加一条解析：</p>
+<pre><code>这里写图片描述
+</code></pre><p>然后到你博客 根目录/source 目录下创建一个新文件CNAME<br>在里面写上你刚刚配置的路径，比如我的是blog.improvecfan.cn，就直接在CNAME文件中写上这个地址就好了。</p>
+<p>然后执行以下hexo g,hexo d，让后访问你自己的地址就可以跳转到博客了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.357573.com/2018/11/30/用Hexo-github搭建自己的博客/" data-id="cjpkxeudt0004nmgjuitruc69" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/30/hello-world/" class="article-date">
+  <time datetime="2018-11-30T10:59:16.539Z" itemprop="datePublished">2018-11-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/30/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.357573.com/2018/11/30/hello-world/" data-id="cjpkxeuds0003nmgjhso3xyhw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/11/Dockerfile的编写/">Dockerfile的编写</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/05/Docker基本操作/">Docker基本操作</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/30/解释一下全连接层/">解释一下全连接层</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/30/WebFace-错误人脸/">WebFace 错误人脸</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/30/用Hexo-github搭建自己的博客/">用Hexo + github搭建自己的博客</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Keefe Ng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Dockerfile的编写 | Keefe&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04 首先第一句写上系统的源，因为我要用到gpu，所以下了一个cuda版的ubuntu，具体有什么系统可以去hub.docker.com上去搜索，比如说搜索ubuntu，在tag里面就有各个不同的版本，把tag加到冒号后就可以了，具体的我不细讲了。如果要用到一些库的话，例如caffe，或者Apache这种，其实">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dockerfile的编写">
+<meta property="og:url" content="http://blog.357573.com/2018/12/11/Dockerfile的编写/index.html">
+<meta property="og:site_name" content="Keefe&#39;s blog">
+<meta property="og:description" content="1FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04 首先第一句写上系统的源，因为我要用到gpu，所以下了一个cuda版的ubuntu，具体有什么系统可以去hub.docker.com上去搜索，比如说搜索ubuntu，在tag里面就有各个不同的版本，把tag加到冒号后就可以了，具体的我不细讲了。如果要用到一些库的话，例如caffe，或者Apache这种，其实">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-12T07:36:18.539Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dockerfile的编写">
+<meta name="twitter:description" content="1FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04 首先第一句写上系统的源，因为我要用到gpu，所以下了一个cuda版的ubuntu，具体有什么系统可以去hub.docker.com上去搜索，比如说搜索ubuntu，在tag里面就有各个不同的版本，把tag加到冒号后就可以了，具体的我不细讲了。如果要用到一些库的话，例如caffe，或者Apache这种，其实">
+  
+    <link rel="alternate" href="/atom.xml" title="Keefe&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Keefe&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://blog.357573.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Dockerfile的编写" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/11/Dockerfile的编写/" class="article-date">
+  <time datetime="2018-12-11T02:25:56.000Z" itemprop="datePublished">2018-12-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Dockerfile的编写
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> nvidia/cuda:<span class="number">9.0</span>-cudnn7-devel-ubuntu16.<span class="number">04</span></span><br></pre></td></tr></table></figure>
+<p>首先第一句写上系统的源，因为我要用到gpu，所以下了一个cuda版的ubuntu，具体有什么系统可以去hub.docker.com上去搜索，比如说搜索ubuntu，在tag里面就有各个不同的版本，把tag加到冒号后就可以了，具体的我不细讲了。如果要用到一些库的话，例如caffe，或者Apache这种，其实都已经自带系统了，所以说用那种库的源做系统也是可以的。</p>
+<p>第二行要指定维护人的邮箱</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LABEL</span> maintainer keefe@whale.im</span><br></pre></td></tr></table></figure>
+<p>紧接着就可以输入shell命令了</p>
+<p>进去之后要先激活apt</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span> apt-get update</span><br></pre></td></tr></table></figure>
+<p>进去之后自动是root权限，所以不需要sudo，执行shell命令就在命令前加上一个RUN就可以了</p>
+<p>然后就可以用apt安装库了，例如我要安装opencv</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get install -y --no-install-recommends \</span><br><span class="line">        libopencv-dev</span><br></pre></td></tr></table></figure>
+<p>我使用了no-install-recommends参数，这样能保证安装的都是所需的，以降低镜像的大小。</p>
+<p>最后再把apt的缓存都删掉</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /var/lib/apt/lists/*</span><br></pre></td></tr></table></figure>
+<p>这样再次节省了空间，要是想进去之后apt装东西，再执行一下<code>apt update</code>就可以了</p>
+<p>如果需要部署自己的代码进去，那么首先要执行拷贝操作，从本地拷贝到镜像里，有两种方法，一个是<code>ADD</code>另一个是<code>COPY</code>这两个操作基本上是一样的，不过<code>ADD</code>操作可以自动解压压缩包，具体的我没有试过。</p>
+<p>注意<code>COPY</code>的文件一定不能用<code>..</code>这种上级操作，如果要拷贝目录的话一定要加<code>/</code>目标路径也是的</p>
+<p>我一般会下载一个apt的国内源所以我会先执行</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ADD</span> docker/sources.list /etc/apt/sources.list</span><br><span class="line">RUN apt-get update</span><br></pre></td></tr></table></figure>
+<p>最后加上<code>CMD</code>,非必须，就是启动脚本，比方说要运行什么服务就用这个命令，但是注意到一旦用了这个命令，当命令执行完毕镜像就会关闭了。</p>
+<p>ps:尽量减少RUN的使用，每进行一个docker的操作，就会创建一个新的层，很多东西都是可以复用的，但是建了新层就没法复用了，导致最后镜像文件会非常大，所以最好用一条命令执行，使用<code>&amp;&amp;</code>隔开使用<code>\</code>换行</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://blog.357573.com/2018/12/11/Dockerfile的编写/" data-id="cjpkxeudk0000nmgj4xrh8i61" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/12/05/Docker基本操作/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Docker基本操作</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/11/Dockerfile的编写/">Dockerfile的编写</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/05/Docker基本操作/">Docker基本操作</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/30/解释一下全连接层/">解释一下全连接层</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/30/WebFace-错误人脸/">WebFace 错误人脸</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/30/用Hexo-github搭建自己的博客/">用Hexo + github搭建自己的博客</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Keefe Ng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
