@@ -266,7 +266,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">890</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1k</span>阅读时长: <span class="post-count reading-time">4 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -403,10 +403,10 @@ height:50vh;
 <h2 id="hexo环境搭建"><a href="#hexo环境搭建" class="headerlink" title="hexo环境搭建"></a>hexo环境搭建</h2><p>我把这个放到最后，是因为这个的资料太多了，前面几个都是我个人总结的，比较难查到的，这个是想着做事做到尽善尽美才加上的。<br>首先下载nodejs，因为hexo是用node写的，地址在<a href="https://nodejs.org/en/" target="_blank" rel="noopener">https://nodejs.org/en/</a><br>解压之后把这些放到/usr/local下面就行了<br>然后node的安装源可以换成国内的加速<br><code>npm config set registry <a href="https://registry.npm.taobao.org" target="_blank" rel="noopener">https://registry.npm.taobao.org</a></code><br>当然，这个很显然是可有可无的<br>然后是安装hexo了<br><code>npm i hexo-cli -g</code><br>这样就算部署完毕了</p>
 <h2 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h2><p>这个我觉得挺重要，默认的那个landscape的主题确实太土了，所以可以去主题仓库找找看<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p>
 <p>找到满意的之后进入theme目录，然后把主题clone下来<br>比方说我这个主题<br><code>git clone <a href="https://github.com/fi3ework/hexo-theme-archer.git" target="_blank" rel="noopener">https://github.com/fi3ework/hexo-theme-archer.git</a></code><br>下好之后在_config.yml中配置一下theme，就是目录名就可以了。</p>
-<h2 id="统计访问量"><a href="#统计访问量" class="headerlink" title="统计访问量"></a>统计访问量</h2><p>我这个主题是自带统计访问量的，但是需要安装一个插件，所以需要执行<br><code>npm i --save hexo-wordcount</code><br>然后修改在 archer 的配置中的<br><code>reading_info: true</code><br>不过busuanzi这个js偷偷的把pv、uv的内容隐藏了，就是加上了<code>“display: none;”</code>属性，所以需要人工去打开，我就在这个主题的css里，我这个主题是在_intro.scss文件里面，加上了</p>
+<h2 id="统计访问量"><a href="#统计访问量" class="headerlink" title="统计访问量"></a>统计访问量</h2><p>我这个主题是自带统计访问量的，但是需要安装一个插件，所以需要执行<br><code>npm i --save hexo-wordcount</code><br>然后修改在 archer 的配置中的<br><code>reading_info: true</code><br>不过busuanzi这个js偷偷的把pv、uv的内容隐藏了，就是加上了<code>“display: none;”</code>属性，我在网上看见有人说需要人工去打开，就是在这个主题的css里，我这个主题是在_intro.scss文件里面，加上了</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#busuanzi_container_site_pv &#123;</span><br><span class="line">    &#x2F;* 网站页脚访问pv *&#x2F;</span><br><span class="line">    display: inline !important;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#busuanzi_container_site_uv  &#123;</span><br><span class="line">    &#x2F;* 网站页脚访问uv *&#x2F;</span><br><span class="line">    display: inline !important;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#busuanzi_container_page_pv &#123;</span><br><span class="line">    &#x2F;* 文章访问pv *&#x2F;</span><br><span class="line">    display: inline !important;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>不过因为这个数据是从网上获取的，实际上会有几秒钟的延时，也就是开头几秒钟是看不见的。</p>
-
+<p>但是呢。我这个加了还是有，没办法，我只好去 “base-footer.ejs”文件里面把pv的id去掉，变成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if(theme.busuanzi_pv_or_uv &#x3D;&#x3D;&#x3D; &#39;pv&#39;) &#123; %&gt; </span><br><span class="line">  &lt;span&gt;&lt;%- sloganPieces[0] %&gt;&lt;span id&#x3D;&quot;busuanzi_value_site_pv&quot;&gt;&lt;&#x2F;span&gt;&lt;%- sloganPieces[1] %&gt;&lt;&#x2F;span&gt;</span><br><span class="line">  &lt;% &#125; else if (theme.busuanzi_pv_or_uv &#x3D;&#x3D;&#x3D; &#39;uv&#39;) &#123; %&gt;</span><br><span class="line">  &lt;span&gt;&lt;%- sloganPieces[0] %&gt;&lt;span id&#x3D;&quot;busuanzi_value_site_uv&quot;&gt;&lt;&#x2F;span&gt;&lt;%- sloganPieces[1] %&gt;&lt;&#x2F;span&gt;</span><br><span class="line">  &lt;% &#125; %&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">  &lt;% &#125; %&gt;</span><br><span class="line">  &lt;script async src&#x3D;&quot;&#x2F;&#x2F;busuanzi.ibruce.info&#x2F;busuanzi&#x2F;2.3&#x2F;busuanzi.pure.mini.js&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
     </article>
     <!-- license  -->
     
@@ -414,7 +414,7 @@ height:50vh;
             <p>原文作者：<a href="http://blog.357573.com">keefe</a>
             <p>原文链接：<a href="http://blog.357573.com/2020/01/01/hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">http://blog.357573.com/2020/01/01/hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</a>
             <p>发表日期：<a href="http://blog.357573.com/2020/01/01/hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">January 1st 2020, 10:42:40 am</a>
-            <p>更新日期：<a href="http://blog.357573.com/2020/01/01/hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">January 2nd 2020, 3:06:37 pm</a>
+            <p>更新日期：<a href="http://blog.357573.com/2020/01/01/hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">January 2nd 2020, 3:23:39 pm</a>
             <p>版权声明：本文采用<a rel="license noopener" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -577,9 +577,20 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 2
+        Total : 3
         </div>
         <!-- search  -->
         
@@ -606,6 +617,11 @@ top:50vh;
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span><a class="archive-post-title" href= "/2020/01/02/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-RCNN/" >目标检测-RCNN</a>
+        </li>
     
     
         <li class="archive-post-item">

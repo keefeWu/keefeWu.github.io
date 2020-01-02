@@ -359,6 +359,32 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/01/02/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-RCNN/" >
+            
+                <span>目标检测-RCNN</span>
+        </a>
+        <div class="abstract-content">
+            　　rcnn首先会做一个region proposal，也就是任意的找到一些疑似完整物体的区域，这一步是任意的，根据梯度信息找到一些边缘，然后就圈出来了。这一步会找到非常多的区域作为候选框，给接下来的分类提供素材。论文说的是找了两千多个
+　　接着把那些候选框一个一个输入神经网络，算出特征。
+　　接着把算出的特征交给svm去做分类，得到分类与置信度。
+　　最后每个类别在训练出四个向量，保证预测的时候特征*这四个向量可以得到x,y,w,h，这样坐标的缩放和偏移量也就算出来了。　　所谓的候选区域推荐其实就是根据梯度信息找到一些边界，然后选出一个个疑似完整的物体。 而RCNN的region pr...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/01/02</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/01/02/hello-world/" >
             
                 <span>Hello World</span>
@@ -616,9 +642,20 @@ Mo...
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 2
+        Total : 3
         </div>
         <!-- search  -->
         
@@ -645,6 +682,11 @@ Mo...
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/02</span><a class="archive-post-title" href= "/2020/01/02/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-RCNN/" >目标检测-RCNN</a>
+        </li>
     
     
         <li class="archive-post-item">
