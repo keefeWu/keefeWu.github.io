@@ -50,3 +50,17 @@
   opacity: 1;
   transform: translate(0, 0);
 }
+#busuanzi_container_site_pv {
+  /* 网站页脚访问pv */
+  display: inline !important;
+}
+
+#busuanzi_container_site_uv  {
+  /* 网站页脚访问uv */
+  display: inline !important;
+}
+
+#busuanzi_container_page_pv {
+  /* 文章访问pv */
+  display: inline !important;
+}

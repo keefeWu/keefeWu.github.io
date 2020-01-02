@@ -60,3 +60,21 @@ deploy:
 <code>npm i --save hexo-wordcount</code>
 然后修改在 archer 的配置中的
 <code>reading_info: true</code>
+不过busuanzi这个js偷偷的把pv、uv的内容隐藏了，就是加上了<code>“display: none;”</code>属性，所以需要人工去打开，我就在这个主题的css里，我这个主题是在_intro.scss文件里面，加上了
+```
+#busuanzi_container_site_pv {
+    /* 网站页脚访问pv */
+    display: inline !important;
+}
+
+#busuanzi_container_site_uv  {
+    /* 网站页脚访问uv */
+    display: inline !important;
+}
+
+#busuanzi_container_page_pv {
+    /* 文章访问pv */
+    display: inline !important;
+}
+```
+不过因为这个数据是从网上获取的，实际上会有几秒钟的延时，也就是开头几秒钟是看不见的。
