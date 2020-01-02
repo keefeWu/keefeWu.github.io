@@ -1,6 +1,6 @@
 # ========== Profile ========== #
 # avatar
-avatar: /avatar/Misaka.jpg
+avatar: /avatar/tree.jpg
 # author name
 author: keefe
 # signature
@@ -23,7 +23,7 @@ social:
   segmentFault: 
   juejin: 
   v2ex: 
-  bilibili:  /assets/example_qr.png
+  bilibili:  /assets/bilibili.png
   linkedin: 
   steam: 
   others: 
