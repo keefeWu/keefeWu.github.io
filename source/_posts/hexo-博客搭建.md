@@ -56,3 +56,7 @@ deploy:
 下好之后在_config.yml中配置一下theme，就是目录名就可以了。
 
 ## 统计访问量
+我这个主题是自带统计访问量的，但是需要安装一个插件，所以需要执行
+<code>npm i --save hexo-wordcount</code>
+然后修改在 archer 的配置中的
+<code>reading_info: true</code>

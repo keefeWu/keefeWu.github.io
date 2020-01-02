@@ -2,15 +2,15 @@
 # avatar
 avatar: /avatar/Misaka.jpg
 # author name
-author: fi3ework
+author: keefe
 # signature
-signature: witness me
+signature: 念去去，千里烟波，暮霭沉沉楚天阔～
 # SNS (you can custom the order)
 social:
-  email: 12345@qq.com
-  github: //github.com/fi3ework
+  email: 2375037953@qq.com
+  github: //github.com/keefeWu
   # wechat and qq should be a path of qr-code image
-  wechat: /assets/example_qr.png
+  wechat:
   qq: 
   telegram: 
   weibo: 
@@ -23,7 +23,7 @@ social:
   segmentFault: 
   juejin: 
   v2ex: 
-  bilibili: 
+  bilibili:  /assets/example_qr.png
   linkedin: 
   steam: 
   others: 
@@ -39,16 +39,17 @@ about:
 
 # ========== Site ========== #
 # title of the site (good for SEO)
-SEO_title: fi3ework's Studio
+SEO_title: 蒙特卡洛家的树
 # keywords for site (good for SEO)
 SEO_keywords:
-  - hexo
-  - 'hexo-theme'
-  - 'hexo-blog'
+  - 蒙特卡洛家的树
+  - '蒙特卡洛家的树'
+  - '念去去的博客'
+  - 'keefe'
 # main title shown in header image
-main_title: fi3ework's Studio.
+main_title: 蒙特卡洛家的树
 # subtitle
-subtitle: it's better to burn out than to fade away
+subtitle: 念去去，千里烟波，暮霭沉沉楚天阔～
 # site haeder image
 site_header_image: '/intro/index-bg.jpg'
 # post haeder image
