@@ -60,7 +60,7 @@ deploy:
 <code>npm i --save hexo-wordcount</code>
 然后修改在 archer 的配置中的
 <code>reading_info: true</code>
-不过busuanzi这个js偷偷的把pv、uv的内容隐藏了，就是加上了<code>“display: none;”</code>属性，所以需要人工去打开，我就在这个主题的css里，我这个主题是在_intro.scss文件里面，加上了
+不过busuanzi这个js偷偷的把pv、uv的内容隐藏了，就是加上了<code>“display: none;”</code>属性，我在网上看见有人说需要人工去打开，就是在这个主题的css里，我这个主题是在_intro.scss文件里面，加上了
 ```
 #busuanzi_container_site_pv {
     /* 网站页脚访问pv */
@@ -77,4 +77,14 @@ deploy:
     display: inline !important;
 }
 ```
-不过因为这个数据是从网上获取的，实际上会有几秒钟的延时，也就是开头几秒钟是看不见的。
+但是呢。我这个加了还是有，没办法，我只好去 "base-footer.ejs"文件里面把pv的id去掉，变成
+```
+  <% if(theme.busuanzi_pv_or_uv === 'pv') { %> 
+    <span><%- sloganPieces[0] %><span id="busuanzi_value_site_pv"></span><%- sloganPieces[1] %></span>
+    <% } else if (theme.busuanzi_pv_or_uv === 'uv') { %>
+    <span><%- sloganPieces[0] %><span id="busuanzi_value_site_uv"></span><%- sloganPieces[1] %></span>
+    <% } %>
+    </div>
+    <% } %>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+```
