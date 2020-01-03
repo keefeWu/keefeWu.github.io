@@ -88,3 +88,8 @@ deploy:
     <% } %>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 ```
+
+## 评论功能
+我的主题支持valine评论，说是无后端的评论，但是我感觉是存在它们那里。因为需要注册账号。
+可以参照这个https://valine.js.org/quickstart.html
+然后在主题的配置文件中把key添加进去就可以了
