@@ -31,6 +31,12 @@ deploy:
 之后使用<code>hexo d</code>就是上传到git了，不过也需要安装一个插件
 <code>npm install hexo-deployer-git --save</code>
 
+每次上传之后github的域名都会失效，所以在站点应该指定域名，具体为在public目录里新建<code>CNAME</code>文件，中间输入域名即可。
+例如：
+```
+blog.357573.com
+```
+
 ## 基础操作
 以上配置好了之后实际上就可以用了，如果要新建文章则使用<code>hexo new 文章名</code>,注意这里文章名如果有空格的话记得用斜杠转译，就像我这篇文章的标题一样，是用的<code> hexo new hexo\ 博客搭建</code>
 新建好的文件在source这个目录里，其实你输入了new之后命令行打印出来了文件路径，就是那个md文件，markdown格式的，去了修改就行了。
