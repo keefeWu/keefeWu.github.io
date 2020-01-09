@@ -346,51 +346,35 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2020/01/07/python%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-numpy%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/" >
+        <a class="abstract-title" href = "/2020/01/09/%E5%8D%B8%E8%BD%BDnvidia%E9%A9%B1%E5%8A%A8/" >
             
-                <span>python机器学习-numpy常用函数</span>
+                <span>卸载nvidia驱动</span>
         </a>
         <div class="abstract-content">
-            根据id操作元素1a&#x3D;np.array([3,4,5,6,7,8,9])
-
-
-array([3, 4, 5, 6, 7, 8, 9])
-
-1array([3, 4, 5, 6, 7, 8, 9])
-
-[2, 3, 4]
-
-1a[id]
-
-
-array([5, 6, 7])
-
-深度拷贝12import copyb &#x3D; copy.deepcopy(a)
-
-
-array([3, 4, 5, 6, 7, 8, 9])
-
-1a[id] &#x3D; 0
-
-array([3, 4, 0, 0, 0, 8, 9])
-
-反选操作1c &#x3D; b - a
-
-
-array([0, ...
+            卸载nvidia驱动卸载NV驱动和安装一样，首先ctrl+Alt+F2进入命令行状态，然后停止lightdm
+1sudo service lightdm stop
+或者
+1sudo &#x2F;etc&#x2F;init.d&#x2F;lightdm stop
+卸载命令位置/usr/bin/nvidia-uninstall，以下命令即可卸载。
+1sudo &#x2F;usr&#x2F;bin&#x2F;nvidia-uninstall
+不找这个命令的位置，也可以
+1sudo apt-get install autoremove --purge nvidia*
+卸载cudacuda的默认安...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/01/07</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/01/09</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python">python</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "运维">运维</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "numpy">numpy</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "nvidia">nvidia</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "cuda">cuda</a>
     
 </div>
             

@@ -346,51 +346,37 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2020/01/07/python%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-numpy%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/" >
+        <a class="abstract-title" href = "/2020/01/09/%E8%AE%BE%E7%BD%AEsupervisor/" >
             
-                <span>python机器学习-numpy常用函数</span>
+                <span>设置supervisor</span>
         </a>
         <div class="abstract-content">
-            根据id操作元素1a&#x3D;np.array([3,4,5,6,7,8,9])
+            简介supervisor可以作为守护进程，让程序死了能够拉起来，简单易操作。需要进行如下几个步骤
 
+安装supervisor
+设置需要拉起的命令
+让supervisor开机自启
 
-array([3, 4, 5, 6, 7, 8, 9])
-
-1array([3, 4, 5, 6, 7, 8, 9])
-
-[2, 3, 4]
-
-1a[id]
-
-
-array([5, 6, 7])
-
-深度拷贝12import copyb &#x3D; copy.deepcopy(a)
-
-
-array([3, 4, 5, 6, 7, 8, 9])
-
-1a[id] &#x3D; 0
-
-array([3, 4, 0, 0, 0, 8, 9])
-
-反选操作1c &#x3D; b - a
-
-
-array([0, ...
+安装supervisor安装直接使用
+1sudo apt install supervisor
+就可以了，简单易操作
+设置需要拉起的命令如果不出意外，在/etc下会出现supervisor目录，然后在conf.d里面自己建立一个文件用来配置，因为在 /etc/supervisor/supervisord.conf里它添加了conf.d里面所有的文件，所以大胆的去添加就可以了
+123456789101112131...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/01/07</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/01/09</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python">python</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "运维">运维</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "numpy">numpy</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "守护进程">守护进程</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "supervisor">supervisor</a>
     
 </div>
             
