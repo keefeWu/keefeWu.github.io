@@ -14,8 +14,8 @@ sudo apt install pigz
 tar cvf - test.txt | pigz > test.tar.gz
 解压到指定目录
 
-转自： http://unix.stackexchange.com/questions/198958/unpigz-and-untar-to-a-specific-directory
-
+转自：[http://unix.stackexchange.com/questions/198958/unpigz-and-untar-to-a-specific-directory](http://unix.stackexchange.com/questions/198958/unpigz-and-untar-to-a-specific-directory)  
+```
 I found three solutions:
 With GNU tar, using the awesome -I
  option:
@@ -33,8 +33,8 @@ unpigz < /path/to/archive.tar.gz | (cd /where/to/unpack/it/ && tar xvf -)
  to make it [POSIX](https://en.wikipedia.org/wiki/POSIX)-compliant, though not necessarily more portable on Linux-based systems).
 
 Credits go to [@PSkocik](http://unix.stackexchange.com/users/23692/pskocik) for a proper direction, [@Stéphane Chazelas](http://unix.stackexchange.com/users/22565/st%C3%A9phane-chazelas) for the 3rd variant and to the author of [this](http://stackoverflow.com/a/29270282/2202101) answer.
+```
 
-[Click and drag to move]
 使用tar+pigz+ssh实现大数据的高效传输, 流式压缩传输
 
 http://www.cnblogs.com/chjbbs/p/6472236.html
@@ -43,7 +43,6 @@ http://www.cnblogs.com/chjbbs/p/6472236.html
 tar -c test/ |pigz |ssh -c arcfour128 目标IP "gzip -d|tar -xC /data" # 解压
 tar -c test/ |pigz |ssh -c arcfour128 目标IP "cat >/data/test.tar.gz" # 不解压
 
-[Click and drag to move]
 
 
 
