@@ -1,7 +1,9 @@
 ---
 title: caffe源码阅读《一》训练入口
 date: 2020-02-08 15:10:55
-tags:
+tags: [caffe]
+categories: 
+- caffe源码解读
 ---
 随着工作的深入，很多时候调参不仅仅局限于乱改学习率上面了，阅读caffe源码变得至关重要，而我又比较讨厌盯着虚无的代码看，总想跑个程序跟着debug走，所以就选择了训练程序作为入口。
 
@@ -10,7 +12,7 @@ caffe的训练程序在tools目录里，名字就叫做caffe.cpp
 训练的时候需要几个参数，最重要的有两个，一个是train还是test，另一个就是solver.prototxt文件了。
 
 只到这个后，我们跟着源码走
-
+```
     
     
     int main(int argc, char** argv) {
@@ -43,10 +45,10 @@ caffe的训练程序在tools目录里，名字就叫做caffe.cpp
         gflags::ShowUsageWithFlagsRestrict(argv[0], "tools/caffe");
       }
     }
-
+```
 首先看主函数，主函数其实调用了GetBrewFunction这个函数，这个函数输入的是train，返回值实际上是一个函数指针，在上面有定义
 
-    
+```
     
     typedef int (*BrewFunction)();
     typedef std::map<caffe::string, BrewFunction> BrewMap;
@@ -66,11 +68,52 @@ caffe的训练程序在tools目录里，名字就叫做caffe.cpp
         return NULL;  // not reachable, just to suppress old compiler warnings.
       }
     }
-    
-
-这里如果输入为train，那么就会返回train函数的指针，也就是执行train函数了。
-
-    
+```   
+他的实际作用是返回<code>g_brew_map[name]</code>，如果传的参数是<code>train</code>那么这个<code>name</code>就是<code>train</code>，返回的呢就是<code>g_brew_map["train"]</code>
+那么这个<code>g_brew_map</code>是什么呢？
+看到定义
+```
+typedef std::map<caffe::string, BrewFunction> BrewMap;
+```
+它是一个map对象，它用来存储4种方法的函数指针。
+在main函数之前，有一句
+```
+RegisterBrewFunction(device_query);
+```
+将四个函数进行了注册，注册的方法也在这个文件里面
+```
+#define RegisterBrewFunction(func) \
+namespace { \
+class __Registerer_##func { \
+ public: /* NOLINT */ \
+  __Registerer_##func() { \
+    g_brew_map[#func] = &func; \
+  } \
+}; \
+__Registerer_##func g_registerer_##func; \
+}
+```
+所以我们在给GetBrewFunction传入的是train，那么就会返回train函数的指针，也就是执行train函数了。
+我们先看这个<code>GetBrewFunction</code>函数，第一句
+```
+if (g_brew_map.count(name)) {
+    return g_brew_map[name];
+  }
+```
+这个<code>count</code>就是检查传入的<code>name</code>是否注册，如果已经注册了，那么就可以直接的返回这个函数指针了。
+如果没有注册的话，那么就会打印所有的已注册函数名，并告诉你你传入的是什么，我们这里找不到。
+```
+else {
+    LOG(ERROR) << "Available caffe actions:";
+    for (BrewMap::iterator it = g_brew_map.begin();
+         it != g_brew_map.end(); ++it) {
+      LOG(ERROR) << "\t" << it->first;
+    }
+    LOG(FATAL) << "Unknown action: " << name;
+    return NULL;  // not reachable, just to suppress old compiler warnings.
+```
+然后我们直接看<code>train</code>函数
+``` 
     
     int train() {
       CHECK_GT(FLAGS_solver.size(), 0) << "Need a solver definition to train.";
@@ -160,16 +203,23 @@ caffe的训练程序在tools目录里，名字就叫做caffe.cpp
       return 0;
     }
     RegisterBrewFunction(train);
+```
 
 首先是做检查，有没有参数文件，有没有从快照中读取权值等等。
+```
+CHECK_GT(FLAGS_solver.size(), 0) << "Need a solver definition to train.";
+  CHECK(!FLAGS_snapshot.size() || !FLAGS_weights.size())
+      << "Give a snapshot to resume training or weights to finetune "
+      "but not both.";
+```
+这个solver文件就是我们传入的配置文件，通过gflag把我们的文件里的内容转化成FLAGS_solver变量。
 
 然后执行
-
-    
+```    
     
       caffe::SolverParameter solver_param;
       caffe::ReadSolverParamsFromTextFileOrDie(FLAGS_solver, &solver_param);
-
+```
 把solver文件中的参数读取出来放在solver_param这个对象里。
 
 然后就开始根据参数选择启用gpu还是cpu，加载网络，加载权值，加载步数等等。
@@ -195,10 +245,11 @@ caffe的训练程序在tools目录里，名字就叫做caffe.cpp
       losses_.clear();
       smoothed_loss_ = 0;
       iteration_timer_.Start();
-    
+      // 从开始到结束的大循环
       while (iter_ < stop_iter) {
         // zero-init the params
         net_->ClearParamDiffs();
+        // 如果设置启动时先测试一波则开始第一次测试
         if (param_.test_interval() && iter_ % param_.test_interval() == 0
             && (iter_ > 0 || param_.test_initialization())) {
           if (Caffe::root_solver()) {
@@ -213,15 +264,18 @@ caffe的训练程序在tools目录里，名字就叫做caffe.cpp
         for (int i = 0; i < callbacks_.size(); ++i) {
           callbacks_[i]->on_start();
         }
+        // 计算一下现在是不是该display了
         const bool display = param_.display() && iter_ % param_.display() == 0;
         net_->set_debug_info(display && param_.debug_info());
         // accumulate the loss and gradient
+        // 算前传的loss
         Dtype loss = 0;
         for (int i = 0; i < param_.iter_size(); ++i) {
           loss += net_->ForwardBackward();
         }
         loss /= param_.iter_size();
         // average the loss across iterations for smoothed reporting
+        // 更新loss
         UpdateSmoothedLoss(loss, start_iter, average_loss);
         if (display) {
           float lapse = iteration_timer_.Seconds();
@@ -281,4 +335,8 @@ caffe的训练程序在tools目录里，名字就叫做caffe.cpp
 <https://www.cnblogs.com/liuzhongfeng/p/7289956.html>
 
 博客，深受启发。
+
+我在阅读的时候是录制了视频的，大家也可以去b站看到更详细的记录。
+https://www.bilibili.com/video/av61042416/
+<iframe src="//player.bilibili.com/player.html?aid=61042416&cid=106113982&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
