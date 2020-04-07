@@ -314,3 +314,237 @@ int* kernel_shape_data = kernel_shape_.mutable_cpu_data();
   CHECK_EQ(bottom[0]->num_axes(), first_spatial_axis + num_spatial_axes_)
       << "bottom num_axes may not change.";
 ```
+如果不一致的话他就会抛出异常，然后告诉你这个维度可能被改变过。
+接下来获取输入的维度数量
+```
+  num_ = bottom[0]->count(0, channel_axis_);
+  CHECK_EQ(bottom[0]->shape(channel_axis_), channels_)
+      << "Input size incompatible with convolution kernel.";
+```
+然后写了个循环遍历所有的<code>bottom</code>，因为这些<code>bottom</code>可能来自不同的<code>blob</code>，所以我们挨个去遍历他。
+```
+  // TODO: generalize to handle inputs of different shapes.
+  for (int bottom_id = 1; bottom_id < bottom.size(); ++bottom_id) {
+    CHECK(bottom[0]->shape() == bottom[bottom_id]->shape())
+        << "shape mismatch - bottom[0]: " << bottom[0]->shape_string()
+        << " vs. bottom[" << bottom_id << "]: "
+        << bottom[bottom_id]->shape_string();
+  }
+```
+如果发现有某一个<code>bottom blob</code>形状不一样的话，它也会抛出异常，因为这样就没法统一进行下去了。
+然后这些检查完毕之后，就获取了<code>bottom</code>的形状，然后去计算输出的形状。
+```
+  // Shape the tops.
+  bottom_shape_ = &bottom[0]->shape();
+  compute_output_shape();
+```
+它计算输出的形状是根据不同层使用了不同的算法的，所以这里也没有实现，只有一个虚函数放在这里，我们可以来看一下。
+```
+  // Compute height_out_ and width_out_ from other parameters.
+  virtual void compute_output_shape() = 0;
+```
+接着定义了<code>top_shape</code>这个<code>vector</code>，注意，这里还是<code>shape</code>的<code>vector</code>，不是<code>top</code>这个<code>blob</code>的<code>vector</code>
+```
+  vector<int> top_shape(bottom[0]->shape().begin(),
+      bottom[0]->shape().begin() + channel_axis_);
+```
+首先把输出的个数赋值给它
+```
+  top_shape.push_back(num_output_);
+```
+然后把各个维度的大小写个循环赋值
+```
+  for (int i = 0; i < num_spatial_axes_; ++i) {
+    top_shape.push_back(output_shape_[i]);
+  }
+```
+紧接着我们把传进来的这个<code>top</code><code>blob</code>挨个的<code>reshape</code>成我们想要的这个<code>shape</code>
+```
+  for (int top_id = 0; top_id < top.size(); ++top_id) {
+    top[top_id]->Reshape(top_shape);
+  }
+```
+同时这里也是要判断一下是不是要反过来，就是给反卷积用的，如果是的话，就要把输出和输入的位置交换
+```
+  if (reverse_dimensions()) {
+    conv_out_spatial_dim_ = bottom[0]->count(first_spatial_axis);
+  } else {
+    conv_out_spatial_dim_ = top[0]->count(first_spatial_axis);
+  }
+```
+接下来算出原图的计算矩阵的空间大小
+```
+  col_offset_ = kernel_dim_ * conv_out_spatial_dim_;
+```
+因为这个矩阵的行数就是<code>kernel_dim_</code>，而列数呢就是要卷积多少次，也就是<code>conv_out_spatial_dim_</code>，比如说输出是3*3维的，那么就有9列
+这个<code>col_offset_</code>在<code>caffe_cpu_gemm</code>中用到了，方便做矩阵运算的之后指针切换到下一张图用的偏移量。
+然后是<code>output_offset_</code>就是算出结果的输出的矩阵，就是<code>output</code>的输出的数量。
+```
+  output_offset_ = conv_out_channels_ * conv_out_spatial_dim_ / group_;
+```
+它最后还除了一个<code>group</code>就是假设有分组的情况下，它是一组一组的计算的，所以每次的偏移量都是这个组内的数量。
+接着定义了一个输入维度的<code>vector</code>
+```
+  // Setup input dimensions (conv_input_shape_).
+  vector<int> bottom_dim_blob_shape(1, num_spatial_axes_ + 1);
+```
+这里容易让人产生误解，其实它是一个维度为1的<code>vector</code>，其实完全可以写成一个变量的，他的值是<code>num_spatial_axes_ + 1</code>
+为什么是+1呢？因为这里这个变量的作用是用来初始化形状数组用的，形状数组除了记录了空间维度以外，还要记录channel的数量，所以多留了一位存channel用的。这里用一个<code>vector</code>表示而不是用一个int变量表示完全是为了接口统一，方便下一步的处理。
+下一步就开始<code>reshape</code>形状的数组了。
+```
+  conv_input_shape_.Reshape(bottom_dim_blob_shape);
+```
+紧接着定义了一个指针指向了它，这样做的目的是为了方便下一步去用这个指针去修改它的值。
+```
+  int* conv_input_shape_data = conv_input_shape_.mutable_cpu_data();
+```
+接着把各个维度的真实大小一一赋值给它
+```
+  for (int i = 0; i < num_spatial_axes_ + 1; ++i) {
+    if (reverse_dimensions()) {
+      conv_input_shape_data[i] = top[0]->shape(channel_axis_ + i);
+    } else {
+      conv_input_shape_data[i] = bottom[0]->shape(channel_axis_ + i);
+    }
+  }
+```
+接着开始reshape<code>im2col</code>结果的一个<code>buffer</code>
+```
+  // The im2col result buffer will only hold one image at a time to avoid
+  // overly large memory usage. In the special case of 1x1 convolution
+  // it goes lazily unused to save memory.
+  col_buffer_shape_.clear();
+```
+这里是<code>im2col</code>的结果，而不是我们最终矩阵计算后的结果，这里其实就是得到一个计算矩阵用的。所以他的形状就是<code>kernel_dim_</code><code>* group_</code>
+```
+  col_buffer_shape_.push_back(kernel_dim_ * group_);
+  for (int i = 0; i < num_spatial_axes_; ++i) {
+    if (reverse_dimensions()) {
+      col_buffer_shape_.push_back(input_shape(i + 1));
+    } else {
+      col_buffer_shape_.push_back(output_shape_[i]);
+    }
+  }
+  col_buffer_.Reshape(col_buffer_shape_);
+```
+接着获取它输入的大小和输出的大小
+```
+  bottom_dim_ = bottom[0]->count(channel_axis_);
+  top_dim_ = top[0]->count(channel_axis_);
+```
+后面一步求了<code>num_kernels_im2col_</code>,它的算法是
+```
+num_kernels_im2col_ = conv_in_channels_ * conv_out_spatial_dim_;
+```
+这里我没有看懂是什么意思，这两个数字相乘让人很迷，而且它实际的用途只有在<code>im2col_nd_gpu</code>这一个函数中才用到了，其他的都没有用到，这个函数是什么意思我也没有搞明白。
+后面还有一个它反向操作的变量
+```
+num_kernels_col2im_ = reverse_dimensions() ? top_dim_ : bottom_dim_;
+```
+接下来设置了一下输出的空间大小
+```
+  // Set up the all ones "bias multiplier" for adding biases by BLAS
+  out_spatial_dim_ = top[0]->count(first_spatial_axis);
+```
+如果设置了<code>bias</code>的话，我们就要reshape这个<code>bias_multiplier_</code>的大小。
+```
+  if (bias_term_) {
+    vector<int> bias_multiplier_shape(1, out_spatial_dim_);
+    bias_multiplier_.Reshape(bias_multiplier_shape);
+    caffe_set(bias_multiplier_.count(), Dtype(1),
+        bias_multiplier_.mutable_cpu_data());
+  }
+```
+它最后使用的是<code>caffe_set</code>这个函数，把所有的<code>bias</code>先全部初始化为1
+
+## MinBottomBlobs 函数
+```
+virtual inline int MinBottomBlobs() const { return 1; }
+```
+这个函数是个虚函数，也就是留给子类来实现的，也就是把<code>BottomBlobs</code>最小值返回回去
+
+## forward_cpu_gemm 函数
+使用cpu的前传函数
+```
+  // Helper functions that abstract away the column buffer and gemm arguments.
+  // The last argument in forward_cpu_gemm is so that we can skip the im2col if
+  // we just called weight_cpu_gemm with the same input.
+  void forward_cpu_gemm(const Dtype* input, const Dtype* weights,
+      Dtype* output, bool skip_im2col = false);
+```
+第一步先生成<code>im2col</code>的矩阵
+```
+  const Dtype* col_buff = input;
+  if (!is_1x1_) {
+    if (!skip_im2col) {
+      conv_im2col_cpu(input, col_buffer_.mutable_cpu_data());
+    }
+    col_buff = col_buffer_.cpu_data();
+  }
+```
+然后根据分组来进行卷积计算
+```
+  for (int g = 0; g < group_; ++g) {
+    caffe_cpu_gemm<Dtype>(CblasNoTrans, CblasNoTrans, conv_out_channels_ /
+        group_, conv_out_spatial_dim_, kernel_dim_,
+        (Dtype)1., weights + weight_offset_ * g, col_buff + col_offset_ * g,
+        (Dtype)0., output + output_offset_ * g);
+  }
+```
+
+## forward_cpu_bias 函数
+计算偏移量，因为caffe的前传把计算权值和偏移量分开算了，主要就是方便矩阵计算的操作，没有什么难懂的地方。
+它用的函数是一样的，但是这次权值那个位置都设置的1，只计算<code>bias</code>
+```
+  caffe_cpu_gemm<Dtype>(CblasNoTrans, CblasNoTrans, num_output_,
+      out_spatial_dim_, 1, (Dtype)1., bias, bias_multiplier_.cpu_data(),
+      (Dtype)1., output);
+```
+## backward_cpu_bias 函数
+这个函数求出当前层<code>bias</code>的梯度
+因为<code>y=w*x+b</code>，那么可以得知<code>bias</code>的梯度就是1乘以上一层传下来的梯度
+```
+  caffe_cpu_gemv<Dtype>(CblasNoTrans, num_output_, out_spatial_dim_, 1.,
+      input, bias_multiplier_.cpu_data(), 1., bias);
+```
+因为我们<code>bias_multiplier_</code>设置的就是1，所以这个函数翻译过来就是<code>bias = bias *1 + input * bias_multiplier_<code>,所以 <code>bias = bias + input<code>
+这里这个加号是什么意思呢？因为一个batch里面是所有的图加起来求得平均值，所以要先把这个batch里的数据都先加起来，方便之后求平均。
+
+## weight_cpu_gemm
+求权重的梯度
+根据公式<code>y=w*x+b</code>，那么可以得知<code>weight</code>的梯度就是x乘以上一层传下来的梯度
+```
+  const Dtype* col_buff = input;
+  if (!is_1x1_) {
+    conv_im2col_cpu(input, col_buffer_.mutable_cpu_data());
+    col_buff = col_buffer_.cpu_data();
+  }
+  for (int g = 0; g < group_; ++g) {
+    caffe_cpu_gemm<Dtype>(CblasNoTrans, CblasTrans, conv_out_channels_ / group_,
+        kernel_dim_, conv_out_spatial_dim_,
+        (Dtype)1., output + output_offset_ * g, col_buff + col_offset_ * g,
+        (Dtype)1., weights + weight_offset_ * g);
+  }
+```
+最终算出来的值就给了<code>weights + weight_offset_ * g</code>这个位置的数组
+
+
+## backward_cpu_gemm 函数
+这个函数是由损失函数那里传来的这一层的梯度，这一层的梯度其实就是y对于x的求导
+因为<code>y=w*x+b</code>，所以y对于x的求导其实就是w
+那么总的梯度就应该是上一层的梯度*w
+```
+  Dtype* col_buff = col_buffer_.mutable_cpu_data();
+  if (is_1x1_) {
+    col_buff = input;
+  }
+  for (int g = 0; g < group_; ++g) {
+    caffe_cpu_gemm<Dtype>(CblasTrans, CblasNoTrans, kernel_dim_,
+        conv_out_spatial_dim_, conv_out_channels_ / group_,
+        (Dtype)1., weights + weight_offset_ * g, output + output_offset_ * g,
+        (Dtype)0., col_buff + col_offset_ * g);
+  }
+  if (!is_1x1_) {
+    conv_col2im_cpu(col_buff, input);
+  }
+```
