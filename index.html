@@ -359,23 +359,118 @@ height:50vh;
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%B8%80%E3%80%8B%E8%AE%AD%E7%BB%83%E5%85%A5%E5%8F%A3/" >
+        <a class="abstract-title" href = "/2020/03/05/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E5%85%AD%E3%80%8Bbase-conv-layer/" >
             
                 <span class="stick-top iconfont-archer">&#xe63d;</span>
                 
-                <span>caffe源码阅读《一》训练入口</span>
+                <span>caffe源码阅读《六》base_conv_layer</span>
         </a>
         <div class="abstract-content">
-            随着工作的深入，很多时候调参不仅仅局限于乱改学习率上面了，阅读caffe源码变得至关重要，而我又比较讨厌盯着虚无的代码看，总想跑个程序跟着debug走，所以就选择了训练程序作为入口。
-caffe的训练程序在tools目录里，名字就叫做caffe.cpp
-训练的时候需要几个参数，最重要的有两个，一个是train还是test，另一个就是solver.prototxt文件了。
-只到这个后，我们跟着源码走
-1234567891011121314151617181920212223242526272829303132int main(int argc, char** argv) &#123;  &...
+            BaseConvolutionLayer是所有卷积层的基类。为什么卷积层还需要基类呢？因为再caffe里除了 ConvolutionLayer还有 DeconvolutionLayer
+BaseConvolutionLayer 类BaseConvolutionLayer 构造函数12explicit BaseConvolutionLayer(const LayerParameter&amp; param)    : Layer&lt;Dtype&gt;(param) &#123;&#125;
+因为它是一个基类，所以这个构造函数就写成了空的，传入了 param这一个参数，但是什么都没做，传...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/03/05</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "caffe">caffe</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/03/04/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E5%85%AD%E3%80%8Bim2col/" >
+            
+                <span class="stick-top iconfont-archer">&#xe63d;</span>
+                
+                <span>caffe源码阅读《六》im2col</span>
+        </a>
+        <div class="abstract-content">
+            卷积的过程卷积实际上就是两个矩阵对位相乘，然后再把积求和的一个过程
+im2colcaffe里的卷积运算实际上是把待输入图像和卷积核都转换成矩阵，然后通过矩阵的乘法一步得出来的。这里列举一个例子，假设我们待输入图像是 55的一张图为了方便看清位置，我们就用12345来表示图像的值。我们选择 33的卷积核然后和图像对位相乘，也就是卷积核的 1的位置的值和图像的 1的位置的值相乘，卷积核的 2的位置的值和图像的 2的位置的值相乘。。。这样就完成了卷积的第一步。
+原图转化成矩阵那么如果我们把第一次的这9个值写成一列的话就是：那么这9个值就对应的是我们原图上的这9个格子卷积核每往后移动一步，就把新...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/03/04</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "caffe">caffe</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/29/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%BA%94%E3%80%8Bsolver/" >
+            
+                <span class="stick-top iconfont-archer">&#xe63d;</span>
+                
+                <span>caffe源码阅读《五》solver</span>
+        </a>
+        <div class="abstract-content">
+            SolverAction最开始定义了一个枚举
+12345678910111213141516&#x2F;**  * @brief Enumeration of actions that a client of the Solver may request by  * implementing the Solver&#39;s action request function, which a  * client may optionally provide in order to request early termination  * or saving a snapshot witho...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/29</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "caffe">caffe</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/26/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%B8%89%E3%80%8Bblob/" >
+            
+                <span class="stick-top iconfont-archer">&#xe63d;</span>
+                
+                <span>caffe源码阅读《三》blob</span>
+        </a>
+        <div class="abstract-content">
+            今天来阅读的是caffe的blob部分，这个blob它是有cpp的，因为这个blob是caffe核心的数据存储结构，后面所有的操作都会用到这个地方的，所以这里是caffe官方来实现的。首先看hpp文件。他是有个Blob的类
+123456789&#x2F;** * @brief A wrapper around SyncedMemory holders serving as the basic *        computational unit through which Layer%s, Net%s, and Solver%s *        interact. * * TODO(...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/26</span>
             </div>
             <!-- tags  -->
             
@@ -429,118 +524,23 @@ caffe的训练程序在tools目录里，名字就叫做caffe.cpp
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/26/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%B8%89%E3%80%8Bblob/" >
+        <a class="abstract-title" href = "/2020/02/08/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%B8%80%E3%80%8B%E8%AE%AD%E7%BB%83%E5%85%A5%E5%8F%A3/" >
             
                 <span class="stick-top iconfont-archer">&#xe63d;</span>
                 
-                <span>caffe源码阅读《三》blob</span>
+                <span>caffe源码阅读《一》训练入口</span>
         </a>
         <div class="abstract-content">
-            今天来阅读的是caffe的blob部分，这个blob它是有cpp的，因为这个blob是caffe核心的数据存储结构，后面所有的操作都会用到这个地方的，所以这里是caffe官方来实现的。首先看hpp文件。他是有个Blob的类
-123456789&#x2F;** * @brief A wrapper around SyncedMemory holders serving as the basic *        computational unit through which Layer%s, Net%s, and Solver%s *        interact. * * TODO(...
+            随着工作的深入，很多时候调参不仅仅局限于乱改学习率上面了，阅读caffe源码变得至关重要，而我又比较讨厌盯着虚无的代码看，总想跑个程序跟着debug走，所以就选择了训练程序作为入口。
+caffe的训练程序在tools目录里，名字就叫做caffe.cpp
+训练的时候需要几个参数，最重要的有两个，一个是train还是test，另一个就是solver.prototxt文件了。
+只到这个后，我们跟着源码走
+1234567891011121314151617181920212223242526272829303132int main(int argc, char** argv) &#123;  &...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/26</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "caffe">caffe</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/29/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%BA%94%E3%80%8Bsolver/" >
-            
-                <span class="stick-top iconfont-archer">&#xe63d;</span>
-                
-                <span>caffe源码阅读《五》solver</span>
-        </a>
-        <div class="abstract-content">
-            SolverAction最开始定义了一个枚举
-12345678910111213141516&#x2F;**  * @brief Enumeration of actions that a client of the Solver may request by  * implementing the Solver&#39;s action request function, which a  * client may optionally provide in order to request early termination  * or saving a snapshot witho...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/29</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "caffe">caffe</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/03/04/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E5%85%AD%E3%80%8Bim2col/" >
-            
-                <span class="stick-top iconfont-archer">&#xe63d;</span>
-                
-                <span>caffe源码阅读《六》im2col</span>
-        </a>
-        <div class="abstract-content">
-            卷积的过程卷积实际上就是两个矩阵对位相乘，然后再把积求和的一个过程
-im2colcaffe里的卷积运算实际上是把待输入图像和卷积核都转换成矩阵，然后通过矩阵的乘法一步得出来的。这里列举一个例子，假设我们待输入图像是 55的一张图为了方便看清位置，我们就用12345来表示图像的值。我们选择 33的卷积核然后和图像对位相乘，也就是卷积核的 1的位置的值和图像的 1的位置的值相乘，卷积核的 2的位置的值和图像的 2的位置的值相乘。。。这样就完成了卷积的第一步。
-原图转化成矩阵那么如果我们把第一次的这9个值写成一列的话就是：那么这9个值就对应的是我们原图上的这9个格子卷积核每往后移动一步，就把新...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/03/04</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "caffe">caffe</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/03/05/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E5%85%AD%E3%80%8Bbase-conv-layer/" >
-            
-                <span class="stick-top iconfont-archer">&#xe63d;</span>
-                
-                <span>caffe源码阅读《六》base_conv_layer</span>
-        </a>
-        <div class="abstract-content">
-            BaseConvolutionLayer是所有卷积层的基类。为什么卷积层还需要基类呢？因为再caffe里除了 ConvolutionLayer还有 DeconvolutionLayer
-BaseConvolutionLayer 类BaseConvolutionLayer 构造函数12explicit BaseConvolutionLayer(const LayerParameter&amp; param)    : Layer&lt;Dtype&gt;(param) &#123;&#125;
-因为它是一个基类，所以这个构造函数就写成了空的，传入了 param这一个参数，但是什么都没做，传...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/03/05</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
             </div>
             <!-- tags  -->
             
@@ -874,6 +874,10 @@ public class JNIDemo {
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
     
     
     
