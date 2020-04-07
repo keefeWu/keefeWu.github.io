@@ -346,30 +346,6 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E4%BB%8ERCNN%E5%88%B0FAST-RCNN%E3%80%81FASTER-RCNN%E5%86%8D%E5%88%B0MASK-RCNN/" >
-            
-                <span>从RCNN到FAST-RCNN、FASTER-RCNN再到MASK-RCNN</span>
-        </a>
-        <div class="abstract-content">
-            RCNN首先RCNN的R是region的意思，也就是region selective search + CNN具体解释就是先使用区域搜索方法找出若干个可能是物体的区域,一般通过纹理颜色直方图之类的来挑选出来。然后交给改进版的alexnet来提取特征（这里输入应该是通过resize方法适应网络的），在第五个池化层把输出交给SVM，SVM判断是不是物体，以及物体的种类。然后使用一个线性回归对bounding box处理，找出更加紧凑的边界。
-FAST RCNN之前每次搜索出来的区域都是重新计算特征的，就是resize然后交给网络去计算，现在使用一个cnn，来直接处理原图，使用（roipool...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/" >
             
                 <span>机器学习-损失函数</span>
@@ -533,7 +509,19 @@ input_dim: 96这样就指定好了，不需要大括号，规定一下这是输�
                 <span>c++-CUDA编程《一》-计算矩阵加减乘除</span>
         </a>
         <div class="abstract-content">
-            
+            #include &quot;calculator.h&quot;
+#include &lt;cuda_runtime.h&gt;
+#include &quot;iostream&quot;
+
+bool InitCUDA()
+{
+    //used to count the device numbers
+    int count; 
+
+    // get the cuda device count
+    cudaGetDeviceCount(&amp;count);
+    // print(&quot;%d\n&quot;, count);
+    std::cout &lt;...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -553,6 +541,8 @@ input_dim: 96这样就指定好了，不需要大括号，规定一下这是输�
     <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%B8%80%E3%80%8B%E8%AE%AD%E7%BB%83%E5%85%A5%E5%8F%A3/" >
             
+                <span class="stick-top iconfont-archer">&#xe63d;</span>
+                
                 <span>caffe源码阅读《一》训练入口</span>
         </a>
         <div class="abstract-content">
@@ -596,6 +586,32 @@ void SoftmaxLayer&lt;Dtype&gt;::Forward_cpu(const vector&lt;Blob&lt;Dtype&gt;*&g
   const Dtype* bottom_data = bottom[0]-&gt;cpu_data();
   Dtype* top_data = top[0]-&gt;mutable_cpu_data();
   D...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-RCNN/" >
+            
+                <span>目标检测-RCNN</span>
+        </a>
+        <div class="abstract-content">
+            )rcnn首先会做一个regionproposal，也就是任意的找到一些疑似完整物体的区域，这一步是任意的，根据梯度信息找到一些边缘，然后就圈出来了。这一步会找到非常多的区域作为候选框，给接下来的分类提供素材。论文说的是找了两千多个
+接着把那些候选框一个一个输入神经网络，算出特征
+接着把算出的特征交给svm去做分类，得到分类与置信度。
+最后每个类别在训练出四个向量，保证预测的时候特征 _这四个向量可以得到x,y,w,h，这样坐标的缩放和偏移量也就算出来了。所谓的候选区域推荐其实就是根据梯度信息找到一些边界，然后选出一个个疑似完整的物体。 而RCNN的region proposal用的是s...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2311,26 +2327,9 @@ void SoftmaxLayer&lt;Dtype&gt;::Forward_cpu(const vector&lt;Blob&lt;Dtype&gt;*&g
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 112
+        Total : 111
         </div>
         <!-- search  -->
         
@@ -2343,11 +2342,6 @@ void SoftmaxLayer&lt;Dtype&gt;::Forward_cpu(const vector&lt;Blob&lt;Dtype&gt;*&g
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2020/04/07/c++-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E4%B8%80%E3%80%8B-%E8%AE%A1%E7%AE%97%E7%9F%A9%E9%98%B5%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4/" >c++-CUDA编程《一》-计算矩阵加减乘除</a>
-        </li>
     
     
         <li class="archive-post-item">

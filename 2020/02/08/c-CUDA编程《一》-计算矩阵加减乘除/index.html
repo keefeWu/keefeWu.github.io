@@ -266,7 +266,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">0</span>Reading time: <span class="post-count reading-time">1 min</span></span>
+                        <span>Word count: <span class="post-count word-count">581</span>Reading time: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -395,7 +395,86 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        
+        <pre><code>#include &quot;calculator.h&quot;
+#include &lt;cuda_runtime.h&gt;
+#include &quot;iostream&quot;
+
+bool InitCUDA()
+{
+    //used to count the device numbers
+    int count; 
+
+    // get the cuda device count
+    cudaGetDeviceCount(&amp;count);
+    // print(&quot;%d\n&quot;, count);
+    std::cout &lt;&lt; &quot;count: &quot; &lt;&lt;count &lt;&lt; std::endl;
+    if (count == 0) 
+    {
+        return false;
+    }
+
+    // find the device &gt;= 1.X
+    int i;
+    for (i = 0; i &lt; count; ++i) 
+    {
+        cudaDeviceProp prop;
+        if (cudaGetDeviceProperties(&amp;prop, i) == cudaSuccess) 
+        {
+            if (prop.major &gt;= 1) 
+            {
+                break;
+            }
+        }
+    }
+    // if can&apos;t find the device
+    if (i == count) 
+    {
+        std::cout&lt;&lt;&quot;count: &quot;&lt;&lt;count&lt;&lt;&quot; i:&quot;&lt;&lt;i&lt;&lt;std::endl;
+        return false;
+    }
+
+    // set cuda device
+    cudaSetDevice(i);
+
+    return true;
+}
+
+__global__ void add(const float *dev_a,const float *dev_b,float *dev_c)
+{
+    int i=threadIdx.x;
+    float sub = dev_a[i]-dev_b[i];
+    dev_c[i] = sub * sub;
+}
+
+bool calculate_distance_imp(const float* v1, const float* v2, const int length, float* sub)
+{
+    float *dev_v1, *dev_v2, *result;
+    cudaError_t err = cudaSuccess;
+    err=cudaMalloc((void **)&amp;dev_v1, sizeof(float)*length);
+    err=cudaMalloc((void **)&amp;dev_v2, sizeof(float)*length);
+    err=cudaMalloc((void **)&amp;result, sizeof(float)*length);
+    if(err!=cudaSuccess)
+    {
+     std::cout&lt;&lt;&quot;the cudaMalloc on GPU is failed&quot;&lt;&lt;std::endl;
+     return false;
+    }
+    cudaMemcpy(dev_v1,v1,sizeof(float)*length,cudaMemcpyHostToDevice);
+    cudaMemcpy(dev_v2,v2,sizeof(float)*length,cudaMemcpyHostToDevice);
+    add&lt;&lt;&lt;1,length&gt;&gt;&gt;(dev_v1,dev_v2,result);
+    cudaMemcpy(sub,result,sizeof(float)*length,cudaMemcpyDeviceToHost);
+    std::cout&lt;&lt;&quot;(&quot;&lt;&lt;sub[0]&lt;&lt;&quot;,&quot;&lt;&lt;sub[1]&lt;&lt;&quot;)&quot;&lt;&lt;std::endl;
+    return true;
+}</code></pre><p>首先init_cuda用来初始化，检测有没有GPU，有的话就开启。</p>
+<p>然后就可以调用calculate这个函数了，我输入了两个向量，输出的是他们每个对应位置的差的平方，方便后续做第二范数。</p>
+<p>那么重点就看calculate_distance_img这个函数了，首先建立3个指针，分别是输入的两个以及输出的一个，用来交给gpu来计算，其实就是在gpu上开辟显存空间。</p>
+<p>开辟完空间之后开始把数据拷贝进去，数据在v1和v2上，拷贝到刚刚分配的gpu指针dev_v1和dev_v2上，然后就可以执行我们自定义的计算函数了，名字叫做add，实现在上面，也就是对应每个线程如何处理，我们是先加后平方。</p>
+<p>声明完之后就取出结果，使用cudaMemcpy从result这个结果里拷贝下来，到sub这个变量里。然后就可以正常使用sub变量的结果了。</p>
+<p>其中cmake文件有两个特殊的地方</p>
+<p>一个是寻找cuda的库</p>
+<p>find_package(CUDA QUIET REQUIRED)</p>
+<p>还有一个是生成可执行程序的时候使用的是</p>
+<p>cuda_add_executable(demo main.cpp calculator.cu)</p>
+
     </article>
     <!-- license  -->
     
@@ -403,7 +482,7 @@ height:50vh;
             <p>Author：<a href="http://blog.357573.com">keefe</a>
             <p>原文链接：<a href="http://blog.357573.com/2020/02/08/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E4%B8%80%E3%80%8B-%E8%AE%A1%E7%AE%97%E7%9F%A9%E9%98%B5%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4/">http://blog.357573.com/2020/02/08/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E4%B8%80%E3%80%8B-%E8%AE%A1%E7%AE%97%E7%9F%A9%E9%98%B5%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4/</a>
             <p>发表日期：<a href="http://blog.357573.com/2020/02/08/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E4%B8%80%E3%80%8B-%E8%AE%A1%E7%AE%97%E7%9F%A9%E9%98%B5%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4/">February 8th 2020, 3:10:59 pm</a>
-            <p>更新日期：<a href="http://blog.357573.com/2020/02/08/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E4%B8%80%E3%80%8B-%E8%AE%A1%E7%AE%97%E7%9F%A9%E9%98%B5%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4/">April 7th 2020, 9:21:43 am</a>
+            <p>更新日期：<a href="http://blog.357573.com/2020/02/08/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E4%B8%80%E3%80%8B-%E8%AE%A1%E7%AE%97%E7%9F%A9%E9%98%B5%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4/">April 7th 2020, 4:04:03 pm</a>
             <p>版权声明：本文采用<a rel="license noopener" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -2172,26 +2251,9 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 112
+        Total : 111
         </div>
         <!-- search  -->
         
@@ -2204,11 +2266,6 @@ top:50vh;
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2020/04/07/c++-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E4%B8%80%E3%80%8B-%E8%AE%A1%E7%AE%97%E7%9F%A9%E9%98%B5%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4/" >c++-CUDA编程《一》-计算矩阵加减乘除</a>
-        </li>
     
     
         <li class="archive-post-item">

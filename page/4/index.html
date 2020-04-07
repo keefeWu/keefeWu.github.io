@@ -359,54 +359,6 @@ height:50vh;
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E7%BB%86%E8%AF%B4new%E4%B8%8Emalloc%E7%9A%8410%E7%82%B9%E5%8C%BA%E5%88%AB/" >
-            
-                <span>细说new与malloc的10点区别</span>
-        </a>
-        <div class="abstract-content">
-            细说new与malloc的10点区别转载自http://www.cnblogs.com/QG-whz/p/5140930.html
-阅读目录
-
-前言
-new与malloc的10点区别
-1. 申请的内存所在位置
-2.返回类型安全性
-3.内存分配失败时的返回值
-4.是否需要指定内存大小
-5.是否调用构造函数/析构函数
-6.对数组的处理
-7.new与malloc是否可以相互调用
-8.是否可以被重载
-9. 能够直观地重新分配内存
-10. 客户处理内存分配不足
-
-
-总结
-
-正文
-回到顶部
-前言几个星期前去面试C++研发的实习岗位，面试官问了个问题：
-
-new与malloc有什么区别？
-
-这是个老生...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/linux%E5%91%BD%E4%BB%A4/" >
             
                 <span>linux命令</span>
@@ -684,6 +636,35 @@ cloud-&gt;...
 最后的两列小圆球就是两个全连接层，在最后一层卷积结束后，进行了最后一次池化，输出了20个1212的图像，然后通过了一个全连接层变成了1100的向量。
 这是怎么做到的呢，其实就是有20100个1212的卷积核卷积出来的，对于输入的每一张图，用了一个和图像一样大小的核卷积，这样整幅图就变成了一个数了，如果厚度是20就是那20个核卷积完了之后相加求和。这样就能把一张图高度浓缩成一个数了。
 全连接的目的是什么呢？因为传统的网络我们的输出都是分类，...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E4%BA%8C%E3%80%8B%E7%82%B9%E4%BA%91%E7%9A%84%E6%BB%A4%E6%B3%A2/" >
+            
+                <span>PCL入门《二》点云的滤波</span>
+        </a>
+        <div class="abstract-content">
+            PCL官方给的filter示例实际上是一个空间切割，也就是只保留设定范围内的点，超出边界的就过滤掉了。直接看例子：
+pcl::PassThrough&lt;pcl::PointXYZ&gt; pass;
+  pass.setInputCloud (cloud);
+  pass.setFilterFieldName (&quot;z&quot;);
+  pass.setFilterLimits (0.0, 1.0);
+  //pass.setFilterLimitsNegative (true);
+  pass.filter (*cloud_filtered);这里cloud就是需要过滤的...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2493,26 +2474,9 @@ cloud-&gt;...
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 112
+        Total : 111
         </div>
         <!-- search  -->
         
@@ -2525,11 +2489,6 @@ cloud-&gt;...
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2020/04/07/c++-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E4%B8%80%E3%80%8B-%E8%AE%A1%E7%AE%97%E7%9F%A9%E9%98%B5%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4/" >c++-CUDA编程《一》-计算矩阵加减乘除</a>
-        </li>
     
     
         <li class="archive-post-item">

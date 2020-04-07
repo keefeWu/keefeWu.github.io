@@ -586,7 +586,19 @@ input_dim: 96这样就指定好了，不需要大括号，规定一下这是输�
                 <span>c++-CUDA编程《一》-计算矩阵加减乘除</span>
         </a>
         <div class="abstract-content">
-            
+            #include &quot;calculator.h&quot;
+#include &lt;cuda_runtime.h&gt;
+#include &quot;iostream&quot;
+
+bool InitCUDA()
+{
+    //used to count the device numbers
+    int count; 
+
+    // get the cuda device count
+    cudaGetDeviceCount(&amp;count);
+    // print(&quot;%d\n&quot;, count);
+    std::cout &lt;...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2302,26 +2314,9 @@ input_dim: 96这样就指定好了，不需要大括号，规定一下这是输�
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 112
+        Total : 111
         </div>
         <!-- search  -->
         
@@ -2334,11 +2329,6 @@ input_dim: 96这样就指定好了，不需要大括号，规定一下这是输�
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2020/04/07/c++-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E4%B8%80%E3%80%8B-%E8%AE%A1%E7%AE%97%E7%9F%A9%E9%98%B5%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4/" >c++-CUDA编程《一》-计算矩阵加减乘除</a>
-        </li>
     
     
         <li class="archive-post-item">

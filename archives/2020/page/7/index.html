@@ -346,29 +346,6 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/C-%E5%A4%9A%E7%BA%BF%E7%A8%8B/" >
-            
-                <span>C++多线程</span>
-        </a>
-        <div class="abstract-content">
-            
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E5%85%AB%E3%80%8B-RANSAC%E7%9A%84%E5%AE%9E%E7%8E%B0/" >
             
                 <span>PCL入门《八》-RANSAC的实现</span>
@@ -598,6 +575,38 @@ iptables -D INPUT 8
         </a>
         <div class="abstract-content">
             
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/Vector%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%B8%85%E7%A9%BA%E6%95%B0%E6%8D%AE%E4%B8%8E%E9%87%8A%E6%94%BE%E5%86%85%E5%AD%98/" >
+            
+                <span>Vector的正确清空数据与释放内存</span>
+        </a>
+        <div class="abstract-content">
+            转载自：嚜寒的CSDN
+0）简单介绍
+在vector的数据结构中，  
+.clear();清空数据
+.size();当前vector容器内存储的元素的个数
+.capacity();当前vector容器重新分配内存之前所能容纳的元素数量  
+.swap();函数交换
+1）问题
+在用vector做题时，输入完一组数据处理完后，及时clear()，然后输入下一组数据，但是如果在输入之前，输出之前vector所存的内容，会发现仍然存在，但是如果输出.empty();它会返回1，告诉我们这个容器现在是空的，这是因为使用.clear()清空内容，但是没有释放内存的原因。举例如下：
+[cpp] vie...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2313,26 +2322,9 @@ iptables -D INPUT 8
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 112
+        Total : 111
         </div>
         <!-- search  -->
         
@@ -2345,11 +2337,6 @@ iptables -D INPUT 8
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2020/04/07/c++-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E4%B8%80%E3%80%8B-%E8%AE%A1%E7%AE%97%E7%9F%A9%E9%98%B5%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4/" >c++-CUDA编程《一》-计算矩阵加减乘除</a>
-        </li>
     
     
         <li class="archive-post-item">

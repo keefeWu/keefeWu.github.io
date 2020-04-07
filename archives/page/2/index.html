@@ -346,38 +346,10 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/26/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%B8%89%E3%80%8Bblob/" >
-            
-                <span>caffe源码阅读《三》blob</span>
-        </a>
-        <div class="abstract-content">
-            今天来阅读的是caffe的blob部分，这个blob它是有cpp的，因为这个blob是caffe核心的数据存储结构，后面所有的操作都会用到这个地方的，所以这里是caffe官方来实现的。首先看hpp文件。他是有个Blob的类
-123456789&#x2F;** * @brief A wrapper around SyncedMemory holders serving as the basic *        computational unit through which Layer%s, Net%s, and Solver%s *        interact. * * TODO(...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/26</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "caffe">caffe</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/25/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%BA%8C%E3%80%8Blayer/" >
             
+                <span class="stick-top iconfont-archer">&#xe63d;</span>
+                
                 <span>caffe源码阅读《二》layer</span>
         </a>
         <div class="abstract-content">
@@ -672,6 +644,32 @@ Mat MyDilate(Mat src...
 
 
 这个图的每一行代表某一种动物被识别成不同动物的概率，比方说狮子被识别成狮子的概率试0.45，当成老虎的概率试0.25，当成老鼠的概率试0.05，当成猫的概率试0.18.当成狗的概...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/%E5%85%B3%E4%BA%8ELBP%EF%BC%88Local-Binary-Pattern%EF%BC%89%E7%89%B9%E5%BE%81/" >
+            
+                <span>关于LBP（Local-Binary-Pattern）特征</span>
+        </a>
+        <div class="abstract-content">
+            LBP是英文Local BinaryPattern的缩写，顾名思义，他是一个局部的二值特征。所谓局部，就是他的提取方法是根据他附近点的信息来计算的，所谓二值，就是特征只有0和1了。
+具体操作其实也非常简单，就是做一个判断的滤波器，什么叫判断的滤波器呢？就是判断附近的点是不是比中间的点大，如果大就是1，小就是0，等于的话就看规定了，可以规定0也可以规定1，但是规定一定要统一，不能一会是0一会是1，（不过这样变得代码也不好写啊，估计没有哪个会神经的让它不统一吧）。
+)  
+如上两张图，图一是原图矩阵，图二是LBP处理后的矩阵。就拿画红框的区域来分析，中间的点是194，那么从左上必到右下依次是...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2387,26 +2385,9 @@ Mat MyDilate(Mat src...
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 112
+        Total : 111
         </div>
         <!-- search  -->
         
@@ -2419,11 +2400,6 @@ Mat MyDilate(Mat src...
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2020/04/07/c++-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E4%B8%80%E3%80%8B-%E8%AE%A1%E7%AE%97%E7%9F%A9%E9%98%B5%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4/" >c++-CUDA编程《一》-计算矩阵加减乘除</a>
-        </li>
     
     
         <li class="archive-post-item">

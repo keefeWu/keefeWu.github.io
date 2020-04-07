@@ -346,32 +346,6 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-RCNN/" >
-            
-                <span>目标检测-RCNN</span>
-        </a>
-        <div class="abstract-content">
-            )rcnn首先会做一个regionproposal，也就是任意的找到一些疑似完整物体的区域，这一步是任意的，根据梯度信息找到一些边缘，然后就圈出来了。这一步会找到非常多的区域作为候选框，给接下来的分类提供素材。论文说的是找了两千多个
-接着把那些候选框一个一个输入神经网络，算出特征
-接着把算出的特征交给svm去做分类，得到分类与置信度。
-最后每个类别在训练出四个向量，保证预测的时候特征 _这四个向量可以得到x,y,w,h，这样坐标的缩放和偏移量也就算出来了。所谓的候选区域推荐其实就是根据梯度信息找到一些边界，然后选出一个个疑似完整的物体。 而RCNN的region proposal用的是s...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-SPPNet/" >
             
                 <span>目标检测-SPPNet</span>
@@ -630,6 +604,39 @@
         <a class="post-tag" href="javascript:void(0);" data-tags = "python">python</a>
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "c++">c++</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/01/21/linux%E8%BF%90%E7%BB%B4-%E4%BD%BF%E7%94%A8pigz%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%8E%8B%E7%BC%A9/" >
+            
+                <span>linux运维-使用pigz多线程压缩</span>
+        </a>
+        <div class="abstract-content">
+            因为tar zip是单线程的压缩，压缩起来很慢，这个使用使用pigz工具辅助就会使用多线程了。安装
+sudo apt install pigz压缩
+tar cvf - test.txt | pigz &gt; test.tar.gz解压到指定目录
+转自：http://unix.stackexchange.com/questions/198958/unpigz-and-untar-to-a-specific-directory  
+1234567891011121314151617I found three solutions:With GNU tar, using the awesome...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/01/21</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "运维">运维</a>
     
 </div>
             
@@ -2340,26 +2347,9 @@
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 112
+        Total : 111
         </div>
         <!-- search  -->
         
@@ -2372,11 +2362,6 @@
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2020/04/07/c++-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E4%B8%80%E3%80%8B-%E8%AE%A1%E7%AE%97%E7%9F%A9%E9%98%B5%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4/" >c++-CUDA编程《一》-计算矩阵加减乘除</a>
-        </li>
     
     
         <li class="archive-post-item">
