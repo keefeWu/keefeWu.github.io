@@ -1,0 +1,3040 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="keefe">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="keefe">
+    
+    <meta name="keywords" content="蒙特卡洛家的树,蒙特卡洛家的树,念去去的博客,keefe">
+    
+    <meta name="description" content="">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>caffe源码阅读《一》训练入口 · 蒙特卡洛家的树</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/avatar/tree.jpg" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >蒙特卡洛家的树</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">caffe源码阅读《一》训练入口</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>蒙特卡洛家的树</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            caffe源码阅读《一》训练入口
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "caffe">caffe</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">2.1k</span>Reading time: <span class="post-count reading-time">10 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2020/02/08</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>随着工作的深入，很多时候调参不仅仅局限于乱改学习率上面了，阅读caffe源码变得至关重要，而我又比较讨厌盯着虚无的代码看，总想跑个程序跟着debug走，所以就选择了训练程序作为入口。</p>
+<p>caffe的训练程序在tools目录里，名字就叫做caffe.cpp</p>
+<p>训练的时候需要几个参数，最重要的有两个，一个是train还是test，另一个就是solver.prototxt文件了。</p>
+<p>只到这个后，我们跟着源码走</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">int main(int argc, char** argv) &#123;</span><br><span class="line">  &#x2F;&#x2F; Print output to stderr (while still logging).</span><br><span class="line">  FLAGS_alsologtostderr &#x3D; 1;</span><br><span class="line">  &#x2F;&#x2F; Set version</span><br><span class="line">  gflags::SetVersionString(AS_STRING(CAFFE_VERSION));</span><br><span class="line">  &#x2F;&#x2F; Usage message.</span><br><span class="line">  gflags::SetUsageMessage(&quot;command line brew\n&quot;</span><br><span class="line">      &quot;usage: caffe &lt;command&gt; &lt;args&gt;\n\n&quot;</span><br><span class="line">      &quot;commands:\n&quot;</span><br><span class="line">      &quot;  train           train or finetune a model\n&quot;</span><br><span class="line">      &quot;  test            score a model\n&quot;</span><br><span class="line">      &quot;  device_query    show GPU diagnostic information\n&quot;</span><br><span class="line">      &quot;  time            benchmark model execution time&quot;);</span><br><span class="line">  &#x2F;&#x2F; Run tool or show usage.</span><br><span class="line">  caffe::GlobalInit(&amp;argc, &amp;argv);</span><br><span class="line">  if (argc &#x3D;&#x3D; 2) &#123;</span><br><span class="line">#ifdef WITH_PYTHON_LAYER</span><br><span class="line">    try &#123;</span><br><span class="line">#endif</span><br><span class="line">      return GetBrewFunction(caffe::string(argv[1]))();</span><br><span class="line">#ifdef WITH_PYTHON_LAYER</span><br><span class="line">    &#125; catch (bp::error_already_set) &#123;</span><br><span class="line">      PyErr_Print();</span><br><span class="line">      return 1;</span><br><span class="line">    &#125;</span><br><span class="line">#endif</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    gflags::ShowUsageWithFlagsRestrict(argv[0], &quot;tools&#x2F;caffe&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先看主函数，主函数其实调用了GetBrewFunction这个函数，这个函数输入的是train，返回值实际上是一个函数指针，在上面有定义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line">    typedef int (*BrewFunction)();</span><br><span class="line">    typedef std::map&lt;caffe::string, BrewFunction&gt; BrewMap;</span><br><span class="line">    BrewMap g_brew_map;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    static BrewFunction GetBrewFunction(const caffe::string&amp; name) &#123;</span><br><span class="line">      if (g_brew_map.count(name)) &#123;</span><br><span class="line">        return g_brew_map[name];</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        LOG(ERROR) &lt;&lt; &quot;Available caffe actions:&quot;;</span><br><span class="line">        for (BrewMap::iterator it &#x3D; g_brew_map.begin();</span><br><span class="line">             it !&#x3D; g_brew_map.end(); ++it) &#123;</span><br><span class="line">          LOG(ERROR) &lt;&lt; &quot;\t&quot; &lt;&lt; it-&gt;first;</span><br><span class="line">        &#125;</span><br><span class="line">        LOG(FATAL) &lt;&lt; &quot;Unknown action: &quot; &lt;&lt; name;</span><br><span class="line">        return NULL;  &#x2F;&#x2F; not reachable, just to suppress old compiler warnings.</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#96;&#96;&#96;   </span><br><span class="line">他的实际作用是返回&lt;code&gt;g_brew_map[name]&lt;&#x2F;code&gt;，如果传的参数是&lt;code&gt;train&lt;&#x2F;code&gt;那么这个&lt;code&gt;name&lt;&#x2F;code&gt;就是&lt;code&gt;train&lt;&#x2F;code&gt;，返回的呢就是&lt;code&gt;g_brew_map[&quot;train&quot;]&lt;&#x2F;code&gt;</span><br><span class="line">那么这个&lt;code&gt;g_brew_map&lt;&#x2F;code&gt;是什么呢？</span><br><span class="line">看到定义</span><br></pre></td></tr></table></figure>
+<p>typedef std::map&lt;caffe::string, BrewFunction&gt; BrewMap;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">它是一个map对象，它用来存储4种方法的函数指针。</span><br><span class="line">在main函数之前，有一句</span><br></pre></td></tr></table></figure>
+<p>RegisterBrewFunction(device_query);</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">将四个函数进行了注册，注册的方法也在这个文件里面</span><br></pre></td></tr></table></figure>
+<p>#define RegisterBrewFunction(func) <br>namespace { <br>class <em>_Registerer</em>##func { <br> public: /* NOLINT */ <br>  <em>_Registerer</em>##func() { <br>    g_brew_map[#func] = &func; <br>  } <br>}; <br><em>_Registerer</em>##func g_registerer_##func; <br>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">所以我们在给GetBrewFunction传入的是train，那么就会返回train函数的指针，也就是执行train函数了。</span><br><span class="line">我们先看这个&lt;code&gt;GetBrewFunction&lt;&#x2F;code&gt;函数，第一句</span><br></pre></td></tr></table></figure>
+<p>if (g_brew_map.count(name)) {<br>    return g_brew_map[name];<br>  }</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">这个&lt;code&gt;count&lt;&#x2F;code&gt;就是检查传入的&lt;code&gt;name&lt;&#x2F;code&gt;是否注册，如果已经注册了，那么就可以直接的返回这个函数指针了。</span><br><span class="line">如果没有注册的话，那么就会打印所有的已注册函数名，并告诉你你传入的是什么，我们这里找不到。</span><br></pre></td></tr></table></figure>
+<p>else {<br>    LOG(ERROR) &lt;&lt; “Available caffe actions:”;<br>    for (BrewMap::iterator it = g_brew_map.begin();<br>         it != g_brew_map.end(); ++it) {<br>      LOG(ERROR) &lt;&lt; “\t” &lt;&lt; it-&gt;first;<br>    }<br>    LOG(FATAL) &lt;&lt; “Unknown action: “ &lt;&lt; name;<br>    return NULL;  // not reachable, just to suppress old compiler warnings.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line">然后我们直接看&lt;code&gt;train&lt;&#x2F;code&gt;函数</span><br><span class="line">&#96;&#96;&#96; </span><br><span class="line">    </span><br><span class="line">    int train() &#123;</span><br><span class="line">      CHECK_GT(FLAGS_solver.size(), 0) &lt;&lt; &quot;Need a solver definition to train.&quot;;</span><br><span class="line">      CHECK(!FLAGS_snapshot.size() || !FLAGS_weights.size())</span><br><span class="line">          &lt;&lt; &quot;Give a snapshot to resume training or weights to finetune &quot;</span><br><span class="line">          &quot;but not both.&quot;;</span><br><span class="line">      vector&lt;string&gt; stages &#x3D; get_stages_from_flags();</span><br><span class="line">    </span><br><span class="line">      caffe::SolverParameter solver_param;</span><br><span class="line">      caffe::ReadSolverParamsFromTextFileOrDie(FLAGS_solver, &amp;solver_param);</span><br><span class="line">    </span><br><span class="line">      solver_param.mutable_train_state()-&gt;set_level(FLAGS_level);</span><br><span class="line">      for (int i &#x3D; 0; i &lt; stages.size(); i++) &#123;</span><br><span class="line">        solver_param.mutable_train_state()-&gt;add_stage(stages[i]);</span><br><span class="line">      &#125;</span><br><span class="line">    </span><br><span class="line">      &#x2F;&#x2F; If the gpus flag is not provided, allow the mode and device to be set</span><br><span class="line">      &#x2F;&#x2F; in the solver prototxt.</span><br><span class="line">      if (FLAGS_gpu.size() &#x3D;&#x3D; 0</span><br><span class="line">          &amp;&amp; solver_param.has_solver_mode()</span><br><span class="line">          &amp;&amp; solver_param.solver_mode() &#x3D;&#x3D; caffe::SolverParameter_SolverMode_GPU) &#123;</span><br><span class="line">          if (solver_param.has_device_id()) &#123;</span><br><span class="line">              FLAGS_gpu &#x3D; &quot;&quot; +</span><br><span class="line">                  boost::lexical_cast&lt;string&gt;(solver_param.device_id());</span><br><span class="line">          &#125; else &#123;  &#x2F;&#x2F; Set default GPU if unspecified</span><br><span class="line">              FLAGS_gpu &#x3D; &quot;&quot; + boost::lexical_cast&lt;string&gt;(0);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    </span><br><span class="line">      vector&lt;int&gt; gpus;</span><br><span class="line">      get_gpus(&amp;gpus);</span><br><span class="line">      if (gpus.size() &#x3D;&#x3D; 0) &#123;</span><br><span class="line">        LOG(INFO) &lt;&lt; &quot;Use CPU.&quot;;</span><br><span class="line">        Caffe::set_mode(Caffe::CPU);</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        ostringstream s;</span><br><span class="line">        for (int i &#x3D; 0; i &lt; gpus.size(); ++i) &#123;</span><br><span class="line">          s &lt;&lt; (i ? &quot;, &quot; : &quot;&quot;) &lt;&lt; gpus[i];</span><br><span class="line">        &#125;</span><br><span class="line">        LOG(INFO) &lt;&lt; &quot;Using GPUs &quot; &lt;&lt; s.str();</span><br><span class="line">    #ifndef CPU_ONLY</span><br><span class="line">        cudaDeviceProp device_prop;</span><br><span class="line">        for (int i &#x3D; 0; i &lt; gpus.size(); ++i) &#123;</span><br><span class="line">          cudaGetDeviceProperties(&amp;device_prop, gpus[i]);</span><br><span class="line">          LOG(INFO) &lt;&lt; &quot;GPU &quot; &lt;&lt; gpus[i] &lt;&lt; &quot;: &quot; &lt;&lt; device_prop.name;</span><br><span class="line">        &#125;</span><br><span class="line">    #endif</span><br><span class="line">        solver_param.set_device_id(gpus[0]);</span><br><span class="line">        Caffe::SetDevice(gpus[0]);</span><br><span class="line">        Caffe::set_mode(Caffe::GPU);</span><br><span class="line">        Caffe::set_solver_count(gpus.size());</span><br><span class="line">      &#125;</span><br><span class="line">    </span><br><span class="line">      caffe::SignalHandler signal_handler(</span><br><span class="line">            GetRequestedAction(FLAGS_sigint_effect),</span><br><span class="line">            GetRequestedAction(FLAGS_sighup_effect));</span><br><span class="line">    </span><br><span class="line">      if (FLAGS_snapshot.size()) &#123;</span><br><span class="line">        solver_param.clear_weights();</span><br><span class="line">      &#125; else if (FLAGS_weights.size()) &#123;</span><br><span class="line">        solver_param.clear_weights();</span><br><span class="line">        solver_param.add_weights(FLAGS_weights);</span><br><span class="line">      &#125;</span><br><span class="line">    </span><br><span class="line">      shared_ptr&lt;caffe::Solver&lt;float&gt; &gt;</span><br><span class="line">          solver(caffe::SolverRegistry&lt;float&gt;::CreateSolver(solver_param));</span><br><span class="line">    </span><br><span class="line">      solver-&gt;SetActionFunction(signal_handler.GetActionFunction());</span><br><span class="line">    </span><br><span class="line">      if (FLAGS_snapshot.size()) &#123;</span><br><span class="line">        LOG(INFO) &lt;&lt; &quot;Resuming from &quot; &lt;&lt; FLAGS_snapshot;</span><br><span class="line">        solver-&gt;Restore(FLAGS_snapshot.c_str());</span><br><span class="line">      &#125;</span><br><span class="line">    </span><br><span class="line">      LOG(INFO) &lt;&lt; &quot;Starting Optimization&quot;;</span><br><span class="line">      if (gpus.size() &gt; 1) &#123;</span><br><span class="line">    #ifdef USE_NCCL</span><br><span class="line">        caffe::NCCL&lt;float&gt; nccl(solver);</span><br><span class="line">        nccl.Run(gpus, FLAGS_snapshot.size() &gt; 0 ? FLAGS_snapshot.c_str() : NULL);</span><br><span class="line">    #else</span><br><span class="line">        LOG(FATAL) &lt;&lt; &quot;Multi-GPU execution not available - rebuild with USE_NCCL&quot;;</span><br><span class="line">    #endif</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        solver-&gt;Solve();</span><br><span class="line">      &#125;</span><br><span class="line">      LOG(INFO) &lt;&lt; &quot;Optimization Done.&quot;;</span><br><span class="line">      return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    RegisterBrewFunction(train);</span><br></pre></td></tr></table></figure>
+
+<p>首先是做检查，有没有参数文件，有没有从快照中读取权值等等。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CHECK_GT(FLAGS_solver.size(), 0) &lt;&lt; &quot;Need a solver definition to train.&quot;;</span><br><span class="line">  CHECK(!FLAGS_snapshot.size() || !FLAGS_weights.size())</span><br><span class="line">      &lt;&lt; &quot;Give a snapshot to resume training or weights to finetune &quot;</span><br><span class="line">      &quot;but not both.&quot;;</span><br></pre></td></tr></table></figure>
+<p>这个solver文件就是我们传入的配置文件，通过gflag把我们的文件里的内容转化成FLAGS_solver变量。</p>
+<p>然后执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line">caffe::SolverParameter solver_param;</span><br><span class="line">caffe::ReadSolverParamsFromTextFileOrDie(FLAGS_solver, &amp;solver_param);</span><br></pre></td></tr></table></figure>
+<p>把solver文件中的参数读取出来放在solver_param这个对象里。</p>
+<p>然后就开始根据参数选择启用gpu还是cpu，加载网络，加载权值，加载步数等等。</p>
+<p>直到这里</p>
+<pre><code>shared_ptr&lt;caffe::Solver&lt;float&gt; &gt;
+      solver(caffe::SolverRegistry&lt;float&gt;::CreateSolver(solver_param));</code></pre><p>这里根据学习率下降策略返回一个函数指针，如果没有指定默认的就是sgd了，那么就可以去sgd这个文件里看一些代码，不过由于它是继承solver这个基类的，所以接下来要执行的还是在solver这个类里面找</p>
+<p>他会执行step函数开始训练</p>
+<pre><code>template &lt;typename Dtype&gt;
+void Solver&lt;Dtype&gt;::Step(int iters) {
+  const int start_iter = iter_;
+  const int stop_iter = iter_ + iters;
+  int average_loss = this-&gt;param_.average_loss();
+  losses_.clear();
+  smoothed_loss_ = 0;
+  iteration_timer_.Start();
+  // 从开始到结束的大循环
+  while (iter_ &lt; stop_iter) {
+    // zero-init the params
+    net_-&gt;ClearParamDiffs();
+    // 如果设置启动时先测试一波则开始第一次测试
+    if (param_.test_interval() &amp;&amp; iter_ % param_.test_interval() == 0
+        &amp;&amp; (iter_ &gt; 0 || param_.test_initialization())) {
+      if (Caffe::root_solver()) {
+        TestAll();
+      }
+      if (requested_early_exit_) {
+        // Break out of the while loop because stop was requested while testing.
+        break;
+      }
+    }
+
+    for (int i = 0; i &lt; callbacks_.size(); ++i) {
+      callbacks_[i]-&gt;on_start();
+    }
+    // 计算一下现在是不是该display了
+    const bool display = param_.display() &amp;&amp; iter_ % param_.display() == 0;
+    net_-&gt;set_debug_info(display &amp;&amp; param_.debug_info());
+    // accumulate the loss and gradient
+    // 算前传的loss
+    Dtype loss = 0;
+    for (int i = 0; i &lt; param_.iter_size(); ++i) {
+      loss += net_-&gt;ForwardBackward();
+    }
+    loss /= param_.iter_size();
+    // average the loss across iterations for smoothed reporting
+    // 更新loss
+    UpdateSmoothedLoss(loss, start_iter, average_loss);
+    if (display) {
+      float lapse = iteration_timer_.Seconds();
+      float per_s = (iter_ - iterations_last_) / (lapse ? lapse : 1);
+      LOG_IF(INFO, Caffe::root_solver()) &lt;&lt; &quot;Iteration &quot; &lt;&lt; iter_
+          &lt;&lt; &quot; (&quot; &lt;&lt; per_s &lt;&lt; &quot; iter/s, &quot; &lt;&lt; lapse &lt;&lt; &quot;s/&quot;
+          &lt;&lt; param_.display() &lt;&lt; &quot; iters), loss = &quot; &lt;&lt; smoothed_loss_;
+      iteration_timer_.Start();
+      iterations_last_ = iter_;
+      const vector&lt;Blob&lt;Dtype&gt;*&gt;&amp; result = net_-&gt;output_blobs();
+      int score_index = 0;
+      for (int j = 0; j &lt; result.size(); ++j) {
+        const Dtype* result_vec = result[j]-&gt;cpu_data();
+        const string&amp; output_name =
+            net_-&gt;blob_names()[net_-&gt;output_blob_indices()[j]];
+        const Dtype loss_weight =
+            net_-&gt;blob_loss_weights()[net_-&gt;output_blob_indices()[j]];
+        for (int k = 0; k &lt; result[j]-&gt;count(); ++k) {
+          ostringstream loss_msg_stream;
+          if (loss_weight) {
+            loss_msg_stream &lt;&lt; &quot; (* &quot; &lt;&lt; loss_weight
+                            &lt;&lt; &quot; = &quot; &lt;&lt; loss_weight * result_vec[k] &lt;&lt; &quot; loss)&quot;;
+          }
+          LOG_IF(INFO, Caffe::root_solver()) &lt;&lt; &quot;    Train net output #&quot;
+              &lt;&lt; score_index++ &lt;&lt; &quot;: &quot; &lt;&lt; output_name &lt;&lt; &quot; = &quot;
+              &lt;&lt; result_vec[k] &lt;&lt; loss_msg_stream.str();
+        }
+      }
+    }
+    for (int i = 0; i &lt; callbacks_.size(); ++i) {
+      callbacks_[i]-&gt;on_gradients_ready();
+    }
+    ApplyUpdate();
+
+    SolverAction::Enum request = GetRequestedAction();
+
+    // Save a snapshot if needed.
+    if ((param_.snapshot()
+         &amp;&amp; iter_ % param_.snapshot() == 0
+         &amp;&amp; Caffe::root_solver()) ||
+         (request == SolverAction::SNAPSHOT)) {
+      Snapshot();
+    }
+    if (SolverAction::STOP == request) {
+      requested_early_exit_ = true;
+      // Break out of training loop.
+      break;
+    }
+  }
+}</code></pre><p>这个函数就是整个主循环所在之处，也就是先初始化step，以及权值等信息，然后就开始学习，反向传播，更新权值等等。由于方法名字都能够顾名思义，所以不用语言赘述一遍了。函数虽然长，但是想要找什么顺着名字很容易都能找到。</p>
+<p>我在学习的时候参照了</p>
+<p><a href="https://www.cnblogs.com/liuzhongfeng/p/7289956.html" target="_blank" rel="noopener">https://www.cnblogs.com/liuzhongfeng/p/7289956.html</a></p>
+<p>博客，深受启发。</p>
+<p>我在阅读的时候是录制了视频的，大家也可以去b站看到更详细的记录。<br><a href="https://www.bilibili.com/video/av61042416/" target="_blank" rel="noopener">https://www.bilibili.com/video/av61042416/</a></p>
+<iframe src="//player.bilibili.com/player.html?aid=61042416&cid=106113982&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="http://blog.357573.com">keefe</a>
+            <p>原文链接：<a href="http://blog.357573.com/2020/02/08/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%B8%80%E3%80%8B%E8%AE%AD%E7%BB%83%E5%85%A5%E5%8F%A3/">http://blog.357573.com/2020/02/08/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%B8%80%E3%80%8B%E8%AE%AD%E7%BB%83%E5%85%A5%E5%8F%A3/</a>
+            <p>发表日期：<a href="http://blog.357573.com/2020/02/08/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%B8%80%E3%80%8B%E8%AE%AD%E7%BB%83%E5%85%A5%E5%8F%A3/">February 8th 2020, 3:10:55 pm</a>
+            <p>更新日期：<a href="http://blog.357573.com/2020/02/08/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%B8%80%E3%80%8B%E8%AE%AD%E7%BB%83%E5%85%A5%E5%8F%A3/">April 7th 2020, 9:21:43 am</a>
+            <p>版权声明：本文采用<a rel="license noopener" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2020/02/08/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E4%B8%80%E3%80%8B-%E8%AE%A1%E7%AE%97%E7%9F%A9%E9%98%B5%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4/" title= "c++-CUDA编程《一》-计算矩阵加减乘除">
+                    <div class="nextTitle">c++-CUDA编程《一》-计算矩阵加减乘除</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2020/02/08/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%BA%8C%E3%80%8Bsoftmax%E5%B1%82/" title= "caffe源码阅读《二》softmax层">
+                    <div class="prevTitle">caffe源码阅读《二》softmax层</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="comment"></div>
+    <script>
+    new Valine({
+        el: '#comment' ,
+        notify:false, 
+        verify:false, 
+        appId: "fEwKgouhKR7SgknNaVaY9gfj-gzGzoHsz",
+        appKey: "GkwepWrdx8DC6DJIn7VxjKUa",
+        placeholder: "",
+        path:window.location.pathname, 
+        avatar:'mm' 
+    });
+    </script>
+
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:2375037953@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/keefeWu" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="/assets/bilibili.png" class="iconfont-archer bilibili" target="_blank" title=bilibili></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span>PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</footer>
+
+
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 112
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2020/04/07/c++-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E4%B8%80%E3%80%8B-%E8%AE%A1%E7%AE%97%E7%9F%A9%E9%98%B5%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4/" >c++-CUDA编程《一》-计算矩阵加减乘除</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2020/04/07/c++%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/" >c++读取文件</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2020/04/07/fsck----Linux%E7%A1%AC%E7%9B%98%E4%BF%AE%E5%A4%8D/" >fsck----Linux硬盘修复</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2020/04/07/JNI-java%E8%B0%83%E7%94%A8c++%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%80%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" >JNI-java调用c++程序的最常用方法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2020/04/07/C++static%E7%B1%BB%E6%88%90%E5%91%98%EF%BC%8Cstatic%E7%B1%BB%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0/" >C++static类成员，static类成员函数</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2020/04/07/C++%E5%A4%9A%E7%BA%BF%E7%A8%8B/" >C++多线程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2020/03/05/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E5%85%AD%E3%80%8Bbase-conv-layer/" >caffe源码阅读《六》base_conv_layer</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/04</span><a class="archive-post-title" href= "/2020/03/04/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E5%85%AD%E3%80%8Bim2col/" >caffe源码阅读《六》im2col</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/29</span><a class="archive-post-title" href= "/2020/02/29/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%BA%94%E3%80%8Bsolver/" >caffe源码阅读《五》solver</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/28</span><a class="archive-post-title" href= "/2020/02/28/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E5%9B%9B%E3%80%8Bnet/" >caffe源码阅读《四》net</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/26</span><a class="archive-post-title" href= "/2020/02/26/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%B8%89%E3%80%8Bblob/" >caffe源码阅读《三》blob</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/25</span><a class="archive-post-title" href= "/2020/02/25/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%BA%8C%E3%80%8Blayer/" >caffe源码阅读《二》layer</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/19</span><a class="archive-post-title" href= "/2020/02/19/maskrcnn%E8%AE%AD%E7%BB%83%E9%85%8D%E7%BD%AE/" >maskrcnn训练配置</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-RCNN/" >目标检测-RCNN</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-Fast-RCNN/" >目标检测-Fast-RCNN</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-Faster-RCNN/" >目标检测-Faster-RCNN</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-SPPNet/" >目标检测-SPPNet</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/C-static%E7%B1%BB%E6%88%90%E5%91%98%EF%BC%8Cstatic%E7%B1%BB%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0/" >C++static类成员，static类成员函数</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/C-%E5%A4%9A%E7%BA%BF%E7%A8%8B/" >C++多线程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/GDB%E5%85%A5%E9%97%A8/" >GDB入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/Deep-Learning%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95%E5%8F%8A%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A%E6%B1%87%E6%80%BB/" >Deep-Learning笔记（三）-机器学习经典算法及名词解释汇总</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/Gabor%E6%BB%A4%E6%B3%A2%E7%9A%84%E5%B1%82%E5%B1%82%E6%80%BB%E7%BB%93/" >Gabor滤波的层层总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/Linux%E4%B8%8B%E8%AE%BE%E7%BD%AEsh%E6%96%87%E4%BB%B6%E5%8F%8C%E5%87%BB%E6%89%A7%E8%A1%8C/" >Linux下设置sh文件双击执行</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/NMS%E2%80%94%E2%80%94%E9%9D%9E%E6%9E%81%E5%A4%A7%E5%80%BC%E6%8A%91%E5%88%B6/" >NMS——非极大值抑制</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/Opencv-3-3-0-%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/" >Opencv-3-3-0-常用函数</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/JNI-java%E8%B0%83%E7%94%A8c-%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%80%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" >JNI-java调用c++程序的最常用方法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E4%B8%80%E3%80%8B-%E7%82%B9%E4%BA%91%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" >PCL入门《一》-点云的数据结构</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E4%B8%83%E3%80%8B-%E5%8F%AF%E8%A7%86%E5%8C%96PCLVisualizer/" >PCL入门《七》-可视化PCLVisualizer</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/KDTree%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/" >KDTree简单理解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/Linux-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%BE%AA%E7%8E%AF%E6%89%A7%E8%A1%8C%E7%A8%8B%E5%BA%8F/" >Linux-命令行循环执行程序</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E4%B8%89%E3%80%8B%E5%B9%B3%E9%9D%A2%E7%9A%84%E6%B3%95%E7%BA%BF/" >PCL入门《三》平面的法线</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E4%BA%8C%E3%80%8B%E7%82%B9%E4%BA%91%E7%9A%84%E6%BB%A4%E6%B3%A2/" >PCL入门《二》点云的滤波</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E4%BA%94%E3%80%8B%E4%BD%BF%E7%94%A8VOXEL%E7%A8%80%E7%96%8F%E7%82%B9%E4%BA%91/" >PCL入门《五》使用VOXEL稀疏点云</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E5%85%AB%E3%80%8B-RANSAC%E7%9A%84%E5%AE%9E%E7%8E%B0/" >PCL入门《八》-RANSAC的实现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E5%9B%9B%E3%80%8B%E6%A0%B9%E6%8D%AE%E5%90%91%E9%87%8F%E5%81%9A%E7%82%B9%E4%BA%91%E6%97%8B%E8%BD%AC/" >PCL入门《四》根据向量做点云旋转</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E5%85%AD%E3%80%8B%E4%BD%BF%E7%94%A8Region-growing%E8%BF%9B%E8%A1%8C%E5%B9%B3%E9%9D%A2%E5%88%86%E5%89%B2/" >PCL入门《六》使用Region-growing进行平面分割</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/SIFT%E4%BB%8B%E7%BB%8D/" >SIFT介绍</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/Ubuntu18-04-Caffe-%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4%E8%AE%B0%E5%BD%95%EF%BC%88%E8%B6%85%E8%AF%A6%E5%B0%BD%EF%BC%89/" >Ubuntu18-04-Caffe-安装步骤记录（超详尽）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/Ubuntu%E8%93%9D%E5%B1%8F%E8%BF%9B%E4%B8%8D%E4%BA%86%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" >Ubuntu蓝屏进不了图形界面的解决办法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/Vector%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%B8%85%E7%A9%BA%E6%95%B0%E6%8D%AE%E4%B8%8E%E9%87%8A%E6%94%BE%E5%86%85%E5%AD%98/" >Vector的正确清空数据与释放内存</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/SICP%E9%98%85%E8%AF%BB%E7%90%86%E8%A7%A3%E3%80%8A%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AC%AC%E4%B8%80%E8%8A%82%E3%80%8B/" >SICP阅读理解《第一章第一节》</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/adaboost%E7%9A%84%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3/" >adaboost的通俗理解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/RANSAC%E9%80%9A%E4%BF%97%E8%AE%B2%E8%A7%A3/" >RANSAC通俗讲解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E4%B8%80%E3%80%8B-%E8%AE%A1%E7%AE%97%E7%9F%A9%E9%98%B5%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4/" >c++-CUDA编程《一》-计算矩阵加减乘除</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/c-%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/" >c++读取文件</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/caffe%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%E5%B0%8F%E7%BB%93%EF%BC%88%E7%95%AA%E5%A4%96%E7%AF%87%EF%BC%89/" >caffe常用指令小结（番外篇）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/caffe%E6%B5%8B%E8%AF%95%E7%A8%8B%E5%BA%8F%E3%80%8A%E4%B8%80%E3%80%8Bsoftmax/" >caffe测试程序《一》softmax</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%B8%80%E3%80%8B%E8%AE%AD%E7%BB%83%E5%85%A5%E5%8F%A3/" >caffe源码阅读《一》训练入口</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/fsck-Linux%E7%A1%AC%E7%9B%98%E4%BF%AE%E5%A4%8D/" >fsck----Linux硬盘修复</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/git-pro%E7%AC%94%E8%AE%B0-%E3%80%8AGit-%E5%88%86%E6%94%AF%E3%80%8B/" >git-pro笔记-《Git-分支》</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%BA%8C%E3%80%8Bsoftmax%E5%B1%82/" >caffe源码阅读《二》softmax层</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E3%80%8A%E6%8C%89%E6%B5%81%E7%A8%8B%E5%88%97%E4%B8%BE%E3%80%8B/" >git常用命令《按流程列举》</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/inode%E8%A7%A3%E9%87%8A%EF%BC%88%E8%A7%A3%E5%86%B3linux%E6%9C%89%E7%A9%BA%E9%97%B4%E5%8D%B4%E6%8F%90%E7%A4%BA%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E4%B8%8D%E8%B6%B3%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%89/" >inode解释（解决linux有空间却提示磁盘空间不足的问题）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/linux%E5%91%BD%E4%BB%A4/" >linux命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/git-pro%E7%AC%94%E8%AE%B0-%E3%80%8AGit-%E5%9F%BA%E7%A1%80%E3%80%8B/" >git-pro笔记-《Git-基础》</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/kmeans-%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/" >kmeans(最简单的机器学习算法)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/linux%E8%BF%90%E7%BB%B4-N%E5%8D%A1%E7%94%B5%E8%84%91%E8%A3%85Ubuntu%E5%8D%A1%E4%BD%8F%E9%97%AE%E9%A2%98/" >linux运维-N卡电脑装Ubuntu卡住问题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/linux%E8%BF%90%E7%BB%B4-doxygen%E5%AE%89%E8%A3%85/" >linux运维-doxygen安装</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/opencv%E4%B8%ADRect%E7%B1%BB%E7%9A%84%E7%A5%9E%E5%A5%87%E7%94%A8%E6%B3%95/" >opencv中Rect类的神奇用法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/opencv%E9%BC%A0%E6%A0%87%E7%BB%8F%E8%BF%87%E8%AF%BB%E5%8F%96%E5%9D%90%E6%A0%87%E4%BB%A5%E5%8F%8A%E5%88%92%E5%8A%A8%E7%94%BB%E6%A1%86/" >opencv鼠标经过读取坐标以及划动画框</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/pooling%E6%B1%A0%E5%8C%96%E6%93%8D%E4%BD%9C%E7%9A%84%E4%BB%A3%E7%A0%81%E8%AF%A6%E8%A7%A3/" >pooling池化操作的代码详解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/opencv-matchTemplate%E5%87%BD%E6%95%B0%E7%9A%84%E8%A7%A3%E6%9E%90/" >opencv-matchTemplate函数的解析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/pyqt%E5%85%A5%E9%97%A8%EF%BC%88opencv%E4%B8%8EQLabel%EF%BC%89/" >pyqt入门（opencv与QLabel）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/python%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/" >python常用函数</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/python%E6%9F%A5%E7%9C%8Bimport%E7%9A%84%E7%9B%AE%E5%BD%95/" >python查看import的目录</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/python%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/" >python那些事儿</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/vector%E7%9A%84%E8%89%AF%E5%A5%BD%E4%B9%A0%E6%83%AFreserve/" >vector的良好习惯reserve</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E4%B8%80%E4%BA%9B%E6%95%B0%E5%AD%A6%E5%90%8D%E8%AF%8D%E7%9A%84%E8%A7%A3%E9%87%8A/" >一些数学名词的解释</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E4%BB%8ERCNN%E5%88%B0FAST-RCNN%E3%80%81FASTER-RCNN%E5%86%8D%E5%88%B0MASK-RCNN/" >从RCNN到FAST-RCNN、FASTER-RCNN再到MASK-RCNN</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%B7%E7%A7%AF%E5%91%A2/" >什么是卷积呢</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E4%BD%BF%E7%94%A8iptables%E9%99%90%E5%88%B6%E7%94%B5%E8%84%91%E8%AE%BF%E9%97%AE%E6%9F%90%E4%B8%AAip/" >使用iptables限制电脑访问某个ip</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E5%85%B3%E4%BA%8ELBP%EF%BC%88Local-Binary-Pattern%EF%BC%89%E7%89%B9%E5%BE%81%E3%80%8A%E4%BA%8C%E3%80%8B-%E5%87%A0%E7%A7%8D%E5%8F%98%E7%A7%8D/" >关于LBP（Local-Binary-Pattern）特征《二》-几种变种</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E5%85%B3%E4%BA%8ELBP%EF%BC%88Local-Binary-Pattern%EF%BC%89%E7%89%B9%E5%BE%81/" >关于LBP（Local-Binary-Pattern）特征</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/pyqt%E5%85%A5%E9%97%A8%EF%BC%88%E5%B8%A6%E9%BC%A0%E6%A0%87%E5%93%8D%E5%BA%94%E4%BA%8B%E4%BB%B6%E7%9A%84QLabel%EF%BC%89/" >pyqt入门（带鼠标响应事件的QLabel）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E5%8F%82%E6%95%B0%E4%BC%98%E5%8C%96%E5%87%BD%E6%95%B0%E7%9B%B4%E8%A7%82%E6%98%BE%E7%A4%BA%E5%9B%BE/" >参数优化函数直观显示图</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E5%8F%8C%E7%BA%BF%E6%80%A7%E5%B7%AE%E5%80%BC/" >双线性差值</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E5%A6%82%E4%BD%95%E5%BF%AB%E9%80%9F%E4%B8%8B%E8%BD%BDarxiv%E8%AE%BA%E6%96%87%EF%BC%8C%E4%BD%BF%E7%94%A8arxiv%E4%B8%AD%E5%9B%BD%E5%AE%98%E6%96%B9%E9%95%9C%E5%83%8F%E6%9C%8D%E5%8A%A1%E5%99%A8/" >如何快速下载arxiv论文，使用arxiv中国官方镜像服务器</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E6%97%8B%E8%BD%AC%E7%9F%A9%E9%98%B5/" >旋转矩阵</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0%E5%92%8C%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%BB%84%E5%90%88%E6%95%88%E6%9E%9C/" >机器学习-代价函数和激活函数组合效果</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/" >机器学习-损失函数</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E6%95%B2%E7%A8%8B%E5%BA%8F%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%80%97%E6%AF%94%E9%97%AE%E9%A2%98/" >敲程序时遇到的一些逗比问题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E6%AD%A3%E5%88%99%E5%8C%96%E6%96%B9%E6%B3%95%EF%BC%9AL1%E5%92%8CL2-regularization%E3%80%81%E6%95%B0%E6%8D%AE%E9%9B%86%E6%89%A9%E5%A2%9E%E3%80%81dropout/" >正则化方法：L1和L2-regularization、数据集扩增、dropout</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E6%9E%81%E7%AE%80%E8%A7%A3%E9%87%8Ainception-V1-V2-V3-V4/" >极简解释inception-V1-V2-V3-V4</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E6%B7%B7%E6%B7%86%E7%9F%A9%E9%98%B5%EF%BC%88confusion-matrix%EF%BC%89/" >混淆矩阵（confusion-matrix）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E7%94%BB%E5%B0%84%E7%BA%BF%E6%B3%95%E5%88%A4%E6%96%AD%E7%82%B9%E6%98%AF%E5%90%A6%E5%9C%A8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E5%86%85/" >画射线法判断点是否在多边形内</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E5%9F%BA%E4%BA%8E%E6%9A%97%E9%80%9A%E9%81%93%E7%9A%84%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE/" >基于暗通道的图像去雾</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E7%94%A8CMake%E5%9C%A8windows%E4%B8%8B%E7%BC%96%E8%AF%91vs%E7%9A%84opencv%E7%A8%8B%E5%BA%8F/" >用CMake在windows下编译vs的opencv程序</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E7%AE%97%E6%B3%95%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3%E4%B8%8Edemo/" >蒙特卡洛算法简单理解与demo</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E8%85%90%E8%9A%80%E3%80%81%E8%86%A8%E8%83%80%E4%BB%A5%E5%8F%8A%E5%BC%80%E9%97%AD%E6%93%8D%E4%BD%9C%E7%AD%89%E5%BD%A2%E6%80%81%E5%AD%A6%E5%A4%84%E7%90%86/" >腐蚀、膨胀以及开闭操作等形态学处理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E8%A7%A3%E9%87%8A%E4%B8%80%E4%B8%8B%E5%85%A8%E8%BF%9E%E6%8E%A5%E5%B1%82/" >解释一下全连接层</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E8%A7%A3%E5%86%B3keras%E7%9A%84attempting-to-perform-BLAS-operation-using-StreamExecutor-without-BLAS-support%E9%97%AE%E9%A2%98/" >解决keras的attempting-to-perform-BLAS-operation-using-StreamExecutor-without-BLAS-support问题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%BC%95%E8%A8%80%E9%A2%98/" >贝叶斯引言题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E4%B9%9D%E3%80%8B-%E8%BE%93%E5%85%A5%E4%B8%8E%E8%BE%93%E5%87%BA/" >PCL入门《九》-输入与输出</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E7%BB%86%E8%AF%B4new%E4%B8%8Emalloc%E7%9A%8410%E7%82%B9%E5%8C%BA%E5%88%AB/" >细说new与malloc的10点区别</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/05</span><a class="archive-post-title" href= "/2020/02/05/linux%E8%BF%90%E7%BB%B4-%E5%88%86%E5%8D%B7%E5%8E%8B%E7%BC%A9/" >linux运维-分卷压缩</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/05</span><a class="archive-post-title" href= "/2020/02/05/python%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-numpy%E5%90%91%E7%A9%BA%E7%9A%84%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0/" >python机器学习-numpy向空的二维数组中添加元素</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/04</span><a class="archive-post-title" href= "/2020/02/04/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-softmax/" >机器学习-softmax</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/04</span><a class="archive-post-title" href= "/2020/02/04/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E8%8C%83%E6%95%B0/" >机器学习-范数</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span><a class="archive-post-title" href= "/2020/02/03/%E5%87%B8%E4%BC%98%E5%8C%96/" >凸优化</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span><a class="archive-post-title" href= "/2020/02/03/python%E8%B0%83%E7%94%A8c-%E5%87%BD%E6%95%B0%E4%BC%A0%E9%80%92opencv%E5%9B%BE%E7%89%87/" >python调用c++函数传递opencv图片</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/21</span><a class="archive-post-title" href= "/2020/01/21/linux%E8%BF%90%E7%BB%B4-%E4%BD%BF%E7%94%A8pigz%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%8E%8B%E7%BC%A9/" >linux运维-使用pigz多线程压缩</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/09</span><a class="archive-post-title" href= "/2020/01/09/%E8%AE%BE%E7%BD%AEsupervisor/" >设置supervisor</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/09</span><a class="archive-post-title" href= "/2020/01/09/%E5%8D%B8%E8%BD%BDnvidia%E9%A9%B1%E5%8A%A8/" >卸载nvidia驱动</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/07</span><a class="archive-post-title" href= "/2020/01/07/WebFace-%E9%94%99%E8%AF%AF%E4%BA%BA%E8%84%B8/" >WebFace 错误人脸</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/07</span><a class="archive-post-title" href= "/2020/01/07/python%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-numpy%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/" >python机器学习-numpy常用函数</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/07</span><a class="archive-post-title" href= "/2020/01/07/%E5%90%91caffe%E7%9A%84docker%E4%B8%AD%E6%B7%BB%E5%8A%A0opencv%E5%B9%B6%E4%BF%9D%E5%AD%98/" >向caffe的docker中添加opencv并保存</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/07</span><a class="archive-post-title" href= "/2020/01/07/python%E5%88%9B%E5%BB%BAgrpc%E9%80%9A%E4%BF%A1demo%E8%A7%A3%E6%9E%90/" >python创建grpc通信demo解析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/07</span><a class="archive-post-title" href= "/2020/01/07/linux%E8%BF%90%E7%BB%B4-apt%E6%BA%90%E9%94%99%E8%AF%AF/" >linux运维-apt源错误</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/07</span><a class="archive-post-title" href= "/2020/01/07/linux%E8%BF%90%E7%BB%B4-apt%E9%94%81%E9%97%AE%E9%A2%98/" >linux运维-apt锁问题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span><a class="archive-post-title" href= "/2020/01/05/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-YOLOv2/" >目标检测-YOLOv2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span><a class="archive-post-title" href= "/2020/01/05/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-YOLO/" >目标检测-YOLO</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/2020/01/01/hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" >hexo 博客搭建</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="目标检测"><span class="iconfont-archer">&#xe606;</span>目标检测</span>
+    
+        <span class="sidebar-tag-name" data-tags="论文解读"><span class="iconfont-archer">&#xe606;</span>论文解读</span>
+    
+        <span class="sidebar-tag-name" data-tags="算法"><span class="iconfont-archer">&#xe606;</span>算法</span>
+    
+        <span class="sidebar-tag-name" data-tags="图像处理"><span class="iconfont-archer">&#xe606;</span>图像处理</span>
+    
+        <span class="sidebar-tag-name" data-tags="YOLO"><span class="iconfont-archer">&#xe606;</span>YOLO</span>
+    
+        <span class="sidebar-tag-name" data-tags="数据集"><span class="iconfont-archer">&#xe606;</span>数据集</span>
+    
+        <span class="sidebar-tag-name" data-tags="webface"><span class="iconfont-archer">&#xe606;</span>webface</span>
+    
+        <span class="sidebar-tag-name" data-tags="人脸识别"><span class="iconfont-archer">&#xe606;</span>人脸识别</span>
+    
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+    
+        <span class="sidebar-tag-name" data-tags="numpy"><span class="iconfont-archer">&#xe606;</span>numpy</span>
+    
+        <span class="sidebar-tag-name" data-tags="caffe"><span class="iconfont-archer">&#xe606;</span>caffe</span>
+    
+        <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="opencv"><span class="iconfont-archer">&#xe606;</span>opencv</span>
+    
+        <span class="sidebar-tag-name" data-tags="grpc"><span class="iconfont-archer">&#xe606;</span>grpc</span>
+    
+        <span class="sidebar-tag-name" data-tags="运维"><span class="iconfont-archer">&#xe606;</span>运维</span>
+    
+        <span class="sidebar-tag-name" data-tags="apt"><span class="iconfont-archer">&#xe606;</span>apt</span>
+    
+        <span class="sidebar-tag-name" data-tags="守护进程"><span class="iconfont-archer">&#xe606;</span>守护进程</span>
+    
+        <span class="sidebar-tag-name" data-tags="supervisor"><span class="iconfont-archer">&#xe606;</span>supervisor</span>
+    
+        <span class="sidebar-tag-name" data-tags="nvidia"><span class="iconfont-archer">&#xe606;</span>nvidia</span>
+    
+        <span class="sidebar-tag-name" data-tags="cuda"><span class="iconfont-archer">&#xe606;</span>cuda</span>
+    
+        <span class="sidebar-tag-name" data-tags="c++"><span class="iconfont-archer">&#xe606;</span>c++</span>
+    
+        <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
+    
+        <span class="sidebar-tag-name" data-tags="调参"><span class="iconfont-archer">&#xe606;</span>调参</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+    jsonContent:
+    meta: false
+    pages: false
+    posts:
+        title: true
+        date: true
+        path: true
+        text: false
+        raw: false
+        content: false
+        slug: false
+        updated: false
+        comments: false
+        link: false
+        permalink: true
+        excerpt: false
+        categories: true
+        tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="论文解读"><span class="iconfont-archer">&#xe60a;</span>论文解读</span>
+    
+        <span class="sidebar-category-name" data-categories="数据集"><span class="iconfont-archer">&#xe60a;</span>数据集</span>
+    
+        <span class="sidebar-category-name" data-categories="numpy"><span class="iconfont-archer">&#xe60a;</span>numpy</span>
+    
+        <span class="sidebar-category-name" data-categories="caffe"><span class="iconfont-archer">&#xe60a;</span>caffe</span>
+    
+        <span class="sidebar-category-name" data-categories="grpc"><span class="iconfont-archer">&#xe60a;</span>grpc</span>
+    
+        <span class="sidebar-category-name" data-categories="运维"><span class="iconfont-archer">&#xe60a;</span>运维</span>
+    
+        <span class="sidebar-category-name" data-categories="caffe源码解读"><span class="iconfont-archer">&#xe60a;</span>caffe源码解读</span>
+    
+        <span class="sidebar-category-name" data-categories="python"><span class="iconfont-archer">&#xe60a;</span>python</span>
+    
+        <span class="sidebar-category-name" data-categories="调参"><span class="iconfont-archer">&#xe60a;</span>调参</span>
+    
+        <span class="sidebar-category-name" data-categories="机器学习"><span class="iconfont-archer">&#xe60a;</span>机器学习</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "keefe"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+

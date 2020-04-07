@@ -346,152 +346,28 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2020/01/21/linux%E8%BF%90%E7%BB%B4-%E4%BD%BF%E7%94%A8pigz%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%8E%8B%E7%BC%A9/" >
+        <a class="abstract-title" href = "/2020/04/07/fsck----Linux%E7%A1%AC%E7%9B%98%E4%BF%AE%E5%A4%8D/" >
             
-                <span>linux运维-使用pigz多线程压缩</span>
+                <span>fsck----Linux硬盘修复</span>
         </a>
         <div class="abstract-content">
-            因为tar zip是单线程的压缩，压缩起来很慢，这个使用使用pigz工具辅助就会使用多线程了。安装
-sudo apt install pigz压缩
-tar cvf - test.txt | pigz &gt; test.tar.gz解压到指定目录
-转自： http://unix.stackexchange.com/questions/198958/unpigz-and-untar-to-a-specific-directory
-I found three solutions:With GNU tar, using the awesome -I option:tar -I pigz -xv...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/01/21</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "运维">运维</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/01/09/%E8%AE%BE%E7%BD%AEsupervisor/" >
-            
-                <span>设置supervisor</span>
-        </a>
-        <div class="abstract-content">
-            简介supervisor可以作为守护进程，让程序死了能够拉起来，简单易操作。需要进行如下几个步骤
-
-安装supervisor
-设置需要拉起的命令
-让supervisor开机自启
-
-安装supervisor安装直接使用
-1sudo apt install supervisor
-就可以了，简单易操作
-设置需要拉起的命令如果不出意外，在/etc下会出现supervisor目录，然后在conf.d里面自己建立一个文件用来配置，因为在 /etc/supervisor/supervisord.conf里它添加了conf.d里面所有的文件，所以大胆的去添加就可以了
-123456789101112131...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/01/09</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "运维">运维</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "守护进程">守护进程</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "supervisor">supervisor</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/01/09/%E5%8D%B8%E8%BD%BDnvidia%E9%A9%B1%E5%8A%A8/" >
-            
-                <span>卸载nvidia驱动</span>
-        </a>
-        <div class="abstract-content">
-            卸载nvidia驱动卸载NV驱动和安装一样，首先ctrl+Alt+F2进入命令行状态，然后停止lightdm
-1sudo service lightdm stop
-或者
-1sudo &#x2F;etc&#x2F;init.d&#x2F;lightdm stop
-卸载命令位置/usr/bin/nvidia-uninstall，以下命令即可卸载。
-1sudo &#x2F;usr&#x2F;bin&#x2F;nvidia-uninstall
-不找这个命令的位置，也可以
-1sudo apt-get install autoremove --purge nvidia*
-卸载cudacuda的默认安...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/01/09</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "运维">运维</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "nvidia">nvidia</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "cuda">cuda</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/01/07/linux%E8%BF%90%E7%BB%B4-apt%E6%BA%90%E9%94%99%E8%AF%AF/" >
-            
-                <span>linux运维-apt源错误</span>
-        </a>
-        <div class="abstract-content">
-            解决E: Unmet dependencies. Try ‘apt-get -f install’ with no packages (or specify a solution).的一种方法
-最近准备装一个软件，更新了apt源却失效了，导致没装成功，其他的软件也装不了了。
-解决办法：
-手动去源列表里面删除刚刚添加的那一项
-在/etc/apt/sources.list地方
-然后
-sudo apt-get -f install
-就恢复正常了
+            有时候硬盘由于强制关机之类的操作造成了一定的损坏，造成部分分区挂载不上，我们可以使用fsck来修复
+全称 file system consistency check，是linux自带的一个很强大的工具，基本上强行关机造成的损坏都可以修复
+用法如下：
+首先使用一些disk查看工具，看看自己要修复的分区是哪一个
+比方说是sdc3那么就执行
+sudo fsck /dev/sdc3  
+就可以了
+之后如果坏了会问你某某坏了，是否需要修复，点击回车yes就行了
+当然，前提是硬盘要处于卸载状态，不能挂载才能执行这个命令。
 
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/01/07</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/07</span>
             </div>
             <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "运维">运维</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "apt">apt</a>
-    
-</div>
             
         </div>
     </article>
@@ -502,19 +378,180 @@ sudo apt-get -f install
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2020/01/07/%E5%90%91caffe%E7%9A%84docker%E4%B8%AD%E6%B7%BB%E5%8A%A0opencv%E5%B9%B6%E4%BF%9D%E5%AD%98/" >
+        <a class="abstract-title" href = "/2020/04/07/c++-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E4%B8%80%E3%80%8B-%E8%AE%A1%E7%AE%97%E7%9F%A9%E9%98%B5%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4/" >
             
-                <span>向caffe的docker中添加opencv并保存</span>
+                <span>c++-CUDA编程《一》-计算矩阵加减乘除</span>
         </a>
         <div class="abstract-content">
-            参考自：http://www.docker.org.cn/book/docker/docer-save-changes-10.html
-首先学会安装opencv，因为caffe的docker是没有源的，所以需要手动添加进去
-1234echo &quot;deb http:&#x2F;&#x2F;de.archive.ubuntu.com&#x2F;ubuntu precise main restricted universe&quot; | sudo tee -a &#x2F;etc&#x2F;apt&#x2F;sources.listecho &quot;deb-src http:&#...
+            #include &quot;calculator.h&quot;
+#include &lt;cuda_runtime.h&gt;
+#include &quot;iostream&quot;
+
+bool InitCUDA()
+{
+    //used to count the device numbers
+    int count; 
+
+    // get the cuda device count
+    cudaGetDeviceCount(&amp;count);
+    // print(&quot;%d\n&quot;, count);
+    std::cout &lt;...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/01/07</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/07</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/04/07/c++%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/" >
+            
+                <span>c++读取文件</span>
+        </a>
+        <div class="abstract-content">
+            c++标准流读取txt文件，虽然很容易搜索到，但是由于很常用，我还是记录在自己的博客里。
+首先是头文件
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;string&gt;第一个是输入输出流，因为接下来文件读取和写入都是用的这个流，也就是&gt;&gt;和&lt;&lt;
+第二个就是包含了文件读取的类的头文件
+第三个是字符串的头文件，因为都出来首先是字符串格式的
+接下来读取的代码
+std::ifstream fin(data_file);
+if(!fin)
+{
+    printf(&quot;Read da...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/07</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/04/07/JNI-java%E8%B0%83%E7%94%A8c++%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%80%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" >
+            
+                <span>JNI-java调用c++程序的最常用方法</span>
+        </a>
+        <div class="abstract-content">
+            java与c、c++通信中有一个最常用的方法，就是JNI的方式。首先让c++生成动态链接库，然后用java来调用。下面重点演示linux下的做法。
+首先用eclipse建立一个java类：
+
+类名就叫JNIDemo
+接着写上如下代码：
+
+package com.jni.demo;  
+public class JNIDemo {  
+    //定义一个本地方法  
+    public native String entrance(String P1,String P2,String P3);  
+    public static void main(String[] args){ ...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/07</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/04/07/C++static%E7%B1%BB%E6%88%90%E5%91%98%EF%BC%8Cstatic%E7%B1%BB%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0/" >
+            
+                <span>C++static类成员，static类成员函数</span>
+        </a>
+        <div class="abstract-content">
+            转载自：https://blog.csdn.net/u014453898/article/details/64124269
+0.static修饰类中成员，表示类的共享数据
+1.static类成员
+在C++primer里面说过，static类成员不像普通的类数据成员，static类数据成员独立于一切类对象处在。static类数据成员是与类关联的，但不与该类定义的对象有任何关系。这句话什么意思？就是static不会想普通类数据成员一样每一个类对象都有一份，全部类对象是共享一个static类成员的，例如A类对象修改了static成员为1，那么B对象对应的static类对象成员的值也会是1.
+注...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/07</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/04/07/C++%E5%A4%9A%E7%BA%BF%E7%A8%8B/" >
+            
+                <span>C++多线程</span>
+        </a>
+        <div class="abstract-content">
+            头文件
+#include &lt;thread&gt;示例代码：
+Search_param search_param[6];
+std::vectorstd::thread threads;
+std::vector ret_param;
+for(int i = 0; i &lt; 6; i++)
+{
+search_param[i] = {1, “abc”, ret_param[i]};
+std::thread find_border_thread(find_border, std::ref(search_param[i]));
+threads.emplace_back(std::move(...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/07</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/03/05/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E5%85%AD%E3%80%8Bbase-conv-layer/" >
+            
+                <span>caffe源码阅读《六》base_conv_layer</span>
+        </a>
+        <div class="abstract-content">
+            BaseConvolutionLayer是所有卷积层的基类。为什么卷积层还需要基类呢？因为再caffe里除了 ConvolutionLayer还有 DeconvolutionLayer
+BaseConvolutionLayer 类BaseConvolutionLayer 构造函数12explicit BaseConvolutionLayer(const LayerParameter&amp; param)    : Layer&lt;Dtype&gt;(param) &#123;&#125;
+因为它是一个基类，所以这个构造函数就写成了空的，传入了 param这一个参数，但是什么都没做，传...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/03/05</span>
             </div>
             <!-- tags  -->
             
@@ -522,9 +559,36 @@ sudo apt-get -f install
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "caffe">caffe</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "docker">docker</a>
+</div>
+            
+        </div>
+    </article>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "opencv">opencv</a>
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/03/04/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E5%85%AD%E3%80%8Bim2col/" >
+            
+                <span>caffe源码阅读《六》im2col</span>
+        </a>
+        <div class="abstract-content">
+            卷积的过程卷积实际上就是两个矩阵对位相乘，然后再把积求和的一个过程
+im2colcaffe里的卷积运算实际上是把待输入图像和卷积核都转换成矩阵，然后通过矩阵的乘法一步得出来的。这里列举一个例子，假设我们待输入图像是 55的一张图为了方便看清位置，我们就用12345来表示图像的值。我们选择 33的卷积核然后和图像对位相乘，也就是卷积核的 1的位置的值和图像的 1的位置的值相乘，卷积核的 2的位置的值和图像的 2的位置的值相乘。。。这样就完成了卷积的第一步。
+原图转化成矩阵那么如果我们把第一次的这9个值写成一列的话就是：那么这9个值就对应的是我们原图上的这9个格子卷积核每往后移动一步，就把新...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/03/04</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "caffe">caffe</a>
     
 </div>
             
@@ -537,29 +601,24 @@ sudo apt-get -f install
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2020/01/07/python%E5%88%9B%E5%BB%BAgrpc%E9%80%9A%E4%BF%A1demo%E8%A7%A3%E6%9E%90/" >
+        <a class="abstract-title" href = "/2020/02/29/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%BA%94%E3%80%8Bsolver/" >
             
-                <span>python创建grpc通信demo解析</span>
+                <span>caffe源码阅读《五》solver</span>
         </a>
         <div class="abstract-content">
-            首先grpc使用protobuf来定义数据以及函数结构，所以需要先安装protobuf 和grpc（这里使用豆瓣云加速）
-12sudo pip install protobuf -i http:&#x2F;&#x2F;pypi.douban.com&#x2F;simplesudo pip install grpcio-tools -i http:&#x2F;&#x2F;pypi.douban.com&#x2F;simple
-
-然后创建一个proto文件，来看看我的例子，我要做一个识别的类，里面有一个函数叫做注册，输入参数是路径的列表和人名，返回参数是特征列表，来看看我的定义文件
-1234...
+            SolverAction最开始定义了一个枚举
+12345678910111213141516&#x2F;**  * @brief Enumeration of actions that a client of the Solver may request by  * implementing the Solver&#39;s action request function, which a  * client may optionally provide in order to request early termination  * or saving a snapshot witho...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/01/07</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/29</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python">python</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "grpc">grpc</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "caffe">caffe</a>
     
 </div>
             
@@ -572,159 +631,25 @@ sudo apt-get -f install
     
     
     <article class="index-post">
-        <a class="abstract-title" href = "/2020/01/07/python%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-numpy%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/" >
+        <a class="abstract-title" href = "/2020/02/28/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E5%9B%9B%E3%80%8Bnet/" >
             
-                <span>python机器学习-numpy常用函数</span>
+                <span>caffe源码阅读《四》net</span>
         </a>
         <div class="abstract-content">
-            根据id操作元素1a&#x3D;np.array([3,4,5,6,7,8,9])
-
-
-array([3, 4, 5, 6, 7, 8, 9])
-
-1array([3, 4, 5, 6, 7, 8, 9])
-
-[2, 3, 4]
-
-1a[id]
-
-
-array([5, 6, 7])
-
-深度拷贝12import copyb &#x3D; copy.deepcopy(a)
-
-
-array([3, 4, 5, 6, 7, 8, 9])
-
-1a[id] &#x3D; 0
-
-array([3, 4, 0, 0, 0, 8, 9])
-
-反选操作1c &#x3D; b - a
-
-
-array([0, ...
+            caffe的net是一个网络架构，串联起所有的blob，支撑着整个神经网络前向和反向传播的一个结构。他也是分为hpp和cpp文件的。首先看注释
+12345678&#x2F;** * @brief Connects Layer%s together into a directed acyclic graph (DAG) *        specified by a NetParameter. * * TODO(dox): more thorough description. *&#x2F;template &lt;typename Dtype&gt;class Net
+把各个层连接在一起...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/01/07</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/28</span>
             </div>
             <!-- tags  -->
             
             <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "python">python</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "numpy">numpy</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/01/07/WebFace-%E9%94%99%E8%AF%AF%E4%BA%BA%E8%84%B8/" >
-            
-                <span>WebFace 错误人脸</span>
-        </a>
-        <div class="abstract-content">
-            
-0000157/057.jpg
-
-
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/01/07</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "数据集">数据集</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "webface">webface</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "人脸识别">人脸识别</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/01/07/linux%E8%BF%90%E7%BB%B4-apt%E9%94%81%E9%97%AE%E9%A2%98/" >
-            
-                <span>linux运维-apt锁问题</span>
-        </a>
-        <div class="abstract-content">
-            　　在想要更新资源的时候出现了以下问题：　　而出现此问题的原因是因为可能是有另外一个程序正在运行，导致资源被锁不可用。而导致资源被锁的原因，可能是上次安装时没正常完成，而导致出现此状况。
-解决办法：在终端敲入这两句命令：12sudo rm &#x2F;var&#x2F;cache&#x2F;apt&#x2F;archives&#x2F;locksudo rm &#x2F;var&#x2F;lib&#x2F;dpkg&#x2F;lock
-
-再继续安装就好了。
-作者：为理想而奋斗的啊航来源：CSDN原文：https://blog.csdn.net/weixin_42489042/articl...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/01/07</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "运维">运维</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "apt">apt</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/01/05/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-YOLOv2/" >
-            
-                <span>目标检测-YOLOv2</span>
-        </a>
-        <div class="abstract-content">
-            　　yolov2从网络上讲是很简单的结构,几乎和RPN网络完全一样,但是它集百家之长,增加了很多细节去优化.　　先说一下前传流程,他的网络是作者自创的darknet,全部由卷积层和最大池化层构成,只有池化层是缩放了的,每个池化层步长都是2,一共5个池化层,所以最后会缩小2的5次方,也就是32倍.最后输出是什么呢?这个图上画的是softmax,其实不是的啊,这个softmax是他做pretrain的时候用的,后面就舍弃了,这个我们之后会介绍的.所以它的输出实际上和yolov1是一样的,是一个特征向量,例如预测具有80种分类的coco80上的输出就是13*13*425维的特征,只不过它是卷积...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/01/05</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "目标检测">目标检测</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "论文解读">论文解读</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "算法">算法</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "图像处理">图像处理</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "YOLO">YOLO</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "caffe">caffe</a>
     
 </div>
             
@@ -734,7 +659,7 @@ array([0, ...
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <span class="page-number current">1</span><a class="page-number" href="/archives/2020/page/2/">2</a><a class="extend next" rel="next" href="/archives/2020/page/2/">NEXT &amp;#62;</a>
+        <span class="page-number current">1</span><a class="page-number" href="/archives/2020/page/2/">2</a><a class="page-number" href="/archives/2020/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2020/page/12/">12</a><a class="extend next" rel="next" href="/archives/2020/page/2/">NEXT &amp;#62;</a>
     </nav>
     
 </main>
@@ -1027,9 +952,1434 @@ array([0, ...
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 17
+        Total : 112
         </div>
         <!-- search  -->
         
@@ -1040,22 +2390,508 @@ array([0, ...
     
     
     
-    <div class="archive-year"> Invalid date </div>
+    <div class="archive-year"> 2020 </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2020/01/02/hello-world/" >Hello World</a>
+            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2020/04/07/c++-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E4%B8%80%E3%80%8B-%E8%AE%A1%E7%AE%97%E7%9F%A9%E9%98%B5%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4/" >c++-CUDA编程《一》-计算矩阵加减乘除</a>
         </li>
     
     
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2020/04/07/c++%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/" >c++读取文件</a>
+        </li>
     
     
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2020/04/07/fsck----Linux%E7%A1%AC%E7%9B%98%E4%BF%AE%E5%A4%8D/" >fsck----Linux硬盘修复</a>
+        </li>
     
-        </ul>
     
-    <div class="archive-year"> 2020 </div>
-    <ul class="year-list">
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2020/04/07/JNI-java%E8%B0%83%E7%94%A8c++%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%80%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" >JNI-java调用c++程序的最常用方法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2020/04/07/C++static%E7%B1%BB%E6%88%90%E5%91%98%EF%BC%8Cstatic%E7%B1%BB%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0/" >C++static类成员，static类成员函数</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/07</span><a class="archive-post-title" href= "/2020/04/07/C++%E5%A4%9A%E7%BA%BF%E7%A8%8B/" >C++多线程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2020/03/05/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E5%85%AD%E3%80%8Bbase-conv-layer/" >caffe源码阅读《六》base_conv_layer</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/04</span><a class="archive-post-title" href= "/2020/03/04/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E5%85%AD%E3%80%8Bim2col/" >caffe源码阅读《六》im2col</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/29</span><a class="archive-post-title" href= "/2020/02/29/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%BA%94%E3%80%8Bsolver/" >caffe源码阅读《五》solver</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/28</span><a class="archive-post-title" href= "/2020/02/28/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E5%9B%9B%E3%80%8Bnet/" >caffe源码阅读《四》net</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/26</span><a class="archive-post-title" href= "/2020/02/26/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%B8%89%E3%80%8Bblob/" >caffe源码阅读《三》blob</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/25</span><a class="archive-post-title" href= "/2020/02/25/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%BA%8C%E3%80%8Blayer/" >caffe源码阅读《二》layer</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/19</span><a class="archive-post-title" href= "/2020/02/19/maskrcnn%E8%AE%AD%E7%BB%83%E9%85%8D%E7%BD%AE/" >maskrcnn训练配置</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-RCNN/" >目标检测-RCNN</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-Fast-RCNN/" >目标检测-Fast-RCNN</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-Faster-RCNN/" >目标检测-Faster-RCNN</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-SPPNet/" >目标检测-SPPNet</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/C-static%E7%B1%BB%E6%88%90%E5%91%98%EF%BC%8Cstatic%E7%B1%BB%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0/" >C++static类成员，static类成员函数</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/C-%E5%A4%9A%E7%BA%BF%E7%A8%8B/" >C++多线程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/GDB%E5%85%A5%E9%97%A8/" >GDB入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/Deep-Learning%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95%E5%8F%8A%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A%E6%B1%87%E6%80%BB/" >Deep-Learning笔记（三）-机器学习经典算法及名词解释汇总</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/Gabor%E6%BB%A4%E6%B3%A2%E7%9A%84%E5%B1%82%E5%B1%82%E6%80%BB%E7%BB%93/" >Gabor滤波的层层总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/Linux%E4%B8%8B%E8%AE%BE%E7%BD%AEsh%E6%96%87%E4%BB%B6%E5%8F%8C%E5%87%BB%E6%89%A7%E8%A1%8C/" >Linux下设置sh文件双击执行</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/NMS%E2%80%94%E2%80%94%E9%9D%9E%E6%9E%81%E5%A4%A7%E5%80%BC%E6%8A%91%E5%88%B6/" >NMS——非极大值抑制</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/Opencv-3-3-0-%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/" >Opencv-3-3-0-常用函数</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/JNI-java%E8%B0%83%E7%94%A8c-%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%80%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" >JNI-java调用c++程序的最常用方法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E4%B8%80%E3%80%8B-%E7%82%B9%E4%BA%91%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" >PCL入门《一》-点云的数据结构</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E4%B8%83%E3%80%8B-%E5%8F%AF%E8%A7%86%E5%8C%96PCLVisualizer/" >PCL入门《七》-可视化PCLVisualizer</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/KDTree%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/" >KDTree简单理解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/Linux-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%BE%AA%E7%8E%AF%E6%89%A7%E8%A1%8C%E7%A8%8B%E5%BA%8F/" >Linux-命令行循环执行程序</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E4%B8%89%E3%80%8B%E5%B9%B3%E9%9D%A2%E7%9A%84%E6%B3%95%E7%BA%BF/" >PCL入门《三》平面的法线</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E4%BA%8C%E3%80%8B%E7%82%B9%E4%BA%91%E7%9A%84%E6%BB%A4%E6%B3%A2/" >PCL入门《二》点云的滤波</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E4%BA%94%E3%80%8B%E4%BD%BF%E7%94%A8VOXEL%E7%A8%80%E7%96%8F%E7%82%B9%E4%BA%91/" >PCL入门《五》使用VOXEL稀疏点云</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E5%85%AB%E3%80%8B-RANSAC%E7%9A%84%E5%AE%9E%E7%8E%B0/" >PCL入门《八》-RANSAC的实现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E5%9B%9B%E3%80%8B%E6%A0%B9%E6%8D%AE%E5%90%91%E9%87%8F%E5%81%9A%E7%82%B9%E4%BA%91%E6%97%8B%E8%BD%AC/" >PCL入门《四》根据向量做点云旋转</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E5%85%AD%E3%80%8B%E4%BD%BF%E7%94%A8Region-growing%E8%BF%9B%E8%A1%8C%E5%B9%B3%E9%9D%A2%E5%88%86%E5%89%B2/" >PCL入门《六》使用Region-growing进行平面分割</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/SIFT%E4%BB%8B%E7%BB%8D/" >SIFT介绍</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/Ubuntu18-04-Caffe-%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4%E8%AE%B0%E5%BD%95%EF%BC%88%E8%B6%85%E8%AF%A6%E5%B0%BD%EF%BC%89/" >Ubuntu18-04-Caffe-安装步骤记录（超详尽）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/Ubuntu%E8%93%9D%E5%B1%8F%E8%BF%9B%E4%B8%8D%E4%BA%86%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" >Ubuntu蓝屏进不了图形界面的解决办法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/Vector%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%B8%85%E7%A9%BA%E6%95%B0%E6%8D%AE%E4%B8%8E%E9%87%8A%E6%94%BE%E5%86%85%E5%AD%98/" >Vector的正确清空数据与释放内存</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/SICP%E9%98%85%E8%AF%BB%E7%90%86%E8%A7%A3%E3%80%8A%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AC%AC%E4%B8%80%E8%8A%82%E3%80%8B/" >SICP阅读理解《第一章第一节》</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/adaboost%E7%9A%84%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3/" >adaboost的通俗理解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/RANSAC%E9%80%9A%E4%BF%97%E8%AE%B2%E8%A7%A3/" >RANSAC通俗讲解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E4%B8%80%E3%80%8B-%E8%AE%A1%E7%AE%97%E7%9F%A9%E9%98%B5%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4/" >c++-CUDA编程《一》-计算矩阵加减乘除</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/c-%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/" >c++读取文件</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/caffe%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%E5%B0%8F%E7%BB%93%EF%BC%88%E7%95%AA%E5%A4%96%E7%AF%87%EF%BC%89/" >caffe常用指令小结（番外篇）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/caffe%E6%B5%8B%E8%AF%95%E7%A8%8B%E5%BA%8F%E3%80%8A%E4%B8%80%E3%80%8Bsoftmax/" >caffe测试程序《一》softmax</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%B8%80%E3%80%8B%E8%AE%AD%E7%BB%83%E5%85%A5%E5%8F%A3/" >caffe源码阅读《一》训练入口</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/fsck-Linux%E7%A1%AC%E7%9B%98%E4%BF%AE%E5%A4%8D/" >fsck----Linux硬盘修复</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/git-pro%E7%AC%94%E8%AE%B0-%E3%80%8AGit-%E5%88%86%E6%94%AF%E3%80%8B/" >git-pro笔记-《Git-分支》</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%BA%8C%E3%80%8Bsoftmax%E5%B1%82/" >caffe源码阅读《二》softmax层</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E3%80%8A%E6%8C%89%E6%B5%81%E7%A8%8B%E5%88%97%E4%B8%BE%E3%80%8B/" >git常用命令《按流程列举》</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/inode%E8%A7%A3%E9%87%8A%EF%BC%88%E8%A7%A3%E5%86%B3linux%E6%9C%89%E7%A9%BA%E9%97%B4%E5%8D%B4%E6%8F%90%E7%A4%BA%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E4%B8%8D%E8%B6%B3%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%89/" >inode解释（解决linux有空间却提示磁盘空间不足的问题）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/linux%E5%91%BD%E4%BB%A4/" >linux命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/git-pro%E7%AC%94%E8%AE%B0-%E3%80%8AGit-%E5%9F%BA%E7%A1%80%E3%80%8B/" >git-pro笔记-《Git-基础》</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/kmeans-%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/" >kmeans(最简单的机器学习算法)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/linux%E8%BF%90%E7%BB%B4-N%E5%8D%A1%E7%94%B5%E8%84%91%E8%A3%85Ubuntu%E5%8D%A1%E4%BD%8F%E9%97%AE%E9%A2%98/" >linux运维-N卡电脑装Ubuntu卡住问题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/linux%E8%BF%90%E7%BB%B4-doxygen%E5%AE%89%E8%A3%85/" >linux运维-doxygen安装</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/opencv%E4%B8%ADRect%E7%B1%BB%E7%9A%84%E7%A5%9E%E5%A5%87%E7%94%A8%E6%B3%95/" >opencv中Rect类的神奇用法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/opencv%E9%BC%A0%E6%A0%87%E7%BB%8F%E8%BF%87%E8%AF%BB%E5%8F%96%E5%9D%90%E6%A0%87%E4%BB%A5%E5%8F%8A%E5%88%92%E5%8A%A8%E7%94%BB%E6%A1%86/" >opencv鼠标经过读取坐标以及划动画框</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/pooling%E6%B1%A0%E5%8C%96%E6%93%8D%E4%BD%9C%E7%9A%84%E4%BB%A3%E7%A0%81%E8%AF%A6%E8%A7%A3/" >pooling池化操作的代码详解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/opencv-matchTemplate%E5%87%BD%E6%95%B0%E7%9A%84%E8%A7%A3%E6%9E%90/" >opencv-matchTemplate函数的解析</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/pyqt%E5%85%A5%E9%97%A8%EF%BC%88opencv%E4%B8%8EQLabel%EF%BC%89/" >pyqt入门（opencv与QLabel）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/python%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/" >python常用函数</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/python%E6%9F%A5%E7%9C%8Bimport%E7%9A%84%E7%9B%AE%E5%BD%95/" >python查看import的目录</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/python%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/" >python那些事儿</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/vector%E7%9A%84%E8%89%AF%E5%A5%BD%E4%B9%A0%E6%83%AFreserve/" >vector的良好习惯reserve</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E4%B8%80%E4%BA%9B%E6%95%B0%E5%AD%A6%E5%90%8D%E8%AF%8D%E7%9A%84%E8%A7%A3%E9%87%8A/" >一些数学名词的解释</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E4%BB%8ERCNN%E5%88%B0FAST-RCNN%E3%80%81FASTER-RCNN%E5%86%8D%E5%88%B0MASK-RCNN/" >从RCNN到FAST-RCNN、FASTER-RCNN再到MASK-RCNN</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%B7%E7%A7%AF%E5%91%A2/" >什么是卷积呢</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E4%BD%BF%E7%94%A8iptables%E9%99%90%E5%88%B6%E7%94%B5%E8%84%91%E8%AE%BF%E9%97%AE%E6%9F%90%E4%B8%AAip/" >使用iptables限制电脑访问某个ip</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E5%85%B3%E4%BA%8ELBP%EF%BC%88Local-Binary-Pattern%EF%BC%89%E7%89%B9%E5%BE%81%E3%80%8A%E4%BA%8C%E3%80%8B-%E5%87%A0%E7%A7%8D%E5%8F%98%E7%A7%8D/" >关于LBP（Local-Binary-Pattern）特征《二》-几种变种</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E5%85%B3%E4%BA%8ELBP%EF%BC%88Local-Binary-Pattern%EF%BC%89%E7%89%B9%E5%BE%81/" >关于LBP（Local-Binary-Pattern）特征</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/pyqt%E5%85%A5%E9%97%A8%EF%BC%88%E5%B8%A6%E9%BC%A0%E6%A0%87%E5%93%8D%E5%BA%94%E4%BA%8B%E4%BB%B6%E7%9A%84QLabel%EF%BC%89/" >pyqt入门（带鼠标响应事件的QLabel）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E5%8F%82%E6%95%B0%E4%BC%98%E5%8C%96%E5%87%BD%E6%95%B0%E7%9B%B4%E8%A7%82%E6%98%BE%E7%A4%BA%E5%9B%BE/" >参数优化函数直观显示图</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E5%8F%8C%E7%BA%BF%E6%80%A7%E5%B7%AE%E5%80%BC/" >双线性差值</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E5%A6%82%E4%BD%95%E5%BF%AB%E9%80%9F%E4%B8%8B%E8%BD%BDarxiv%E8%AE%BA%E6%96%87%EF%BC%8C%E4%BD%BF%E7%94%A8arxiv%E4%B8%AD%E5%9B%BD%E5%AE%98%E6%96%B9%E9%95%9C%E5%83%8F%E6%9C%8D%E5%8A%A1%E5%99%A8/" >如何快速下载arxiv论文，使用arxiv中国官方镜像服务器</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E6%97%8B%E8%BD%AC%E7%9F%A9%E9%98%B5/" >旋转矩阵</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0%E5%92%8C%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%BB%84%E5%90%88%E6%95%88%E6%9E%9C/" >机器学习-代价函数和激活函数组合效果</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/" >机器学习-损失函数</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E6%95%B2%E7%A8%8B%E5%BA%8F%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%80%97%E6%AF%94%E9%97%AE%E9%A2%98/" >敲程序时遇到的一些逗比问题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E6%AD%A3%E5%88%99%E5%8C%96%E6%96%B9%E6%B3%95%EF%BC%9AL1%E5%92%8CL2-regularization%E3%80%81%E6%95%B0%E6%8D%AE%E9%9B%86%E6%89%A9%E5%A2%9E%E3%80%81dropout/" >正则化方法：L1和L2-regularization、数据集扩增、dropout</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E6%9E%81%E7%AE%80%E8%A7%A3%E9%87%8Ainception-V1-V2-V3-V4/" >极简解释inception-V1-V2-V3-V4</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E6%B7%B7%E6%B7%86%E7%9F%A9%E9%98%B5%EF%BC%88confusion-matrix%EF%BC%89/" >混淆矩阵（confusion-matrix）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E7%94%BB%E5%B0%84%E7%BA%BF%E6%B3%95%E5%88%A4%E6%96%AD%E7%82%B9%E6%98%AF%E5%90%A6%E5%9C%A8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E5%86%85/" >画射线法判断点是否在多边形内</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E5%9F%BA%E4%BA%8E%E6%9A%97%E9%80%9A%E9%81%93%E7%9A%84%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE/" >基于暗通道的图像去雾</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E7%94%A8CMake%E5%9C%A8windows%E4%B8%8B%E7%BC%96%E8%AF%91vs%E7%9A%84opencv%E7%A8%8B%E5%BA%8F/" >用CMake在windows下编译vs的opencv程序</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E7%AE%97%E6%B3%95%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3%E4%B8%8Edemo/" >蒙特卡洛算法简单理解与demo</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E8%85%90%E8%9A%80%E3%80%81%E8%86%A8%E8%83%80%E4%BB%A5%E5%8F%8A%E5%BC%80%E9%97%AD%E6%93%8D%E4%BD%9C%E7%AD%89%E5%BD%A2%E6%80%81%E5%AD%A6%E5%A4%84%E7%90%86/" >腐蚀、膨胀以及开闭操作等形态学处理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E8%A7%A3%E9%87%8A%E4%B8%80%E4%B8%8B%E5%85%A8%E8%BF%9E%E6%8E%A5%E5%B1%82/" >解释一下全连接层</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E8%A7%A3%E5%86%B3keras%E7%9A%84attempting-to-perform-BLAS-operation-using-StreamExecutor-without-BLAS-support%E9%97%AE%E9%A2%98/" >解决keras的attempting-to-perform-BLAS-operation-using-StreamExecutor-without-BLAS-support问题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%BC%95%E8%A8%80%E9%A2%98/" >贝叶斯引言题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E4%B9%9D%E3%80%8B-%E8%BE%93%E5%85%A5%E4%B8%8E%E8%BE%93%E5%87%BA/" >PCL入门《九》-输入与输出</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2020/02/08/%E7%BB%86%E8%AF%B4new%E4%B8%8Emalloc%E7%9A%8410%E7%82%B9%E5%8C%BA%E5%88%AB/" >细说new与malloc的10点区别</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/05</span><a class="archive-post-title" href= "/2020/02/05/linux%E8%BF%90%E7%BB%B4-%E5%88%86%E5%8D%B7%E5%8E%8B%E7%BC%A9/" >linux运维-分卷压缩</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/05</span><a class="archive-post-title" href= "/2020/02/05/python%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-numpy%E5%90%91%E7%A9%BA%E7%9A%84%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0/" >python机器学习-numpy向空的二维数组中添加元素</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/04</span><a class="archive-post-title" href= "/2020/02/04/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-softmax/" >机器学习-softmax</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/04</span><a class="archive-post-title" href= "/2020/02/04/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E8%8C%83%E6%95%B0/" >机器学习-范数</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span><a class="archive-post-title" href= "/2020/02/03/%E5%87%B8%E4%BC%98%E5%8C%96/" >凸优化</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span><a class="archive-post-title" href= "/2020/02/03/python%E8%B0%83%E7%94%A8c-%E5%87%BD%E6%95%B0%E4%BC%A0%E9%80%92opencv%E5%9B%BE%E7%89%87/" >python调用c++函数传递opencv图片</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1109,27 +2945,7 @@ array([0, ...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/05</span><a class="archive-post-title" href= "/2020/01/05/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-Fast-RCNN/" >目标检测-Fast RCNN</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/05</span><a class="archive-post-title" href= "/2020/01/05/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-Faster-RCNN/" >目标检测-Faster RCNN</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/05</span><a class="archive-post-title" href= "/2020/01/05/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-SPPNet/" >目标检测-SPPNet</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">01/05</span><a class="archive-post-title" href= "/2020/01/05/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-YOLO/" >目标检测-YOLO</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/02</span><a class="archive-post-title" href= "/2020/01/02/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-RCNN/" >目标检测-RCNN</a>
         </li>
     
     
@@ -1146,13 +2962,9 @@ array([0, ...
     
         <span class="sidebar-tag-name" data-tags="论文解读"><span class="iconfont-archer">&#xe606;</span>论文解读</span>
     
-        <span class="sidebar-tag-name" data-tags="RCNN"><span class="iconfont-archer">&#xe606;</span>RCNN</span>
-    
         <span class="sidebar-tag-name" data-tags="算法"><span class="iconfont-archer">&#xe606;</span>算法</span>
     
         <span class="sidebar-tag-name" data-tags="图像处理"><span class="iconfont-archer">&#xe606;</span>图像处理</span>
-    
-        <span class="sidebar-tag-name" data-tags="SPP"><span class="iconfont-archer">&#xe606;</span>SPP</span>
     
         <span class="sidebar-tag-name" data-tags="YOLO"><span class="iconfont-archer">&#xe606;</span>YOLO</span>
     
@@ -1185,6 +2997,12 @@ array([0, ...
         <span class="sidebar-tag-name" data-tags="nvidia"><span class="iconfont-archer">&#xe606;</span>nvidia</span>
     
         <span class="sidebar-tag-name" data-tags="cuda"><span class="iconfont-archer">&#xe606;</span>cuda</span>
+    
+        <span class="sidebar-tag-name" data-tags="c++"><span class="iconfont-archer">&#xe606;</span>c++</span>
+    
+        <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
+    
+        <span class="sidebar-tag-name" data-tags="调参"><span class="iconfont-archer">&#xe606;</span>调参</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -1230,6 +3048,14 @@ array([0, ...
         <span class="sidebar-category-name" data-categories="grpc"><span class="iconfont-archer">&#xe60a;</span>grpc</span>
     
         <span class="sidebar-category-name" data-categories="运维"><span class="iconfont-archer">&#xe60a;</span>运维</span>
+    
+        <span class="sidebar-category-name" data-categories="caffe源码解读"><span class="iconfont-archer">&#xe60a;</span>caffe源码解读</span>
+    
+        <span class="sidebar-category-name" data-categories="python"><span class="iconfont-archer">&#xe60a;</span>python</span>
+    
+        <span class="sidebar-category-name" data-categories="调参"><span class="iconfont-archer">&#xe60a;</span>调参</span>
+    
+        <span class="sidebar-category-name" data-categories="机器学习"><span class="iconfont-archer">&#xe60a;</span>机器学习</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
