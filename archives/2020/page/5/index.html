@@ -346,6 +346,63 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/%E8%A7%A3%E9%87%8A%E4%B8%80%E4%B8%8B%E5%85%A8%E8%BF%9E%E6%8E%A5%E5%B1%82/" >
+            
+                <span>解释一下全连接层</span>
+        </a>
+        <div class="abstract-content">
+            在卷积神经网络的最后，往往会出现一两层全连接层，全连接一般会把卷积输出的二维特征图转化成一维的一个向量，这是怎么来的呢？目的何在呢？
+举个例子：
+  
+最后的两列小圆球就是两个全连接层，在最后一层卷积结束后，进行了最后一次池化，输出了20个1212的图像，然后通过了一个全连接层变成了1100的向量。
+这是怎么做到的呢，其实就是有20100个1212的卷积核卷积出来的，对于输入的每一张图，用了一个和图像一样大小的核卷积，这样整幅图就变成了一个数了，如果厚度是20就是那20个核卷积完了之后相加求和。这样就能把一张图高度浓缩成一个数了。
+全连接的目的是什么呢？因为传统的网络我们的输出都是分类，...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E4%BA%8C%E3%80%8B%E7%82%B9%E4%BA%91%E7%9A%84%E6%BB%A4%E6%B3%A2/" >
+            
+                <span>PCL入门《二》点云的滤波</span>
+        </a>
+        <div class="abstract-content">
+            PCL官方给的filter示例实际上是一个空间切割，也就是只保留设定范围内的点，超出边界的就过滤掉了。直接看例子：
+pcl::PassThrough&lt;pcl::PointXYZ&gt; pass;
+  pass.setInputCloud (cloud);
+  pass.setFilterFieldName (&quot;z&quot;);
+  pass.setFilterLimits (0.0, 1.0);
+  //pass.setFilterLimitsNegative (true);
+  pass.filter (*cloud_filtered);这里cloud就是需要过滤的...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E4%B8%89%E3%80%8B%E5%B9%B3%E9%9D%A2%E7%9A%84%E6%B3%95%E7%BA%BF/" >
             
                 <span>PCL入门《三》平面的法线</span>
@@ -577,62 +634,6 @@ chmod +x test.sh2、选中文件，然后在屏幕左上方点File，注意是�
   
 然后就可以了
 
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E4%BA%94%E3%80%8B%E4%BD%BF%E7%94%A8VOXEL%E7%A8%80%E7%96%8F%E7%82%B9%E4%BA%91/" >
-            
-                <span>PCL入门《五》使用VOXEL稀疏点云</span>
-        </a>
-        <div class="abstract-content">
-            在使用PCL的处理点云时，很多时候我们不需要有太过高的分辨率，因为点云过多会造成计算变慢，并且更加消耗计算资源，所以我们需要把点云变稀，voxel就是一个很好的方法。
-voxel就是三维的pixel，也就是把点云画出网格，然后每个网格内保留一个点就可以了。网格的大小可以自己定义，这就相当于一个downsample（下采样）
-)  
-大概的样子就是这样，我显示出了所有的点，如果某一个格子内没有点就可以不显示了，你也可以把格子调的很密，颜色也可以保留。
-话不多说，直接上代码：
-首先必要的引用的是
-#include &lt;pcl/io/pcd_io.h&gt;
-#include &lt;pc...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E5%85%AD%E3%80%8B%E4%BD%BF%E7%94%A8Region-growing%E8%BF%9B%E8%A1%8C%E5%B9%B3%E9%9D%A2%E5%88%86%E5%89%B2/" >
-            
-                <span>PCL入门《六》使用Region-growing进行平面分割</span>
-        </a>
-        <div class="abstract-content">
-            很多时候我们需要分割平面，检测每个平面，这个时候可以使用PCL自带的区域增长方法。  
-话不多说直接上代码：
-pcl::search::Search&lt;pcl::PointXYZ&gt;::Ptr tree = boost::shared_ptr&lt;pcl::search::Search&lt;pcl::PointXYZ&gt; &gt; (new pcl::search::KdTree&lt;pcl::PointXYZ&gt;);
-pcl::PointCloud &lt;pcl::Normal&gt;::Ptr normals (new pcl::PointCloud &lt;...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1882,9 +1883,33 @@ pcl::PointCloud &lt;pcl::Normal&gt;::Ptr normals (new pcl::PointCloud &lt;...
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 111
+        Total : 113
         </div>
         <!-- search  -->
         
@@ -1897,6 +1922,16 @@ pcl::PointCloud &lt;pcl::Normal&gt;::Ptr normals (new pcl::PointCloud &lt;...
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/14</span><a class="archive-post-title" href= "/2020/04/14/gitlab%E6%90%AD%E5%BB%BA/" >gitlab搭建</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/09</span><a class="archive-post-title" href= "/2020/04/09/linux%E8%BF%90%E7%BB%B4-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" >linux运维-常用命令</a>
+        </li>
     
     
         <li class="archive-post-item">

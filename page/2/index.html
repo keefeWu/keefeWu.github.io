@@ -359,6 +359,66 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/04/07/JNI-java%E8%B0%83%E7%94%A8c++%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%80%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" >
+            
+                <span>JNI-java调用c++程序的最常用方法</span>
+        </a>
+        <div class="abstract-content">
+            java与c、c++通信中有一个最常用的方法，就是JNI的方式。首先让c++生成动态链接库，然后用java来调用。下面重点演示linux下的做法。
+首先用eclipse建立一个java类：
+
+类名就叫JNIDemo
+接着写上如下代码：
+
+package com.jni.demo;  
+public class JNIDemo {  
+    //定义一个本地方法  
+    public native String entrance(String P1,String P2,String P3);  
+    public static void main(String[] args){ ...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/07</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/04/07/C++static%E7%B1%BB%E6%88%90%E5%91%98%EF%BC%8Cstatic%E7%B1%BB%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0/" >
+            
+                <span>C++static类成员，static类成员函数</span>
+        </a>
+        <div class="abstract-content">
+            转载自：https://blog.csdn.net/u014453898/article/details/64124269
+0.static修饰类中成员，表示类的共享数据
+1.static类成员
+在C++primer里面说过，static类成员不像普通的类数据成员，static类数据成员独立于一切类对象处在。static类数据成员是与类关联的，但不与该类定义的对象有任何关系。这句话什么意思？就是static不会想普通类数据成员一样每一个类对象都有一份，全部类对象是共享一个static类成员的，例如A类对象修改了static成员为1，那么B对象对应的static类对象成员的值也会是1.
+注...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/07</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/04/07/C++%E5%A4%9A%E7%BA%BF%E7%A8%8B/" >
             
                 <span>C++多线程</span>
@@ -577,114 +637,6 @@ Mat MyDilate(Mat src...
   
 根据观察我们发现，蓝色的线段终止于图形内部，红色线段终止于图形外部。（废话，这是我根据内外话的颜色）其实真正观察出来的是什么呢？所有的蓝色线段和图形的交点都是奇数个，所有红色线段和图形的交点都是偶数个。看！这说明了什么？是不是可以画一条射线，判断和图形的交点个数？
 射线怎么画，我们只需要画一条水平线就行了，也就是y=待求点的y，然后判断与每条边的交点，每条边的计算方法用两点式就可以了，把y带进去，判断交点x是否在两...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E7%94%A8CMake%E5%9C%A8windows%E4%B8%8B%E7%BC%96%E8%AF%91vs%E7%9A%84opencv%E7%A8%8B%E5%BA%8F/" >
-            
-                <span>用CMake在windows下编译vs的opencv程序</span>
-        </a>
-        <div class="abstract-content">
-            网上有很多CMAKE编译opencv的教程，但是到最后具体程序的时候都是采用VS新建工程的方法，这种方法费时费力还不可移植，需要不断地添加库目录，添加链接项。而如果用CMAKE来管理项目，就可以直接把opencv包含进去，移植到另外的机器也很轻松了。
-好，话不多说，咱先从编译opencv开始讲起。首先下载源码版的opencv，打开github，搜索opencv，选择第一个。
-
-进入以后点击release来选择版本
-
-我们今天选用3.1的版本，如果需要其他版本步骤也一样，下载source版
-
-解压缩之后就可以看到所有源文件的目录了。
-
-接着打开CMAKE的GUI工具，在第一行源路径处填写o...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E6%B7%B7%E6%B7%86%E7%9F%A9%E9%98%B5%EF%BC%88confusion-matrix%EF%BC%89/" >
-            
-                <span>混淆矩阵（confusion-matrix）</span>
-        </a>
-        <div class="abstract-content">
-            混淆矩阵是一个统计预测结果与实际结果关系时用到的直观的矩阵，直接上图。
-
-
-
-动物识别
-狮子
-老虎
-老鼠
-猫
-狗
-
-
-
-狮子
-0.45
-0.25
-0.05
-0.18
-0.07
-
-
-老虎
-0.16
-0.39
-0.09
-0.24
-0.12
-
-
-老鼠
-0.03
-0.04
-0.62
-0.16
-0.15
-
-
-猫
-0.18
-0.25
-0.10
-0.38
-0.09
-
-
-狗
-0.09
-0.11
-0.18
-0.26
-0.36
-
-
-这个图的每一行代表某一种动物被识别成不同动物的概率，比方说狮子被识别成狮子的概率试0.45，当成老虎的概率试0.25，当成老鼠的概率试0.05，当成猫的概率试0.18.当成狗的概...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2028,9 +1980,33 @@ Mat MyDilate(Mat src...
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 111
+        Total : 113
         </div>
         <!-- search  -->
         
@@ -2043,6 +2019,16 @@ Mat MyDilate(Mat src...
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/14</span><a class="archive-post-title" href= "/2020/04/14/gitlab%E6%90%AD%E5%BB%BA/" >gitlab搭建</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/09</span><a class="archive-post-title" href= "/2020/04/09/linux%E8%BF%90%E7%BB%B4-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" >linux运维-常用命令</a>
+        </li>
     
     
         <li class="archive-post-item">

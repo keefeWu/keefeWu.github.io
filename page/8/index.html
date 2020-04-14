@@ -359,6 +359,60 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/%E4%BD%BF%E7%94%A8iptables%E9%99%90%E5%88%B6%E7%94%B5%E8%84%91%E8%AE%BF%E9%97%AE%E6%9F%90%E4%B8%AAip/" >
+            
+                <span>使用iptables限制电脑访问某个ip</span>
+        </a>
+        <div class="abstract-content">
+            最近有个单机软件老要提醒我更新，我就用iptables把它的ip给屏蔽了，操作入下。
+sudo iptables -I INPUT -s 1.1.1.1 -j DROP  
+使用上面这个命令就把1.1.1.1这个ip给屏蔽了，以后电脑再也上不了这个了。
+使用如下命令可以查看屏蔽了什么：
+sudo iptables -L -n -v  
+ 删除已添加的iptables规则
+将所有iptables以序号标记显示，执行：
+iptables -L -n --line-numbers比如要删除INPUT里序号为8的规则，执行：
+iptables -D INPUT 8
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/C-static%E7%B1%BB%E6%88%90%E5%91%98%EF%BC%8Cstatic%E7%B1%BB%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0/" >
+            
+                <span>C++static类成员，static类成员函数</span>
+        </a>
+        <div class="abstract-content">
+            
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/Vector%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%B8%85%E7%A9%BA%E6%95%B0%E6%8D%AE%E4%B8%8E%E9%87%8A%E6%94%BE%E5%86%85%E5%AD%98/" >
             
                 <span>Vector的正确清空数据与释放内存</span>
@@ -559,59 +613,6 @@ NMS（non maximum suppression），中文名非极大值抑制，在很多计算
 人脸检测的一些概念
 （1） 绝大部分人脸检测器的核心是分类器，即给定一个尺寸固定图片，分类器判断是或者不是人脸；
 （2）将分类器进化为检测器的关键是：在原始图像上从多个尺度产生窗口，并resize到固定尺寸，然后送给分类器做判断。最常用的方法是滑动窗...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/Deep-Learning%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95%E5%8F%8A%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A%E6%B1%87%E6%80%BB/" >
-            
-                <span>Deep-Learning笔记（三）-机器学习经典算法及名词解释汇总</span>
-        </a>
-        <div class="abstract-content">
-            转载自：https://blog.csdn.net/qq_38156052/article/details/78270458
-经典算法
-一、SVM（支持向量机）
-（1）概念：支持向量机SVM(Support VectorMachine)是一个有监督的学习模型，通常用来进行模式识别、分类、以及回归分析。所谓支持向量，就是指距离分隔超平面最近的点。
-（2）理论背景：​Vapnik等人在多年研究统计学习理论基础上对线性分类器提出了另一种设计最佳准则。其原理也从线性可分说起，然后扩展到线性不可分的情况，甚至扩展到使用非线性函数中去。
-（3）SVM的主要思想可以概括为两点：1.它是针对线性可分情况...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E5%8F%82%E6%95%B0%E4%BC%98%E5%8C%96%E5%87%BD%E6%95%B0%E7%9B%B4%E8%A7%82%E6%98%BE%E7%A4%BA%E5%9B%BE/" >
-            
-                <span>参数优化函数直观显示图</span>
-        </a>
-        <div class="abstract-content">
-            转载自：https://imgur.com/a/Hqolp
-
-Long ValleyAlgos without scaling based on gradient information really struggle to breaksymmetry here - SGD gets no where and Nesterov Accelerated Gradient / Momentumexhibits oscillations until they build up velocity in the optimizationdirection.Algos that scale step...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1955,9 +1956,33 @@ Long ValleyAlgos without scaling based on gradient information really struggle t
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 111
+        Total : 113
         </div>
         <!-- search  -->
         
@@ -1970,6 +1995,16 @@ Long ValleyAlgos without scaling based on gradient information really struggle t
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/14</span><a class="archive-post-title" href= "/2020/04/14/gitlab%E6%90%AD%E5%BB%BA/" >gitlab搭建</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/09</span><a class="archive-post-title" href= "/2020/04/09/linux%E8%BF%90%E7%BB%B4-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" >linux运维-常用命令</a>
+        </li>
     
     
         <li class="archive-post-item">
