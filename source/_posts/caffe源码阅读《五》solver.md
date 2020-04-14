@@ -1,6 +1,7 @@
 ---
 title: caffe源码阅读《五》solver
 date: 2020-02-29 10:09:02
+top: 5
 tags: [caffe]
 categories: 
 - caffe源码解读

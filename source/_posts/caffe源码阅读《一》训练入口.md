@@ -1,6 +1,7 @@
 ---
 title: caffe源码阅读《一》训练入口
 date: 2020-02-08 15:10:55
+top: 1
 tags: [caffe]
 categories: 
 - caffe源码解读

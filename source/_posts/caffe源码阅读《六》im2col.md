@@ -1,6 +1,7 @@
 ---
 title: caffe源码阅读《六》im2col
 date: 2020-03-04 21:16:25
+top: 6
 tags: [caffe]
 categories: 
 - caffe源码解读

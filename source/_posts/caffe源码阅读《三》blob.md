@@ -1,6 +1,7 @@
 ---
 title: caffe源码阅读《三》blob
 date: 2020-02-26 09:51:07
+top: 3
 tags: [caffe]
 categories: 
 - caffe源码解读
