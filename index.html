@@ -564,7 +564,9 @@ caffe的训练程序在tools目录里，名字就叫做caffe.cpp
                 <span>opencv实现二维码检测</span>
         </a>
         <div class="abstract-content">
-            opencv调用opencv从4代之后推出了二维码识别接口.调用方法是这样的.‘’’import cv2img = cv2.imread(‘data/qrcode.jpg’)img = cv2.imread(‘qrcode/11.jpg’)qrcode = cv2.QRCodeDetector()result, points, code = qrcode.detectAndDecode(img)‘’’返回值有三个,第一个result就是解码后的内容,例如我这个二维码的结果是”https://space.bilibili.com/37270391&quot;,当然也可以是个纯数字.第二个p...
+            opencv调用opencv从4代之后推出了二维码识别接口.调用方法是这样的.
+12345import cv2img &#x3D; cv2.imread(&#39;data&#x2F;qrcode.jpg&#39;)img &#x3D; cv2.imread(&#39;qrcode&#x2F;11.jpg&#39;)qrcode &#x3D; cv2.QRCodeDetector()result, points, code &#x3D; qrcode.detectAndDecode(img)
+返回值有三个,第一个result就是解码后的内容,例如我这个二维码的结果是”https://sp...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
