@@ -149,7 +149,7 @@ bool QRCodeDetector::detect(InputArray in, OutputArray points) const
             test_lines[4] = static_cast<double>(pixels_position[i + 3] - pixels_position[i + 2]);
 '''
 接下来就是判断这5条线的长度比例是不是满足,比例如下图
-![角点](corner.png)  
+![角点](https://blog.357573.com/2020/07/03/opencv实现二维码检测/corner.png)  
 看这个图就很明显了,如果是中间位置的话,这个比例应该是1:1:3:1:1这5条线段,那么除了第3条,其他都是1,总长度为7,所以我们按照1/7,1/7,3/7,1/7,1/7这个比例来搜索,就是下面这个代码
 '''
             double length = 0.0, weight = 0.0;  // TODO avoid 'double' calculations
@@ -395,7 +395,7 @@ std::string QRCodeDetector::decode(InputArray in, InputArray points,
 
 ## 总结
 opencv这个检测,主要是利用竖直方向和水平方向线段长度比例来确定的,但这样一点旋转不变形都没有做,虽然旋转了之后可能会有部分保留这个比例,也能找到,但如果是拍照的,除了宣传还有一些透视的话,那么opencv很容易就检测不到,就像这张图
-![角点](corner.png)  
+![角点](https://blog.357573.com/2020/07/03/opencv实现二维码检测/1.jpg)  
 因为它有透视的弯折,导致了这个比例不一定正确,或者图像不清晰的时候,严格的去数点很容易就找不到了,所以opencv的这个方法检出率极低.
 所以我自己开发的时候没有使用他的这个方法.
 
@@ -431,9 +431,9 @@ def getContours(img):
     return thresholdImage, contours, hierarchy
 '''
 把图片预处理了一下,首先二值化,然后做一下canny提取边缘信息,就成了这样
-![canny](canny.jpg)  
+![canny](https://blog.357573.com/2020/07/03/opencv实现二维码检测/canny.jpg)  
 ,然后调opencv的<code>findContours</code>函数,找到轮廓,
-![轮廓](contours.jpg)  
+![轮廓](https://blog.357573.com/2020/07/03/opencv实现二维码检测/contours.jpg)  
 结果发现全是轮廓,哈哈,不急,我们慢慢挑,最重要的是最后那个返回值,也就是层级关系.这个是我们算法的核心信息.
 
 然后我们就要开始利用这个层级关系了,因为二维码轮廓是黑白黑三层的,所以我们搜索所有三层的轮廓
@@ -480,7 +480,7 @@ def checkRatioOfContours(index, contours, hierarchy):
 '''
 所以我比较了一下,父轮廓的大小要在子轮廓的1-10倍之间,不然就算噪声排除掉了.
 现在看看还剩下多少轮廓
-![轮廓](contours2.jpg)  
+![轮廓](https://blog.357573.com/2020/07/03/opencv实现二维码检测/contours2.jpg)  
 这样一挑,就只剩下8个轮廓了.
 如果图片特别模糊,看不清是3个层级怎么办,我们后续也加了一步
 '''
@@ -536,7 +536,7 @@ def checkRatioOfContours(index, contours, hierarchy):
 '''
 我们先给这些轮廓按照大小排个序,这样的话从大到小来判断,就可以优先提取出最大的了,剩下的绝对不可能是前一个的父轮廓,所以我们每个轮廓就判断一下它有没有爸爸已经被我们选中了即可.
 这下我们搜集的所有轮廓都不互为父子了.
-![轮廓](contours3.jpg) 
+![轮廓](https://blog.357573.com/2020/07/03/opencv实现二维码检测/contours3.jpg) 
 我们再看现在剩下的轮廓,有一个在小电视上,那是我们不希望存在的,现在就要想办法把它除掉.
 首先使用距离肯定是不合适的,因为小电视明显和最下面的那个最近,用全部距离的话会把右上角那个点去掉,把小电视保留.
 那么我们就用角度好了,每三个点都找一遍,选出两条垂直并且长度也差不多的线
@@ -548,7 +548,7 @@ def checkRatioOfContours(index, contours, hierarchy):
         cv2.circle(img_show, tuple(centerOfMass), 3, (0, 255, 0))
 '''
 结果如下
-![重心](mass.jpg)
+![重心](https://blog.357573.com/2020/07/03/opencv实现二维码检测/mass.jpg)
 找重心的函数是
 '''
 def getCenterOfMass(contours):
@@ -695,7 +695,7 @@ def getOrientation(contours, centerOfMassList):
 我这里其实就是先用距离找出离两个距离最远的点,剩下一个就是直角点了,然后算出斜边的斜率,再算出直角点在斜边的哪一侧,就可以得出这个图形的旋转方式.
 最终就可以得到我们想要的三个点了,我返回时候是按照左上角,左下角,右上角的这个顺序返回的.
 看看识别结果
-![结果](result.jpg)
-![结果](result2.jpg)
+![结果](https://blog.357573.com/2020/07/03/opencv实现二维码检测/result.jpg)
+![结果](https://blog.357573.com/2020/07/03/opencv实现二维码检测/result2.jpg)
 项目我是开源了,放在了github上
 https://github.com/keefeWu/QRCode
