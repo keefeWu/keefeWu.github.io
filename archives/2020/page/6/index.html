@@ -346,6 +346,37 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/Linux%E4%B8%8B%E8%AE%BE%E7%BD%AEsh%E6%96%87%E4%BB%B6%E5%8F%8C%E5%87%BB%E6%89%A7%E8%A1%8C/" >
+            
+                <span>Linux下设置sh文件双击执行</span>
+        </a>
+        <div class="abstract-content">
+            写了一个脚本如果想以后不用命令行打开，直接双击就能运行怎么办，可以这样设置，
+1、首先用命令行给那个脚本文件授权，一个可执行的权力
+chmod +x test.sh2、选中文件，然后在屏幕左上方点File，注意是屏幕的左上方，不是窗口的左上方
+  
+点击Preferences，Ubuntu可能是最下面一个
+3、选择行为，把它设置为双击运行
+  
+然后就可以了
+
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E4%BA%94%E3%80%8B%E4%BD%BF%E7%94%A8VOXEL%E7%A8%80%E7%96%8F%E7%82%B9%E4%BA%91/" >
             
                 <span>PCL入门《五》使用VOXEL稀疏点云</span>
@@ -600,39 +631,6 @@ break test.cpp:20
 
 一、RANSAC理论介绍
 普通最小二乘是保守...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E6%97%8B%E8%BD%AC%E7%9F%A9%E9%98%B5/" >
-            
-                <span>旋转矩阵</span>
-        </a>
-        <div class="abstract-content">
-            之前对于如何进行坐标系的转换一直比较迷，后来同事跟我讲你要是知道新坐标系的x,y,z轴相对于原始坐标系的单位向量，那么那个向量就是旋转矩阵了。
-举个例子，我检测到一个物体，例如方块，我想选一个角做原点，然后三条边分别为x,y,z，我知道那三条边的向量x(xx,xy,xz)
-y(yx,yy,yz) z(zx,zy,zz)
-只要这三个向量都是单位向量，那么旋转矩阵就是
-[
-xx,yx,zx
-xy,yy,zy
-xz,yz,zz
-]
-如果要想把那个箱子作为（0,0,1）(0,1,0)(1,0,0)这种坐标系（方便计算），那么旋转矩阵就是上面那个矩阵的转置。
-Eigen::Matrix4f cal...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1906,9 +1904,16 @@ Eigen::Matrix4f cal...
     
     
     
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 113
+        Total : 114
         </div>
         <!-- search  -->
         
@@ -1921,6 +1926,11 @@ Eigen::Matrix4f cal...
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/03</span><a class="archive-post-title" href= "/2020/07/03/opencv%E5%AE%9E%E7%8E%B0%E4%BA%8C%E7%BB%B4%E7%A0%81%E6%A3%80%E6%B5%8B/" >opencv实现二维码检测</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -2590,6 +2600,8 @@ Eigen::Matrix4f cal...
         <span class="sidebar-category-name" data-categories="调参"><span class="iconfont-archer">&#xe60a;</span>调参</span>
     
         <span class="sidebar-category-name" data-categories="机器学习"><span class="iconfont-archer">&#xe60a;</span>机器学习</span>
+    
+        <span class="sidebar-category-name" data-categories="图像处理"><span class="iconfont-archer">&#xe60a;</span>图像处理</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>

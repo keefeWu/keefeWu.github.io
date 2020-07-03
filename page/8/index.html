@@ -359,6 +359,33 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/vector%E7%9A%84%E8%89%AF%E5%A5%BD%E4%B9%A0%E6%83%AFreserve/" >
+            
+                <span>vector的良好习惯reserve</span>
+        </a>
+        <div class="abstract-content">
+            转载自：点击打开链接
+我先总结一下吧，就是如果要用vector不停的push_back，而且之前知道大概有多大，不一定要准确的，那么最好就先reserve一下，给它分配一定的空间，这样每次push_back不会真的分配内存，知道空间用完了才会自动分配内存。
+总结一下，就是循环push_back前先reserve一个大概的大小，这个操作不会影响size，后面该push_back还是push_back。
+具体原因看我转载的详细内容：
+对于C++的vector容器模板类，存在size和capacity这样两个概念，可以分别通过vector的size()和capacity()方法获得该vecto...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/%E4%BD%BF%E7%94%A8iptables%E9%99%90%E5%88%B6%E7%94%B5%E8%84%91%E8%AE%BF%E9%97%AE%E6%9F%90%E4%B8%AAip/" >
             
                 <span>使用iptables限制电脑访问某个ip</span>
@@ -585,34 +612,6 @@ attempting to perform BLAS operation using StreamExecutor without BLAS support�
 
 
 正则化方法：防止过拟合，提高泛化能力在训练数据不够多时，或者overtraining时，常常会导致overfitting（过拟合）。其直观的表现如下图所示，随着训练过程的进行，模型复杂度增加，在trainingdata上的error渐渐减小，但是在验证集上的error却反而渐渐增大——因为训练出来的网络过拟...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/NMS%E2%80%94%E2%80%94%E9%9D%9E%E6%9E%81%E5%A4%A7%E5%80%BC%E6%8A%91%E5%88%B6/" >
-            
-                <span>NMS——非极大值抑制</span>
-        </a>
-        <div class="abstract-content">
-            转载自：https://blog.csdn.net/shuzfan/article/details/52711706
-NMS（non maximum suppression），中文名非极大值抑制，在很多计算机视觉任务中都有广泛应用，如：边缘检测、目标检测等。
-这里主要以人脸检测中的应用为例，来说明NMS，并给出Matlab和C++示例程序。
-人脸检测的一些概念
-（1） 绝大部分人脸检测器的核心是分类器，即给定一个尺寸固定图片，分类器判断是或者不是人脸；
-（2）将分类器进化为检测器的关键是：在原始图像上从多个尺度产生窗口，并resize到固定尺寸，然后送给分类器做判断。最常用的方法是滑动窗...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1980,9 +1979,16 @@ NMS（non maximum suppression），中文名非极大值抑制，在很多计算
     
     
     
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 113
+        Total : 114
         </div>
         <!-- search  -->
         
@@ -1995,6 +2001,11 @@ NMS（non maximum suppression），中文名非极大值抑制，在很多计算
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/03</span><a class="archive-post-title" href= "/2020/07/03/opencv%E5%AE%9E%E7%8E%B0%E4%BA%8C%E7%BB%B4%E7%A0%81%E6%A3%80%E6%B5%8B/" >opencv实现二维码检测</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -2664,6 +2675,8 @@ NMS（non maximum suppression），中文名非极大值抑制，在很多计算
         <span class="sidebar-category-name" data-categories="调参"><span class="iconfont-archer">&#xe60a;</span>调参</span>
     
         <span class="sidebar-category-name" data-categories="机器学习"><span class="iconfont-archer">&#xe60a;</span>机器学习</span>
+    
+        <span class="sidebar-category-name" data-categories="图像处理"><span class="iconfont-archer">&#xe60a;</span>图像处理</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>

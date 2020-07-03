@@ -346,6 +346,38 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/%E7%94%A8CMake%E5%9C%A8windows%E4%B8%8B%E7%BC%96%E8%AF%91vs%E7%9A%84opencv%E7%A8%8B%E5%BA%8F/" >
+            
+                <span>用CMake在windows下编译vs的opencv程序</span>
+        </a>
+        <div class="abstract-content">
+            网上有很多CMAKE编译opencv的教程，但是到最后具体程序的时候都是采用VS新建工程的方法，这种方法费时费力还不可移植，需要不断地添加库目录，添加链接项。而如果用CMAKE来管理项目，就可以直接把opencv包含进去，移植到另外的机器也很轻松了。
+好，话不多说，咱先从编译opencv开始讲起。首先下载源码版的opencv，打开github，搜索opencv，选择第一个。
+
+进入以后点击release来选择版本
+
+我们今天选用3.1的版本，如果需要其他版本步骤也一样，下载source版
+
+解压缩之后就可以看到所有源文件的目录了。
+
+接着打开CMAKE的GUI工具，在第一行源路径处填写o...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/%E6%B7%B7%E6%B7%86%E7%9F%A9%E9%98%B5%EF%BC%88confusion-matrix%EF%BC%89/" >
             
                 <span>混淆矩阵（confusion-matrix）</span>
@@ -632,35 +664,6 @@ Kmeans可以很形象的用图形变现出来，是个理解无监督学习非�
 理解inode，要从文件储存说起。
 文件储存在硬盘上，硬盘的最小存储单位叫做”扇区”（Sector）。每个扇区储存512字节（相当于0.5KB）。
 操作系统读取硬盘的时候，不会一个个扇区地...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/python%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/" >
-            
-                <span>python那些事儿</span>
-        </a>
-        <div class="abstract-content">
-            关于引号：
-单引号和双引号的意义相同，都表示字符串，单双引号交替使用可以避免转义符的麻烦。例如我们想在字符串中包含一个引号通常需要/‘这样转义，而如果用单引号来表示字符串，那么中间的双引号表示引号就不需要斜杠转义。例如：
-print “I LOVE KAK’A”  
-这个输出里面就包含了单引号，输出结果为I LOVE KAK’A,和  
-print ‘I LOVE KAK/‘A’
-的输出结果是一样的。同理想要输出双引号就用单引号括起来。
-而三引号也类似，想要输出既有双引号也有单引号的时候就用三引号吧。同时用了三引号还可以换行来写了，所有的三引号内的转义符都会失效保持原始样子。包括换行，输...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1934,9 +1937,16 @@ print ‘I LOVE KAK/‘A’
     
     
     
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 113
+        Total : 114
         </div>
         <!-- search  -->
         
@@ -1949,6 +1959,11 @@ print ‘I LOVE KAK/‘A’
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/03</span><a class="archive-post-title" href= "/2020/07/03/opencv%E5%AE%9E%E7%8E%B0%E4%BA%8C%E7%BB%B4%E7%A0%81%E6%A3%80%E6%B5%8B/" >opencv实现二维码检测</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -2618,6 +2633,8 @@ print ‘I LOVE KAK/‘A’
         <span class="sidebar-category-name" data-categories="调参"><span class="iconfont-archer">&#xe60a;</span>调参</span>
     
         <span class="sidebar-category-name" data-categories="机器学习"><span class="iconfont-archer">&#xe60a;</span>机器学习</span>
+    
+        <span class="sidebar-category-name" data-categories="图像处理"><span class="iconfont-archer">&#xe60a;</span>图像处理</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>

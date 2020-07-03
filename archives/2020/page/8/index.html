@@ -346,6 +346,37 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/%E4%BD%BF%E7%94%A8iptables%E9%99%90%E5%88%B6%E7%94%B5%E8%84%91%E8%AE%BF%E9%97%AE%E6%9F%90%E4%B8%AAip/" >
+            
+                <span>使用iptables限制电脑访问某个ip</span>
+        </a>
+        <div class="abstract-content">
+            最近有个单机软件老要提醒我更新，我就用iptables把它的ip给屏蔽了，操作入下。
+sudo iptables -I INPUT -s 1.1.1.1 -j DROP  
+使用上面这个命令就把1.1.1.1这个ip给屏蔽了，以后电脑再也上不了这个了。
+使用如下命令可以查看屏蔽了什么：
+sudo iptables -L -n -v  
+ 删除已添加的iptables规则
+将所有iptables以序号标记显示，执行：
+iptables -L -n --line-numbers比如要删除INPUT里序号为8的规则，执行：
+iptables -D INPUT 8
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/C-static%E7%B1%BB%E6%88%90%E5%91%98%EF%BC%8Cstatic%E7%B1%BB%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0/" >
             
                 <span>C++static类成员，static类成员函数</span>
@@ -569,34 +600,6 @@ NMS（non maximum suppression），中文名非极大值抑制，在很多计算
 人脸检测的一些概念
 （1） 绝大部分人脸检测器的核心是分类器，即给定一个尺寸固定图片，分类器判断是或者不是人脸；
 （2）将分类器进化为检测器的关键是：在原始图像上从多个尺度产生窗口，并resize到固定尺寸，然后送给分类器做判断。最常用的方法是滑动窗...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/Deep-Learning%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95%E5%8F%8A%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A%E6%B1%87%E6%80%BB/" >
-            
-                <span>Deep-Learning笔记（三）-机器学习经典算法及名词解释汇总</span>
-        </a>
-        <div class="abstract-content">
-            转载自：https://blog.csdn.net/qq_38156052/article/details/78270458
-经典算法
-一、SVM（支持向量机）
-（1）概念：支持向量机SVM(Support VectorMachine)是一个有监督的学习模型，通常用来进行模式识别、分类、以及回归分析。所谓支持向量，就是指距离分隔超平面最近的点。
-（2）理论背景：​Vapnik等人在多年研究统计学习理论基础上对线性分类器提出了另一种设计最佳准则。其原理也从线性可分说起，然后扩展到线性不可分的情况，甚至扩展到使用非线性函数中去。
-（3）SVM的主要思想可以概括为两点：1.它是针对线性可分情况...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1870,9 +1873,16 @@ NMS（non maximum suppression），中文名非极大值抑制，在很多计算
     
     
     
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 113
+        Total : 114
         </div>
         <!-- search  -->
         
@@ -1885,6 +1895,11 @@ NMS（non maximum suppression），中文名非极大值抑制，在很多计算
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/03</span><a class="archive-post-title" href= "/2020/07/03/opencv%E5%AE%9E%E7%8E%B0%E4%BA%8C%E7%BB%B4%E7%A0%81%E6%A3%80%E6%B5%8B/" >opencv实现二维码检测</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -2554,6 +2569,8 @@ NMS（non maximum suppression），中文名非极大值抑制，在很多计算
         <span class="sidebar-category-name" data-categories="调参"><span class="iconfont-archer">&#xe60a;</span>调参</span>
     
         <span class="sidebar-category-name" data-categories="机器学习"><span class="iconfont-archer">&#xe60a;</span>机器学习</span>
+    
+        <span class="sidebar-category-name" data-categories="图像处理"><span class="iconfont-archer">&#xe60a;</span>图像处理</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>

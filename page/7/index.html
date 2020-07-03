@@ -359,6 +359,43 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/RANSAC%E9%80%9A%E4%BF%97%E8%AE%B2%E8%A7%A3/" >
+            
+                <span>RANSAC通俗讲解</span>
+        </a>
+        <div class="abstract-content">
+            转载自https://www.cnblogs.com/xingshansi/p/6763668.html
+作者：桂。
+时间：2017-04-25 21:05:07
+链接：http://www.cnblogs.com/xingshansi/p/6763668.html
+
+
+前言
+
+仍然是昨天的问题，别人问到最小二乘、霍夫变换、RANSAC在直线拟合上的区别。昨天梳理了霍夫变换，今天打算抽空梳理一下RANSAC算法，主要包括：
+1）RANSAC理论介绍
+2）RANSAC应用简介；
+内容为自己的学习记录，其中很多地方借鉴了别人，最后一起给出链接。
+
+一、RANSAC理论介绍
+普通最小二乘是保守...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/%E6%97%8B%E8%BD%AC%E7%9F%A9%E9%98%B5/" >
             
                 <span>旋转矩阵</span>
@@ -588,33 +625,6 @@ if (pcl::io::loadPCDFile&lt;PointT&gt;(pcd_file, *cloud) == -1)
         </a>
         <div class="abstract-content">
             
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/vector%E7%9A%84%E8%89%AF%E5%A5%BD%E4%B9%A0%E6%83%AFreserve/" >
-            
-                <span>vector的良好习惯reserve</span>
-        </a>
-        <div class="abstract-content">
-            转载自：点击打开链接
-我先总结一下吧，就是如果要用vector不停的push_back，而且之前知道大概有多大，不一定要准确的，那么最好就先reserve一下，给它分配一定的空间，这样每次push_back不会真的分配内存，知道空间用完了才会自动分配内存。
-总结一下，就是循环push_back前先reserve一个大概的大小，这个操作不会影响size，后面该push_back还是push_back。
-具体原因看我转载的详细内容：
-对于C++的vector容器模板类，存在size和capacity这样两个概念，可以分别通过vector的size()和capacity()方法获得该vecto...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1982,9 +1992,16 @@ if (pcl::io::loadPCDFile&lt;PointT&gt;(pcd_file, *cloud) == -1)
     
     
     
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 113
+        Total : 114
         </div>
         <!-- search  -->
         
@@ -1997,6 +2014,11 @@ if (pcl::io::loadPCDFile&lt;PointT&gt;(pcd_file, *cloud) == -1)
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/03</span><a class="archive-post-title" href= "/2020/07/03/opencv%E5%AE%9E%E7%8E%B0%E4%BA%8C%E7%BB%B4%E7%A0%81%E6%A3%80%E6%B5%8B/" >opencv实现二维码检测</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -2666,6 +2688,8 @@ if (pcl::io::loadPCDFile&lt;PointT&gt;(pcd_file, *cloud) == -1)
         <span class="sidebar-category-name" data-categories="调参"><span class="iconfont-archer">&#xe60a;</span>调参</span>
     
         <span class="sidebar-category-name" data-categories="机器学习"><span class="iconfont-archer">&#xe60a;</span>机器学习</span>
+    
+        <span class="sidebar-category-name" data-categories="图像处理"><span class="iconfont-archer">&#xe60a;</span>图像处理</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>

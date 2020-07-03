@@ -346,6 +346,34 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E4%B8%80%E3%80%8B-%E7%82%B9%E4%BA%91%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" >
+            
+                <span>PCL入门《一》-点云的数据结构</span>
+        </a>
+        <div class="abstract-content">
+            PCL最基本的数据类型就是PointXYZ
+这个代表的是一个黑白的点，这个类包含了xyz的坐标，当然也有更高级的PointXYZRGB，这个里面不仅有坐标，还有点的RGB颜色值。
+如果我们要定义一连串点云一般用的是PointCloud，这个类里面有个point变量，这个变量实际上用的是STL里面的vector。
+PCL的example里通常都是这样定义的：
+pcl::PointCloud&lt;pcl::PointXYZ&gt;::Ptr cloud (new pcl::PointCloud&lt;pcl::PointXYZ&gt; );如果要访问某一个点，则需要：
+cloud-&gt;...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/%E8%A7%A3%E9%87%8A%E4%B8%80%E4%B8%8B%E5%85%A8%E8%BF%9E%E6%8E%A5%E5%B1%82/" >
             
                 <span>解释一下全连接层</span>
@@ -603,37 +631,6 @@ git pushadd就是添加文件，你可以添加多个文件或者文件夹，只
 git reset --hard HEAD^其中head^代表向上一个指针，head^^代表向上两个指针，依次类推。当然，也可以查出版本号来回退
 git log
 git reset --hard 36281...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/Linux%E4%B8%8B%E8%AE%BE%E7%BD%AEsh%E6%96%87%E4%BB%B6%E5%8F%8C%E5%87%BB%E6%89%A7%E8%A1%8C/" >
-            
-                <span>Linux下设置sh文件双击执行</span>
-        </a>
-        <div class="abstract-content">
-            写了一个脚本如果想以后不用命令行打开，直接双击就能运行怎么办，可以这样设置，
-1、首先用命令行给那个脚本文件授权，一个可执行的权力
-chmod +x test.sh2、选中文件，然后在屏幕左上方点File，注意是屏幕的左上方，不是窗口的左上方
-  
-点击Preferences，Ubuntu可能是最下面一个
-3、选择行为，把它设置为双击运行
-  
-然后就可以了
-
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1907,9 +1904,16 @@ chmod +x test.sh2、选中文件，然后在屏幕左上方点File，注意是�
     
     
     
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 113
+        Total : 114
         </div>
         <!-- search  -->
         
@@ -1922,6 +1926,11 @@ chmod +x test.sh2、选中文件，然后在屏幕左上方点File，注意是�
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/03</span><a class="archive-post-title" href= "/2020/07/03/opencv%E5%AE%9E%E7%8E%B0%E4%BA%8C%E7%BB%B4%E7%A0%81%E6%A3%80%E6%B5%8B/" >opencv实现二维码检测</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -2591,6 +2600,8 @@ chmod +x test.sh2、选中文件，然后在屏幕左上方点File，注意是�
         <span class="sidebar-category-name" data-categories="调参"><span class="iconfont-archer">&#xe60a;</span>调参</span>
     
         <span class="sidebar-category-name" data-categories="机器学习"><span class="iconfont-archer">&#xe60a;</span>机器学习</span>
+    
+        <span class="sidebar-category-name" data-categories="图像处理"><span class="iconfont-archer">&#xe60a;</span>图像处理</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>

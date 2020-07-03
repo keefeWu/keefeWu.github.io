@@ -559,6 +559,35 @@ caffe的训练程序在tools目录里，名字就叫做caffe.cpp
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/07/03/opencv%E5%AE%9E%E7%8E%B0%E4%BA%8C%E7%BB%B4%E7%A0%81%E6%A3%80%E6%B5%8B/" >
+            
+                <span>opencv实现二维码检测</span>
+        </a>
+        <div class="abstract-content">
+            opencv调用opencv从4代之后推出了二维码识别接口.调用方法是这样的.‘’’import cv2img = cv2.imread(‘data/qrcode.jpg’)img = cv2.imread(‘qrcode/11.jpg’)qrcode = cv2.QRCodeDetector()result, points, code = qrcode.detectAndDecode(img)‘’’返回值有三个,第一个result就是解码后的内容,例如我这个二维码的结果是”https://space.bilibili.com/37270391&quot;,当然也可以是个纯数字.第二个p...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/07/03</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "opencv">opencv</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/04/14/gitlab%E6%90%AD%E5%BB%BA/" >
             
                 <span>gitlab搭建</span>
@@ -626,40 +655,6 @@ sudo fsck /dev/sdc3
 之后如果坏了会问你某某坏了，是否需要修复，点击回车yes就行了
 当然，前提是硬盘要处于卸载状态，不能挂载才能执行这个命令。
 
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/07</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/04/07/c++%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/" >
-            
-                <span>c++读取文件</span>
-        </a>
-        <div class="abstract-content">
-            c++标准流读取txt文件，虽然很容易搜索到，但是由于很常用，我还是记录在自己的博客里。
-首先是头文件
-#include &lt;iostream&gt;
-#include &lt;fstream&gt;
-#include &lt;string&gt;第一个是输入输出流，因为接下来文件读取和写入都是用的这个流，也就是&gt;&gt;和&lt;&lt;
-第二个就是包含了文件读取的类的头文件
-第三个是字符串的头文件，因为都出来首先是字符串格式的
-接下来读取的代码
-std::ifstream fin(data_file);
-if(!fin)
-{
-    printf(&quot;Read da...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2027,9 +2022,16 @@ if(!fin)
     
     
     
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 113
+        Total : 114
         </div>
         <!-- search  -->
         
@@ -2042,6 +2044,11 @@ if(!fin)
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/03</span><a class="archive-post-title" href= "/2020/07/03/opencv%E5%AE%9E%E7%8E%B0%E4%BA%8C%E7%BB%B4%E7%A0%81%E6%A3%80%E6%B5%8B/" >opencv实现二维码检测</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -2711,6 +2718,8 @@ if(!fin)
         <span class="sidebar-category-name" data-categories="调参"><span class="iconfont-archer">&#xe60a;</span>调参</span>
     
         <span class="sidebar-category-name" data-categories="机器学习"><span class="iconfont-archer">&#xe60a;</span>机器学习</span>
+    
+        <span class="sidebar-category-name" data-categories="图像处理"><span class="iconfont-archer">&#xe60a;</span>图像处理</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>

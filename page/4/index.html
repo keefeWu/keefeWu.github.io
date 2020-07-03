@@ -359,6 +359,34 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/inode%E8%A7%A3%E9%87%8A%EF%BC%88%E8%A7%A3%E5%86%B3linux%E6%9C%89%E7%A9%BA%E9%97%B4%E5%8D%B4%E6%8F%90%E7%A4%BA%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E4%B8%8D%E8%B6%B3%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%89/" >
+            
+                <span>inode解释（解决linux有空间却提示磁盘空间不足的问题）</span>
+        </a>
+        <div class="abstract-content">
+            文件名 -&gt; inode -&gt; device block
+转自：http://www.ruanyifeng.com/blog/2011/12/inode.htmlhttp://blog.s135.com/post/295/http://hi.baidu.com/leejun_2005/blog/item/d9aa13a53b3af6e99152ee7e.html  
+一、inode是什么？
+理解inode，要从文件储存说起。
+文件储存在硬盘上，硬盘的最小存储单位叫做”扇区”（Sector）。每个扇区储存512字节（相当于0.5KB）。
+操作系统读取硬盘的时候，不会一个个扇区地...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/python%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/" >
             
                 <span>python那些事儿</span>
@@ -628,58 +656,6 @@ using namespace cv;
 cv::Mat org,dst,img,tmp;  
 //event:id of mouse click event;
 //x,y...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/opencv-matchTemplate%E5%87%BD%E6%95%B0%E7%9A%84%E8%A7%A3%E6%9E%90/" >
-            
-                <span>opencv-matchTemplate函数的解析</span>
-        </a>
-        <div class="abstract-content">
-            opencv有个MatchTemplate_Demo.cpp文件实现了matchTemplate这个函数的调用demo。
-首先这个函数的功能是根据一个小块物体的图片，然后在整幅图里面搜索和他最像的区域。
-算法在他的官方文档上讲的很清楚了，一共有六种方法：
-
-method=CV_TM_SQDIFF
-
-
-
-method=CV_TM_SQDIFF_NORMED
-
-
-
-method=CV_TM_CCORR
-
-
-
-method=CV_TM_CCORR_NORMED
-
-
-
-method=CV_TM_CCOEFF
-
-
-where
-
-
-method=CV_TM_CCOEFF_NORMED
-
-
-a最明显，...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2047,9 +2023,16 @@ a最明显，...
     
     
     
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 113
+        Total : 114
         </div>
         <!-- search  -->
         
@@ -2062,6 +2045,11 @@ a最明显，...
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/03</span><a class="archive-post-title" href= "/2020/07/03/opencv%E5%AE%9E%E7%8E%B0%E4%BA%8C%E7%BB%B4%E7%A0%81%E6%A3%80%E6%B5%8B/" >opencv实现二维码检测</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -2731,6 +2719,8 @@ a最明显，...
         <span class="sidebar-category-name" data-categories="调参"><span class="iconfont-archer">&#xe60a;</span>调参</span>
     
         <span class="sidebar-category-name" data-categories="机器学习"><span class="iconfont-archer">&#xe60a;</span>机器学习</span>
+    
+        <span class="sidebar-category-name" data-categories="图像处理"><span class="iconfont-archer">&#xe60a;</span>图像处理</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>

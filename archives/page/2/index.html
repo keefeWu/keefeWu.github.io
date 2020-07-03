@@ -346,6 +346,38 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/29/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%BA%94%E3%80%8Bsolver/" >
+            
+                <span class="stick-top iconfont-archer">&#xe63d;</span>
+                
+                <span>caffe源码阅读《五》solver</span>
+        </a>
+        <div class="abstract-content">
+            SolverAction最开始定义了一个枚举
+12345678910111213141516&#x2F;**  * @brief Enumeration of actions that a client of the Solver may request by  * implementing the Solver&#39;s action request function, which a  * client may optionally provide in order to request early termination  * or saving a snapshot witho...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/29</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "caffe">caffe</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/28/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E5%9B%9B%E3%80%8Bnet/" >
             
                 <span>caffe源码阅读《四》net</span>
@@ -599,38 +631,6 @@ Mat MyDilate(Mat src...
   
 根据观察我们发现，蓝色的线段终止于图形内部，红色线段终止于图形外部。（废话，这是我根据内外话的颜色）其实真正观察出来的是什么呢？所有的蓝色线段和图形的交点都是奇数个，所有红色线段和图形的交点都是偶数个。看！这说明了什么？是不是可以画一条射线，判断和图形的交点个数？
 射线怎么画，我们只需要画一条水平线就行了，也就是y=待求点的y，然后判断与每条边的交点，每条边的计算方法用两点式就可以了，把y带进去，判断交点x是否在两...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E7%94%A8CMake%E5%9C%A8windows%E4%B8%8B%E7%BC%96%E8%AF%91vs%E7%9A%84opencv%E7%A8%8B%E5%BA%8F/" >
-            
-                <span>用CMake在windows下编译vs的opencv程序</span>
-        </a>
-        <div class="abstract-content">
-            网上有很多CMAKE编译opencv的教程，但是到最后具体程序的时候都是采用VS新建工程的方法，这种方法费时费力还不可移植，需要不断地添加库目录，添加链接项。而如果用CMAKE来管理项目，就可以直接把opencv包含进去，移植到另外的机器也很轻松了。
-好，话不多说，咱先从编译opencv开始讲起。首先下载源码版的opencv，打开github，搜索opencv，选择第一个。
-
-进入以后点击release来选择版本
-
-我们今天选用3.1的版本，如果需要其他版本步骤也一样，下载source版
-
-解压缩之后就可以看到所有源文件的目录了。
-
-接着打开CMAKE的GUI工具，在第一行源路径处填写o...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1904,9 +1904,16 @@ Mat MyDilate(Mat src...
     
     
     
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 113
+        Total : 114
         </div>
         <!-- search  -->
         
@@ -1919,6 +1926,11 @@ Mat MyDilate(Mat src...
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/03</span><a class="archive-post-title" href= "/2020/07/03/opencv%E5%AE%9E%E7%8E%B0%E4%BA%8C%E7%BB%B4%E7%A0%81%E6%A3%80%E6%B5%8B/" >opencv实现二维码检测</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -2588,6 +2600,8 @@ Mat MyDilate(Mat src...
         <span class="sidebar-category-name" data-categories="调参"><span class="iconfont-archer">&#xe60a;</span>调参</span>
     
         <span class="sidebar-category-name" data-categories="机器学习"><span class="iconfont-archer">&#xe60a;</span>机器学习</span>
+    
+        <span class="sidebar-category-name" data-categories="图像处理"><span class="iconfont-archer">&#xe60a;</span>图像处理</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>

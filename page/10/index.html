@@ -359,6 +359,41 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E4%B8%80%E3%80%8B-%E8%AE%A1%E7%AE%97%E7%9F%A9%E9%98%B5%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4/" >
+            
+                <span>c++-CUDA编程《一》-计算矩阵加减乘除</span>
+        </a>
+        <div class="abstract-content">
+            #include &quot;calculator.h&quot;
+#include &lt;cuda_runtime.h&gt;
+#include &quot;iostream&quot;
+
+bool InitCUDA()
+{
+    //used to count the device numbers
+    int count; 
+
+    // get the cuda device count
+    cudaGetDeviceCount(&amp;count);
+    // print(&quot;%d\n&quot;, count);
+    std::cout &lt;...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%BA%8C%E3%80%8Bsoftmax%E5%B1%82/" >
             
                 <span>caffe源码阅读《二》softmax层</span>
@@ -591,54 +626,6 @@ void SoftmaxLayer&lt;Dtype&gt;::Forward_cpu(const vector&lt;Blob&lt;Dtype&gt;*&g
             <div class= abstract-tags >
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "机器学习">机器学习</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/03/%E5%87%B8%E4%BC%98%E5%8C%96/" >
-            
-                <span>凸优化</span>
-        </a>
-        <div class="abstract-content">
-            转载自：https://github.com/wdxtub/WDXpeak/blob/master/3.0/2_Data%20Science/convex-opimization.md 
-凸优化教程思考凸集和凸函数
-凸集C 内任意两点间的线段均在集合 C 内，则称集合 C 为凸集
-一些例子
-超平面和半空间
-多面体
-一个例子
-保持凸性的运算
-集合交运算：半空间的交
-仿射变换
-透视变换凸集的透视变换仍然是凸集投射函数(线性分式函数)Ax+b - 仿射函数
-分割超平面
-一个例子
-分割超平面的构造
-支撑超平面
-思考
-凸函数
-一阶可微即函数的增长(下降)速度要快于(慢于)以当前点的梯度为方向的直线...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/03</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "机器学习">机器学习</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "调参">调参</a>
     
 </div>
             
@@ -2001,9 +1988,16 @@ void SoftmaxLayer&lt;Dtype&gt;::Forward_cpu(const vector&lt;Blob&lt;Dtype&gt;*&g
     
     
     
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 113
+        Total : 114
         </div>
         <!-- search  -->
         
@@ -2016,6 +2010,11 @@ void SoftmaxLayer&lt;Dtype&gt;::Forward_cpu(const vector&lt;Blob&lt;Dtype&gt;*&g
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/03</span><a class="archive-post-title" href= "/2020/07/03/opencv%E5%AE%9E%E7%8E%B0%E4%BA%8C%E7%BB%B4%E7%A0%81%E6%A3%80%E6%B5%8B/" >opencv实现二维码检测</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -2685,6 +2684,8 @@ void SoftmaxLayer&lt;Dtype&gt;::Forward_cpu(const vector&lt;Blob&lt;Dtype&gt;*&g
         <span class="sidebar-category-name" data-categories="调参"><span class="iconfont-archer">&#xe60a;</span>调参</span>
     
         <span class="sidebar-category-name" data-categories="机器学习"><span class="iconfont-archer">&#xe60a;</span>机器学习</span>
+    
+        <span class="sidebar-category-name" data-categories="图像处理"><span class="iconfont-archer">&#xe60a;</span>图像处理</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
