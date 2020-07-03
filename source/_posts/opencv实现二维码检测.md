@@ -698,4 +698,4 @@ def getOrientation(contours, centerOfMassList):
 ![结果](https://blog.357573.com/2020/07/03/opencv实现二维码检测/result.jpg)
 ![结果](https://blog.357573.com/2020/07/03/opencv实现二维码检测/result2.jpg)
 项目我是开源了,放在了github上
-https://github.com/keefeWu/QRCode
+[https://github.com/keefeWu/QRCode](https://github.com/keefeWu/QRCode)
