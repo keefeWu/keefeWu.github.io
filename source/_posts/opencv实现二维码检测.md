@@ -559,7 +559,8 @@ def getCenterOfMass(contours):
         centreOfMassY = int(moment['m01'] / moment['m00'])
         pointList.append([centreOfMassX, centreOfMassY])
     return pointList
-``` 
+```
+
 我是通过计算图像的矩来找的重心,说白了也就是哪边点多就往哪边偏移,这符合重心的原理.当然直接用轮廓找个重心也是可以的,但是这样噪声影响比较大.
 找到重心之后我们要挑出最终的三个点
 ```
