@@ -10,7 +10,6 @@ opencv从4代之后推出了二维码识别接口.调用方法是这样的.
 ```
 import cv2
 img = cv2.imread('data/qrcode.jpg')
-img = cv2.imread('qrcode/11.jpg')
 qrcode = cv2.QRCodeDetector()
 result, points, code = qrcode.detectAndDecode(img)
 ```
