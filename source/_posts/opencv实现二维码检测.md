@@ -176,8 +176,9 @@ bool QRCodeDetector::detect(InputArray in, OutputArray points) const
  然后我们从这些横线里面找竖直方向也是这样的,把他们挑出来作为二维码角点的候选.
  那就是调用<code>separateVerticalLines</code>这个函数了
 
- ### separateVerticalLines
- ```
+### separateVerticalLines
+
+```
  vector<Point2f> QRDetect::separateVerticalLines(const vector<Vec3d> &list_lines)
 {
     CV_TRACE_FUNCTION();
@@ -204,117 +205,117 @@ bool QRCodeDetector::detect(InputArray in, OutputArray points) const
     return vector<Point2f>();  // nothing
 }
 ```
- 这个函数就有意思了,先调用<code>extractVerticalLines</code>函数找到所有竖着符合要求的线,直接算出了横竖交叉的中心点,然后把这些中心点聚类成了3类,但是聚类结果没有用,只是判断了一下聚类成功了没有.
+这个函数就有意思了,先调用<code>extractVerticalLines</code>函数找到所有竖着符合要求的线,直接算出了横竖交叉的中心点,然后把这些中心点聚类成了3类,但是聚类结果没有用,只是判断了一下聚类成功了没有.
 
 核心在<code>extractVerticalLines</code>这个函数里,我们直接去这里看
 
 ### extractVerticalLines
 这个函数直接取了横线的中点,也就是想从正中心开始找
 ```
-        const int x = cvRound(list_lines[pnt][0] + list_lines[pnt][2] * 0.5);
-        const int y = cvRound(list_lines[pnt][1]);
+const int x = cvRound(list_lines[pnt][0] + list_lines[pnt][2] * 0.5);
+const int y = cvRound(list_lines[pnt][1]);
 ```
 如果从正中心出发,那么就是分为了上下两段,我们先从上往下找
 ```
-        test_lines.clear();
-        uint8_t future_pixel_up = 255;
+test_lines.clear();
+uint8_t future_pixel_up = 255;
 
-        int temp_length_up = 0;
-        for (int j = y; j < bin_barcode.rows - 1; j++)
-        {
-            uint8_t next_pixel = bin_barcode.ptr<uint8_t>(j + 1)[x];
-            temp_length_up++;
-            if (next_pixel == future_pixel_up)
-            {
-                future_pixel_up = static_cast<uint8_t>(~future_pixel_up);
-                test_lines.push_back(temp_length_up);
-                temp_length_up = 0;
-                if (test_lines.size() == 3)
-                    break;
-            }
-        }
+int temp_length_up = 0;
+for (int j = y; j < bin_barcode.rows - 1; j++)
+{
+    uint8_t next_pixel = bin_barcode.ptr<uint8_t>(j + 1)[x];
+    temp_length_up++;
+    if (next_pixel == future_pixel_up)
+    {
+        future_pixel_up = static_cast<uint8_t>(~future_pixel_up);
+        test_lines.push_back(temp_length_up);
+        temp_length_up = 0;
+        if (test_lines.size() == 3)
+            break;
+    }
+}
 ```
 方法也是一样的,找到3段连续的截止,然后从下往上找
 ```
-        // --------------- Search vertical down-lines --------------- //
+// --------------- Search vertical down-lines --------------- //
 
-        int temp_length_down = 0;
-        uint8_t future_pixel_down = 255;
-        for (int j = y; j >= 1; j--)
-        {
-            uint8_t next_pixel = bin_barcode.ptr<uint8_t>(j - 1)[x];
-            temp_length_down++;
-            if (next_pixel == future_pixel_down)
-            {
-                future_pixel_down = static_cast<uint8_t>(~future_pixel_down);
-                test_lines.push_back(temp_length_down);
-                temp_length_down = 0;
-                if (test_lines.size() == 6)
-                    break;
-            }
-        }
+int temp_length_down = 0;
+uint8_t future_pixel_down = 255;
+for (int j = y; j >= 1; j--)
+{
+    uint8_t next_pixel = bin_barcode.ptr<uint8_t>(j - 1)[x];
+    temp_length_down++;
+    if (next_pixel == future_pixel_down)
+    {
+        future_pixel_down = static_cast<uint8_t>(~future_pixel_down);
+        test_lines.push_back(temp_length_down);
+        temp_length_down = 0;
+        if (test_lines.size() == 6)
+            break;
+    }
+}
 ```
 再找3段,加起来就是6段了就截止.
 然后也是判断是不是符合那个比例
 ```
 
-        // --------------- Compute vertical lines --------------- //
+// --------------- Compute vertical lines --------------- //
 
-        if (test_lines.size() == 6)
+if (test_lines.size() == 6)
+{
+    double length = 0.0, weight = 0.0;  // TODO avoid 'double' calculations
+
+    for (size_t i = 0; i < test_lines.size(); i++)
+        length += test_lines[i];
+
+    CV_Assert(length > 0);
+    for (size_t i = 0; i < test_lines.size(); i++)
+    {
+        if (i % 3 != 0)
         {
-            double length = 0.0, weight = 0.0;  // TODO avoid 'double' calculations
-
-            for (size_t i = 0; i < test_lines.size(); i++)
-                length += test_lines[i];
-
-            CV_Assert(length > 0);
-            for (size_t i = 0; i < test_lines.size(); i++)
-            {
-                if (i % 3 != 0)
-                {
-                    weight += fabs((test_lines[i] / length) - 1.0/ 7.0);
-                }
-                else
-                {
-                    weight += fabs((test_lines[i] / length) - 3.0/14.0);
-                }
-            }
-
-            if (weight < eps)
-            {
-                result.push_back(list_lines[pnt]);
-            }
+            weight += fabs((test_lines[i] / length) - 1.0/ 7.0);
+        }
+        else
+        {
+            weight += fabs((test_lines[i] / length) - 3.0/14.0);
         }
     }
+
+    if (weight < eps)
+    {
+        result.push_back(list_lines[pnt]);
+    }
+}
+}
 
 ```
 因为这次是从中间向上下两边发展,所以中间那一段就不是3/7了,而应该是两个3/14,因为是从中间出发的嘛,原本一条线被分成了两截.
 最后把符合要求的中点都保存下来返回出去
 ```
-    vector<Point2f> point2f_result;
-    if (result.size() > 2)
+vector<Point2f> point2f_result;
+if (result.size() > 2)
+{
+    for (size_t i = 0; i < result.size(); i++)
     {
-        for (size_t i = 0; i < result.size(); i++)
-        {
-            point2f_result.push_back(
-                  Point2f(static_cast<float>(result[i][0] + result[i][2] * 0.5),
-                          static_cast<float>(result[i][1])));
-        }
+        point2f_result.push_back(
+                Point2f(static_cast<float>(result[i][0] + result[i][2] * 0.5),
+                        static_cast<float>(result[i][1])));
     }
+}
 ```
 
 然后我们再回到<code>localization</code>函数,接着往下看
 ```
-    vector<Point2f> list_lines_y = separateVerticalLines(list_lines_x);
-    if( list_lines_y.empty() ) { return false; }
+vector<Point2f> list_lines_y = separateVerticalLines(list_lines_x);
+if( list_lines_y.empty() ) { return false; }
 
-    vector<Point2f> centers;
-    Mat labels;
-    kmeans(list_lines_y, 3, labels,
-           TermCriteria( TermCriteria::EPS + TermCriteria::COUNT, 10, 0.1),
-           3, KMEANS_PP_CENTERS, localization_points);
+vector<Point2f> centers;
+Mat labels;
+kmeans(list_lines_y, 3, labels,
+        TermCriteria( TermCriteria::EPS + TermCriteria::COUNT, 10, 0.1),
+        3, KMEANS_PP_CENTERS, localization_points);
 
-    fixationPoints(localization_points);
+fixationPoints(localization_points);
 
 ```
 他在<code>separateVerticalLines</code>这个函数找到了所有疑似中点的点,然后还聚类判断了一下,把那些聚类后的方差大于一定值的点保存下来,我不是很明白为什么要这样,可能是担心方差太小了说明点少了,误差较大吧还是什么.反正到这边又聚类了一次,数据是挑选的那些方差大的点,最终找出3个中心.然后调了<code>fixationPoints</code>找到旋转角度.
@@ -322,38 +323,37 @@ bool QRCodeDetector::detect(InputArray in, OutputArray points) const
 ### fixationPoints
 这个函数先计算了三个点两两之间的距离
 ```
-    CV_TRACE_FUNCTION();
-    double cos_angles[3], norm_triangl[3];
+CV_TRACE_FUNCTION();
+double cos_angles[3], norm_triangl[3];
 
-    norm_triangl[0] = norm(local_point[1] - local_point[2]);
-    norm_triangl[1] = norm(local_point[0] - local_point[2]);
-    norm_triangl[2] = norm(local_point[1] - local_point[0]);
+norm_triangl[0] = norm(local_point[1] - local_point[2]);
+norm_triangl[1] = norm(local_point[0] - local_point[2]);
+norm_triangl[2] = norm(local_point[1] - local_point[0]);
 ```
 然后算了一下三个夹角的余弦值
 ```
-    cos_angles[0] = (norm_triangl[1] * norm_triangl[1] + norm_triangl[2] * norm_triangl[2]
-                  -  norm_triangl[0] * norm_triangl[0]) / (2 * norm_triangl[1] * norm_triangl[2]);
-    cos_angles[1] = (norm_triangl[0] * norm_triangl[0] + norm_triangl[2] * norm_triangl[2]
-                  -  norm_triangl[1] * norm_triangl[1]) / (2 * norm_triangl[0] * norm_triangl[2]);
-    cos_angles[2] = (norm_triangl[0] * norm_triangl[0] + norm_triangl[1] * norm_triangl[1]
-                  -  norm_triangl[2] * norm_triangl[2]) / (2 * norm_triangl[0] * norm_triangl[1]);
+cos_angles[0] = (norm_triangl[1] * norm_triangl[1] + norm_triangl[2] * norm_triangl[2]
+                -  norm_triangl[0] * norm_triangl[0]) / (2 * norm_triangl[1] * norm_triangl[2]);
+cos_angles[1] = (norm_triangl[0] * norm_triangl[0] + norm_triangl[2] * norm_triangl[2]
+                -  norm_triangl[1] * norm_triangl[1]) / (2 * norm_triangl[0] * norm_triangl[2]);
+cos_angles[2] = (norm_triangl[0] * norm_triangl[0] + norm_triangl[1] * norm_triangl[1]
+                -  norm_triangl[2] * norm_triangl[2]) / (2 * norm_triangl[0] * norm_triangl[1]);
 ```
 如果出现了余弦大于0.85的就直接不考虑了,我算了一下,余弦0.85差不多就是30度,也就是说要是有夹角小于30度的说明找错点了,直接就返回了
 
 ```
-    const double angle_barrier = 0.85;
-    if (fabs(cos_angles[0]) > angle_barrier || fabs(cos_angles[1]) > angle_barrier || fabs(cos_angles[2]) > angle_barrier)
-    {
-        local_point.clear();
-        return;
-    }
+const double angle_barrier = 0.85;
+if (fabs(cos_angles[0]) > angle_barrier || fabs(cos_angles[1]) > angle_barrier || fabs(cos_angles[2]) > angle_barrier)
+{
+    local_point.clear();
+    return;
+}
 ```
 接下来根据夹角确定了三个点的方位
 ```
-
-    size_t i_min_cos =
-       (cos_angles[0] < cos_angles[1] && cos_angles[0] < cos_angles[2]) ? 0 :
-       (cos_angles[1] < cos_angles[0] && cos_angles[1] < cos_angles[2]) ? 1 : 2;
+size_t i_min_cos =
+    (cos_angles[0] < cos_angles[1] && cos_angles[0] < cos_angles[2]) ? 0 :
+    (cos_angles[1] < cos_angles[0] && cos_angles[1] < cos_angles[2]) ? 1 : 2;
 ```
 
 之后做了更细的一些筛选,主要是剔除了一些不该有的东西.保证挑选出来的二维码一定是准确的.
@@ -483,55 +483,55 @@ def checkRatioOfContours(index, contours, hierarchy):
 这样一挑,就只剩下8个轮廓了.
 如果图片特别模糊,看不清是3个层级怎么办,我们后续也加了一步
 ```
-    #in case not all the picture has clear pattern
-    while len(patterns) < 3 and levelsNum > 0:
-        levelsNum -= 1
-        patterns, patternsIndices = getContourWithinLevel(levelsNum, contours, hierarchy)
+#in case not all the picture has clear pattern
+while len(patterns) < 3 and levelsNum > 0:
+    levelsNum -= 1
+    patterns, patternsIndices = getContourWithinLevel(levelsNum, contours, hierarchy)
 ```
 如果找到的关键点还不够3个,那么我们就减小层级,这样假设太小了的,三层只能看见两层的我们也能找到,所以我们逐步缩小了层级,直到找够3个为止
 找到之后就开始处理了,如果此时还不3个就直接宣告GG吧,也不浪费时间了
 ```
-    interstingPatternList = []
-    if len(patterns) < 3 :
-        print('no enough pattern')
-        return False, []
-        # return False
+interstingPatternList = []
+if len(patterns) < 3 :
+    print('no enough pattern')
+    return False, []
+    # return False
 ```
 如果刚好找到了3个,那就把这3个都作为感兴趣的轮廓加进去
 ```
-    elif len(patterns) == 3:
-        for patternIndex in range(len(patterns)):
-            x, y, w, h = cv2.boundingRect(patterns[patternIndex])
-            interstingPatternList.append(patterns[patternIndex])
+elif len(patterns) == 3:
+    for patternIndex in range(len(patterns)):
+        x, y, w, h = cv2.boundingRect(patterns[patternIndex])
+        interstingPatternList.append(patterns[patternIndex])
 
-        cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
-        show(img, 'qrcode')
-        # return patterns
+    cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
+    show(img, 'qrcode')
+    # return patterns
 ```
 如果比3个多,我们就要把父轮廓提取出来,刚才那8个都是一个父轮廓带着一个子轮廓的,现在我们要把这个父轮廓提取出来,子轮廓就不要了.
 我们来挨个判断一下,把那些没有爸爸的加到感兴趣的里面,但是这样有个问题,如果有的有爸爸,但是他的爸爸在早期就被淘汰了,例如有的图整张图片有个超大的圈,所有图案都是外面那个圈的子轮廓,这时候我们就不能从全局去找爸爸了,那该怎么办呢?我们就从这8个待选的轮廓中找爸爸.
 ```
-    elif len(patterns) > 3:
-        # sort from small to large
-        patternAreaList = np.array(
-                [cv2.contourArea(pattern) for pattern in patterns])
-        areaIdList = np.argsort(patternAreaList)
-        # get patterns without parents
-        intrestingPatternIdList = []
-        for i in range(len(areaIdList) - 1, 0, -1):
-            index = patternsIndices[areaIdList[i]]
-            if hierarchy[0][index][3] == -1:
+elif len(patterns) > 3:
+    # sort from small to large
+    patternAreaList = np.array(
+            [cv2.contourArea(pattern) for pattern in patterns])
+    areaIdList = np.argsort(patternAreaList)
+    # get patterns without parents
+    intrestingPatternIdList = []
+    for i in range(len(areaIdList) - 1, 0, -1):
+        index = patternsIndices[areaIdList[i]]
+        if hierarchy[0][index][3] == -1:
+            intrestingPatternIdList.append(index)
+        else:
+            # We can make sure the parent must appear before chirld because we sorted the list by area
+            if not isParentInList(intrestingPatternIdList, index, hierarchy):
                 intrestingPatternIdList.append(index)
-            else:
-                # We can make sure the parent must appear before chirld because we sorted the list by area
-                if not isParentInList(intrestingPatternIdList, index, hierarchy):
-                    intrestingPatternIdList.append(index)
 
-        for intrestingPatternId in intrestingPatternIdList:
-            x, y, w, h = cv2.boundingRect(contours[intrestingPatternId])
-            cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
-            interstingPatternList.append(contours[intrestingPatternId])
-        show(img, 'qrcode')
+    for intrestingPatternId in intrestingPatternIdList:
+        x, y, w, h = cv2.boundingRect(contours[intrestingPatternId])
+        cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        interstingPatternList.append(contours[intrestingPatternId])
+    show(img, 'qrcode')
 ```
 我们先给这些轮廓按照大小排个序,这样的话从大到小来判断,就可以优先提取出最大的了,剩下的绝对不可能是前一个的父轮廓,所以我们每个轮廓就判断一下它有没有爸爸已经被我们选中了即可.
 这下我们搜集的所有轮廓都不互为父子了.
@@ -563,13 +563,13 @@ def getCenterOfMass(contours):
 我是通过计算图像的矩来找的重心,说白了也就是哪边点多就往哪边偏移,这符合重心的原理.当然直接用轮廓找个重心也是可以的,但是这样噪声影响比较大.
 找到重心之后我们要挑出最终的三个点
 ```
-    id1, id2, id3 = 0, 1, 2
-    if len(patterns) > 3:
-        result = selectPatterns(centerOfMassList)
-        if result is None:
-            print('no correct pattern')
-            return False, []
-        id1, id2, id3 = result
+id1, id2, id3 = 0, 1, 2
+if len(patterns) > 3:
+    result = selectPatterns(centerOfMassList)
+    if result is None:
+        print('no correct pattern')
+        return False, []
+    id1, id2, id3 = result
 ```
 ### selectPatterns
 ```
@@ -605,9 +605,9 @@ def selectPatterns(pointList):
 
 最后就是来计算旋转角度了,也就是看这三个点哪个是左下,哪个是左上,哪个是右上
 ```
-    interstingPatternList = np.array(interstingPatternList)[[id1, id2, id3]]
-    centerOfMassList = np.array(centerOfMassList)[[id1, id2, id3]]
-    pointList = getOrientation(interstingPatternList, centerOfMassList)
+interstingPatternList = np.array(interstingPatternList)[[id1, id2, id3]]
+centerOfMassList = np.array(centerOfMassList)[[id1, id2, id3]]
+pointList = getOrientation(interstingPatternList, centerOfMassList)
 ```
 ### getOrientation
 ```
