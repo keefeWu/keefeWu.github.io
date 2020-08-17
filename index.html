@@ -500,7 +500,7 @@ im2colcaffe里的卷积运算实际上是把待输入图像和卷积核都转换
 1234567#include &quot;caffe&#x2F;layer.hpp&quot;namespace caffe &#123;INSTANTIATE_CLASS(Layer);&#125;  &#x2F;&#x2F; namespace caffe
 除了注册函数之外一无所有，所以他的全部宝藏都在hpp文件里，我们直接在include目录查看他的hpp文件。
 打开hpp文件，首先看到的是一个很有意思的注释
-1234&#x2F;** Forward declare boost::thread i...
+1234&#x2F;**Forward declare boost::thread in...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -559,6 +559,66 @@ caffe的训练程序在tools目录里，名字就叫做caffe.cpp
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E3%80%87%E3%80%8B-%E4%B8%83%E4%B8%AA%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/" >
+            
+                <span>c-CUDA编程《〇》-七个基本步骤</span>
+        </a>
+        <div class="abstract-content">
+            序言一个完整的cuda程序,需要经历7个基本步骤,如果是单GPU,则可以省略指定显卡的步骤,缩减到5个基本步骤.
+
+cudaSetDevice
+cudaMalloc
+cudaMemcpy
+kernelFunc
+cudaMemcpy
+cudaFree
+cudaDeviceReset这里cudaMemcpy出现了两遍,第一遍是从cpu拷贝到gpu,第二步是从gpu拷贝到cpu,具体的区别下面有详细讲解
+
+cudaSetDevice1cudaSetDevice(0);
+指定gpu的id,如果不设置默认使用0号,所以如果只有一个gpu或者就想使用0号的时候不用执行这个函数.
+cudaMalloc...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/08/17</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/08/06/UE4%E6%80%BB%E7%BB%93/" >
+            
+                <span>UE4总结</span>
+        </a>
+        <div class="abstract-content">
+            组件代码里出现U**Component的类都是组件,组件不能单独实例化,一点要依附于某个实例,在游戏界面也可以对实例点击add component来添加一个组件
+实例Actor就是实例,实例就是能够直接拖入场景中独立存在的东西,而且可以在实例上面挂组件.代码中的A开头的类就是实例,所以建立一个Actor类的对象,都会继承自AActor,他就是在提醒你这是一个实例类.
+UPROPERTY这玩意很有意思,类似于编译了,就是某个对象前面加上这个,他就会把那个对象给实现了,实现起来有一个参数,可以指定可见不可见,可编辑不可编辑.像EditDefault的意思就是可以在蓝图中编辑,但是不能在主界面...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/08/06</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/07/03/opencv%E5%AE%9E%E7%8E%B0%E4%BA%8C%E7%BB%B4%E7%A0%81%E6%A3%80%E6%B5%8B/" >
             
                 <span>opencv实现二维码检测</span>
@@ -601,67 +661,6 @@ caffe的训练程序在tools目录里，名字就叫做caffe.cpp
             <!-- date  -->
             <div class="abstract-date">
                 <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/14</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/04/09/linux%E8%BF%90%E7%BB%B4-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" >
-            
-                <span>linux运维-常用命令</span>
-        </a>
-        <div class="abstract-content">
-            网络相关查看网络链接情况1netstat -an|grep ESTABLISHED
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/09</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "运维">运维</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/04/07/fsck----Linux%E7%A1%AC%E7%9B%98%E4%BF%AE%E5%A4%8D/" >
-            
-                <span>fsck----Linux硬盘修复</span>
-        </a>
-        <div class="abstract-content">
-            有时候硬盘由于强制关机之类的操作造成了一定的损坏，造成部分分区挂载不上，我们可以使用fsck来修复
-全称 file system consistency check，是linux自带的一个很强大的工具，基本上强行关机造成的损坏都可以修复
-用法如下：
-首先使用一些disk查看工具，看看自己要修复的分区是哪一个
-比方说是sdc3那么就执行
-sudo fsck /dev/sdc3  
-就可以了
-之后如果坏了会问你某某坏了，是否需要修复，点击回车yes就行了
-当然，前提是硬盘要处于卸载状态，不能挂载才能执行这个命令。
-
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/07</span>
             </div>
             <!-- tags  -->
             
@@ -2031,9 +2030,31 @@ sudo fsck /dev/sdc3
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 114
+        Total : 116
         </div>
         <!-- search  -->
         
@@ -2046,6 +2067,16 @@ sudo fsck /dev/sdc3
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E3%80%87%E3%80%8B-%E4%B8%83%E4%B8%AA%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/" >c-CUDA编程《〇》-七个基本步骤</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2020/08/06/UE4%E6%80%BB%E7%BB%93/" >UE4总结</a>
+        </li>
     
     
         <li class="archive-post-item">

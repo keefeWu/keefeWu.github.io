@@ -359,6 +359,68 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/Ubuntu%E8%93%9D%E5%B1%8F%E8%BF%9B%E4%B8%8D%E4%BA%86%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" >
+            
+                <span>Ubuntu蓝屏进不了图形界面的解决办法</span>
+        </a>
+        <div class="abstract-content">
+            Ubuntu有时强制关机会损坏图形界面，但是不用着急，可以通过命令行自动重装桌面。方法如下：
+Ctrl+Alt+F4进入命令行模式
+依次执行：
+sudo dpkg –configure -a
+sudo apt-get install xserver-xorg-lts-utopic sudo dpkg-repack xserver-xorg-lts-utopic
+（有些系统的名字可能不一样，但是前缀都是一样的，可以先输入前缀按tab键提示找到最像的）
+sudo reboot
+重起之后熟悉的桌面又回来了  
+
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E5%9B%9B%E3%80%8B%E6%A0%B9%E6%8D%AE%E5%90%91%E9%87%8F%E5%81%9A%E7%82%B9%E4%BA%91%E6%97%8B%E8%BD%AC/" >
+            
+                <span>PCL入门《四》根据向量做点云旋转</span>
+        </a>
+        <div class="abstract-content">
+            如果已知旋转前某个向量n1(x1,y1,z1)和旋转后的向量n2(x2,y2,z2)实际上已知了三个点，(0,0,0) (x1,y1,z1)(x2,y2,z2)那么可以求出他们构成的平面的法向量，也就是同时垂直于n1和n2的这个向量，并且经过n1和n2的交点，也就是原点。这个向量就是他们的旋转轴。
+
+那么已知三点怎么求平面的法向量呢，我们可以代入公式
+
+其中x3,y3,z3我们设为原点，那么就是0,0,0.
+void MatrixRotation::calculate_axis()
+{
+  float x1,x2,y1,y2,z1,z2;
+  x1=normal_start_.norma...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E3%80%8A%E6%8C%89%E6%B5%81%E7%A8%8B%E5%88%97%E4%B8%BE%E3%80%8B/" >
             
                 <span>git常用命令《按流程列举》</span>
@@ -566,77 +628,6 @@ void contrastOrBrightAdjust(InputArray &amp;src,OutputArray &amp;dst,int contras
             大数定理：就是暴力求解，根据大量的数据得出的概率，例如根据抛1000次硬币得出正面的频率接近0.5，来估计正面的概率是0.5.
 中心极限定理：一件事情如果有很多因素影响，如果每件因素的影响都非常小的话，那么这件事情就会向正态分布趋近。
 
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%BC%95%E8%A8%80%E9%A2%98/" >
-            
-                <span>贝叶斯引言题</span>
-        </a>
-        <div class="abstract-content">
-            在知乎上看到一个比较复杂一点的例题，可以作为贝叶斯的引入：
-一种癌症，得了这个癌症的人被检测出为阳性的几率为90%，未得这种癌症的人被检测出阴性的几率为90%，而人群中得这种癌症的几率为1%，一个人被检测出阳性，问这个人得癌症的几率为多少？  
-分析一下，首先设癌症为A1，那么不得癌症就是A2，阳性为B1，阴性（不是阳性）为B2。
-整理一下已知条件：
-得癌症的人中阳性的几率是0.9，这个0.9是只统计了所有得了癌症的人，也就是说有了得癌症这个先验条件，我们写作
-P（B1/A1）= 0.9 ①
-未得癌症的人中阴性的几率是0.9，同理可以写作：
-P(B2/A2) = 0.9 ②
-人群中得癌症...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/GDB%E5%85%A5%E9%97%A8/" >
-            
-                <span>GDB入门</span>
-        </a>
-        <div class="abstract-content">
-            首先在CMAKE里面添加编译选项，更改成DEBUG版本
-set(CMAKE_BUILD_TYPE “Debug”)  
-编译后用gdb运行程序，例如：
-gdb test
-如果显示load成功，就可以设置参数了
-set args 1.0 2.0 1.2
-这里假设的是三个数字参数
-设置完之后可以设置断点，使用break 100
-就是在第100行设置断点
-然后使用r去执行
-当运行到断点时，需要打印某个变量，例如i，那么就用
-p i
-p是print的简写
-然后按n就是分步执行 next的简写
-c就是继续执行 continue的简写
-如果想指定文件设置断点使用
-break test.cpp:20
-...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2011,9 +2002,31 @@ break test.cpp:20
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 114
+        Total : 116
         </div>
         <!-- search  -->
         
@@ -2026,6 +2039,16 @@ break test.cpp:20
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E3%80%87%E3%80%8B-%E4%B8%83%E4%B8%AA%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/" >c-CUDA编程《〇》-七个基本步骤</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2020/08/06/UE4%E6%80%BB%E7%BB%93/" >UE4总结</a>
+        </li>
     
     
         <li class="archive-post-item">

@@ -346,6 +346,83 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/GDB%E5%85%A5%E9%97%A8/" >
+            
+                <span>GDB入门</span>
+        </a>
+        <div class="abstract-content">
+            首先在CMAKE里面添加编译选项，更改成DEBUG版本
+set(CMAKE_BUILD_TYPE “Debug”)  
+编译后用gdb运行程序，例如：
+gdb test
+如果显示load成功，就可以设置参数了
+set args 1.0 2.0 1.2
+这里假设的是三个数字参数
+设置完之后可以设置断点，使用break 100
+就是在第100行设置断点
+然后使用r去执行
+当运行到断点时，需要打印某个变量，例如i，那么就用
+p i
+p是print的简写
+然后按n就是分步执行 next的简写
+c就是继续执行 continue的简写
+如果想指定文件设置断点使用
+break test.cpp:20
+...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/RANSAC%E9%80%9A%E4%BF%97%E8%AE%B2%E8%A7%A3/" >
+            
+                <span>RANSAC通俗讲解</span>
+        </a>
+        <div class="abstract-content">
+            转载自https://www.cnblogs.com/xingshansi/p/6763668.html
+作者：桂。
+时间：2017-04-25 21:05:07
+链接：http://www.cnblogs.com/xingshansi/p/6763668.html
+
+
+前言
+
+仍然是昨天的问题，别人问到最小二乘、霍夫变换、RANSAC在直线拟合上的区别。昨天梳理了霍夫变换，今天打算抽空梳理一下RANSAC算法，主要包括：
+1）RANSAC理论介绍
+2）RANSAC应用简介；
+内容为自己的学习记录，其中很多地方借鉴了别人，最后一起给出链接。
+
+一、RANSAC理论介绍
+普通最小二乘是保守...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/%E6%97%8B%E8%BD%AC%E7%9F%A9%E9%98%B5/" >
             
                 <span>旋转矩阵</span>
@@ -552,56 +629,6 @@ if (pcl::io::loadPCDFile&lt;PointT&gt;(pcd_file, *cloud) == -1)
     std::cout &lt;&lt; &quot;Cloud reading failed.&quot; &lt;&lt; std::endl;
     return (-1);
 }其中输入就是文件路径，还有一个点云的对象，记住不是...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/fsck-Linux%E7%A1%AC%E7%9B%98%E4%BF%AE%E5%A4%8D/" >
-            
-                <span>fsck----Linux硬盘修复</span>
-        </a>
-        <div class="abstract-content">
-            
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/vector%E7%9A%84%E8%89%AF%E5%A5%BD%E4%B9%A0%E6%83%AFreserve/" >
-            
-                <span>vector的良好习惯reserve</span>
-        </a>
-        <div class="abstract-content">
-            转载自：点击打开链接
-我先总结一下吧，就是如果要用vector不停的push_back，而且之前知道大概有多大，不一定要准确的，那么最好就先reserve一下，给它分配一定的空间，这样每次push_back不会真的分配内存，知道空间用完了才会自动分配内存。
-总结一下，就是循环push_back前先reserve一个大概的大小，这个操作不会影响size，后面该push_back还是push_back。
-具体原因看我转载的详细内容：
-对于C++的vector容器模板类，存在size和capacity这样两个概念，可以分别通过vector的size()和capacity()方法获得该vecto...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1882,9 +1909,31 @@ if (pcl::io::loadPCDFile&lt;PointT&gt;(pcd_file, *cloud) == -1)
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 114
+        Total : 116
         </div>
         <!-- search  -->
         
@@ -1897,6 +1946,16 @@ if (pcl::io::loadPCDFile&lt;PointT&gt;(pcd_file, *cloud) == -1)
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E3%80%87%E3%80%8B-%E4%B8%83%E4%B8%AA%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/" >c-CUDA编程《〇》-七个基本步骤</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2020/08/06/UE4%E6%80%BB%E7%BB%93/" >UE4总结</a>
+        </li>
     
     
         <li class="archive-post-item">

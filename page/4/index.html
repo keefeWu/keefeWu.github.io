@@ -359,6 +359,63 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/Gabor%E6%BB%A4%E6%B3%A2%E7%9A%84%E5%B1%82%E5%B1%82%E6%80%BB%E7%BB%93/" >
+            
+                <span>Gabor滤波的层层总结</span>
+        </a>
+        <div class="abstract-content">
+            http://blog.csdn.net/u011021773/article/details/54232169  
+声明：这篇博客是我学习gabor滤波的笔记，根据进度层层总结，在完全学会前会看起来很混乱，但是我保证在终止连载以后一定马上整理成Gabor的介绍博客。
+我学习的起因是阅读了《Human Age Estimation Using Bio-inspired Features》这篇文章。
+核的大小：
+文章里面出现了这样一个表格：
+  
+这个表格的右半部份是gabor滤波的参数，其中含义是当周期T为2PI的时候，sigma与lamda做自变量得出来的size为表中所示。
+如：第一...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/pooling%E6%B1%A0%E5%8C%96%E6%93%8D%E4%BD%9C%E7%9A%84%E4%BB%A3%E7%A0%81%E8%AF%A6%E8%A7%A3/" >
+            
+                <span>pooling池化操作的代码详解</span>
+        </a>
+        <div class="abstract-content">
+            池化这个操作原理非常简单，相信大家都很容易搞懂，那么这篇博客就主要从代码来谈谈吧。
+首先还是简单介绍一下原理（不是我偷懒想要简单介绍，是因为这个东西介绍起来本身就很简单）
+所谓的池化目的就是抽象，把一大片面积总结成一个数，比方说一副100100的图，我们每5050的区域就取一个最大值，共计能取4个最大值，那么这个2*2的最大值图像就是池化后的图像了。
+
+上图是一个2020的图经过size为10步长也为10的池化，最后生成了一个22的图。其实最后生成的图与池化的size并没有什么直接关系，真正影响他的是池化的步长，也就是说这一操作不仅可以像上图那样紧挨着移动，还可以隔着几格移动，例如步长如...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/inode%E8%A7%A3%E9%87%8A%EF%BC%88%E8%A7%A3%E5%86%B3linux%E6%9C%89%E7%A9%BA%E9%97%B4%E5%8D%B4%E6%8F%90%E7%A4%BA%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E4%B8%8D%E8%B6%B3%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%89/" >
             
                 <span>inode解释（解决linux有空间却提示磁盘空间不足的问题）</span>
@@ -588,74 +645,6 @@ print cv2.__file__可以看到执行这两行就会打印出地址：
 import os
 print os.path这个方法打印所有引用的目录
 
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/python%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/" >
-            
-                <span>python常用函数</span>
-        </a>
-        <div class="abstract-content">
-            find : 查找字符串所在位置，常用来做截取。
-name=’a_b_c’
-name.find(‘_’)=1
-可以设置从第几个字符开始，例如
-name.find(‘_’,2)=3
-可以看到跳过了第一个_，但是计数方法还是从头开始。
-lambda: 匿名函数，快速定义一个函数，无序繁琐的固定结构，可以直接在代码中使用。
-fun_a=lambda x: x+1
-
-
-print fun_a(5)输出的结果就是6
-
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/opencv%E9%BC%A0%E6%A0%87%E7%BB%8F%E8%BF%87%E8%AF%BB%E5%8F%96%E5%9D%90%E6%A0%87%E4%BB%A5%E5%8F%8A%E5%88%92%E5%8A%A8%E7%94%BB%E6%A1%86/" >
-            
-                <span>opencv鼠标经过读取坐标以及划动画框</span>
-        </a>
-        <div class="abstract-content">
-            本代码copy自：
-http://www.cnblogs.com/lidabo/p/3437587.html  
-#include &lt;opencv2/opencv.hpp&gt;
-#include &lt;opencv2/core/core.hpp&gt;  
-#include &lt;opencv2/highgui/highgui.hpp&gt;  
-#include &lt;stdio.h&gt;  
-
-using namespace cv;  
-
-cv::Mat org,dst,img,tmp;  
-//event:id of mouse click event;
-//x,y...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2030,9 +2019,31 @@ cv::Mat org,dst,img,tmp;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 114
+        Total : 116
         </div>
         <!-- search  -->
         
@@ -2045,6 +2056,16 @@ cv::Mat org,dst,img,tmp;
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E3%80%87%E3%80%8B-%E4%B8%83%E4%B8%AA%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/" >c-CUDA编程《〇》-七个基本步骤</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2020/08/06/UE4%E6%80%BB%E7%BB%93/" >UE4总结</a>
+        </li>
     
     
         <li class="archive-post-item">

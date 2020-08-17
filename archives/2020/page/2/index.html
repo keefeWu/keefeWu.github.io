@@ -346,6 +346,72 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/03/05/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E5%85%AD%E3%80%8Bbase-conv-layer/" >
+            
+                <span class="stick-top iconfont-archer">&#xe63d;</span>
+                
+                <span>caffe源码阅读《六》base_conv_layer</span>
+        </a>
+        <div class="abstract-content">
+            BaseConvolutionLayer是所有卷积层的基类。为什么卷积层还需要基类呢？因为再caffe里除了 ConvolutionLayer还有 DeconvolutionLayer
+BaseConvolutionLayer 类BaseConvolutionLayer 构造函数12explicit BaseConvolutionLayer(const LayerParameter&amp; param)    : Layer&lt;Dtype&gt;(param) &#123;&#125;
+因为它是一个基类，所以这个构造函数就写成了空的，传入了 param这一个参数，但是什么都没做，传...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/03/05</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "caffe">caffe</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/03/04/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E5%85%AD%E3%80%8Bim2col/" >
+            
+                <span class="stick-top iconfont-archer">&#xe63d;</span>
+                
+                <span>caffe源码阅读《六》im2col</span>
+        </a>
+        <div class="abstract-content">
+            卷积的过程卷积实际上就是两个矩阵对位相乘，然后再把积求和的一个过程
+im2colcaffe里的卷积运算实际上是把待输入图像和卷积核都转换成矩阵，然后通过矩阵的乘法一步得出来的。这里列举一个例子，假设我们待输入图像是 55的一张图为了方便看清位置，我们就用12345来表示图像的值。我们选择 33的卷积核然后和图像对位相乘，也就是卷积核的 1的位置的值和图像的 1的位置的值相乘，卷积核的 2的位置的值和图像的 2的位置的值相乘。。。这样就完成了卷积的第一步。
+原图转化成矩阵那么如果我们把第一次的这9个值写成一列的话就是：那么这9个值就对应的是我们原图上的这9个格子卷积核每往后移动一步，就把新...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/03/04</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "caffe">caffe</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/29/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%BA%94%E3%80%8Bsolver/" >
             
                 <span class="stick-top iconfont-archer">&#xe63d;</span>
@@ -452,7 +518,7 @@
 1234567#include &quot;caffe&#x2F;layer.hpp&quot;namespace caffe &#123;INSTANTIATE_CLASS(Layer);&#125;  &#x2F;&#x2F; namespace caffe
 除了注册函数之外一无所有，所以他的全部宝藏都在hpp文件里，我们直接在include目录查看他的hpp文件。
 打开hpp文件，首先看到的是一个很有意思的注释
-1234&#x2F;** Forward declare boost::thread i...
+1234&#x2F;**Forward declare boost::thread in...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -570,67 +636,6 @@ p=0.2;
         </a>
         <div class="abstract-content">
             话不多说，首先我先上一张动图!这幅图展示的就是一个二维卷积的过程，也就是一般二维图像的滤波过程。首先左边的55的绿色区域代表的是待卷积对象，这里理解为一幅图像的一个维度，例如灰度图就是图像的灰度值，RGB彩色图就是RGB中的某一个通道；中间在移动的黄色区域是卷积核（注意右下角的红字才是卷积核的一部分，中间的黑字是属于绿色原图的，不信你看卷积核在移动的时候中间的黑字是不变的）；右边的粉红区域是卷积后的图（因为它也是33的可不要理解为它跟卷积核一样大小，其实它的大小是原图的大小减去步长2，这里的步长是1，也就是每次移动一格，所以卷积后的大小就是5-12=3），仔细观察发现卷积核每动一下右边就...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E8%85%90%E8%9A%80%E3%80%81%E8%86%A8%E8%83%80%E4%BB%A5%E5%8F%8A%E5%BC%80%E9%97%AD%E6%93%8D%E4%BD%9C%E7%AD%89%E5%BD%A2%E6%80%81%E5%AD%A6%E5%A4%84%E7%90%86/" >
-            
-                <span>腐蚀、膨胀以及开闭操作等形态学处理</span>
-        </a>
-        <div class="abstract-content">
-            &lt;http://blog.csdn.net/u011021773/article/details/53065120&gt;
-
-
-
-    上一篇我讲过什么叫做卷积，而且提到了卷积与滤波其实不完全相同，因为部分滤波是非线性的，比方说中值滤波，就是取每个局部地区的中位数，也就是中间大小的数。如果展开了类比，如果取局部最大值或者局部最小值会是什么样的呢？大值滤波？小值滤波？
-哈哈，其实取大值滤波的官方学名叫做膨胀，小值滤波叫做腐蚀。一句话概括， **膨胀就是取局部最大值的滤波，腐蚀就是取局部最小值的滤波。** 
-话不多讲，来上一段膨胀的代码：
-
-
-Mat MyDilate(Mat src...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E7%94%BB%E5%B0%84%E7%BA%BF%E6%B3%95%E5%88%A4%E6%96%AD%E7%82%B9%E6%98%AF%E5%90%A6%E5%9C%A8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E5%86%85/" >
-            
-                <span>画射线法判断点是否在多边形内</span>
-        </a>
-        <div class="abstract-content">
-            这次讲一个图形学的问题，毕竟在做图像处理的时候经常也会用到这个来确定范围。这个问题就是已知多边形的各条边，如何确定某个点是否在多边形内部呢？
-我们来观察几幅图。
-
-  
-  
-根据观察我们发现，蓝色的线段终止于图形内部，红色线段终止于图形外部。（废话，这是我根据内外话的颜色）其实真正观察出来的是什么呢？所有的蓝色线段和图形的交点都是奇数个，所有红色线段和图形的交点都是偶数个。看！这说明了什么？是不是可以画一条射线，判断和图形的交点个数？
-射线怎么画，我们只需要画一条水平线就行了，也就是y=待求点的y，然后判断与每条边的交点，每条边的计算方法用两点式就可以了，把y带进去，判断交点x是否在两...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1911,9 +1916,31 @@ Mat MyDilate(Mat src...
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 114
+        Total : 116
         </div>
         <!-- search  -->
         
@@ -1926,6 +1953,16 @@ Mat MyDilate(Mat src...
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E3%80%87%E3%80%8B-%E4%B8%83%E4%B8%AA%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/" >c-CUDA编程《〇》-七个基本步骤</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2020/08/06/UE4%E6%80%BB%E7%BB%93/" >UE4总结</a>
+        </li>
     
     
         <li class="archive-post-item">

@@ -346,6 +346,67 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E5%9B%9B%E3%80%8B%E6%A0%B9%E6%8D%AE%E5%90%91%E9%87%8F%E5%81%9A%E7%82%B9%E4%BA%91%E6%97%8B%E8%BD%AC/" >
+            
+                <span>PCL入门《四》根据向量做点云旋转</span>
+        </a>
+        <div class="abstract-content">
+            如果已知旋转前某个向量n1(x1,y1,z1)和旋转后的向量n2(x2,y2,z2)实际上已知了三个点，(0,0,0) (x1,y1,z1)(x2,y2,z2)那么可以求出他们构成的平面的法向量，也就是同时垂直于n1和n2的这个向量，并且经过n1和n2的交点，也就是原点。这个向量就是他们的旋转轴。
+
+那么已知三点怎么求平面的法向量呢，我们可以代入公式
+
+其中x3,y3,z3我们设为原点，那么就是0,0,0.
+void MatrixRotation::calculate_axis()
+{
+  float x1,x2,y1,y2,z1,z2;
+  x1=normal_start_.norma...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E3%80%8A%E6%8C%89%E6%B5%81%E7%A8%8B%E5%88%97%E4%B8%BE%E3%80%8B/" >
+            
+                <span>git常用命令《按流程列举》</span>
+        </a>
+        <div class="abstract-content">
+            常规提交流程：
+git add readme.txt
+git commit -m &quot;append GPL&quot;
+git pushadd就是添加文件，你可以添加多个文件或者文件夹，只要用空格隔开就可以了commit -m 是提交，引号内的参数是这个版本的说明。push 是上传到服务器，如果你没有服务器或者没有网络也可以暂时不执行这一步骤
+版本回退：1、回退到上一个版本：
+git reset --hard HEAD^其中head^代表向上一个指针，head^^代表向上两个指针，依次类推。当然，也可以查出版本号来回退
+git log
+git reset --hard 36281...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/Linux%E4%B8%8B%E8%AE%BE%E7%BD%AEsh%E6%96%87%E4%BB%B6%E5%8F%8C%E5%87%BB%E6%89%A7%E8%A1%8C/" >
             
                 <span>Linux下设置sh文件双击执行</span>
@@ -554,83 +615,6 @@ P（B1/A1）= 0.9 ①
 未得癌症的人中阴性的几率是0.9，同理可以写作：
 P(B2/A2) = 0.9 ②
 人群中得癌症...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/GDB%E5%85%A5%E9%97%A8/" >
-            
-                <span>GDB入门</span>
-        </a>
-        <div class="abstract-content">
-            首先在CMAKE里面添加编译选项，更改成DEBUG版本
-set(CMAKE_BUILD_TYPE “Debug”)  
-编译后用gdb运行程序，例如：
-gdb test
-如果显示load成功，就可以设置参数了
-set args 1.0 2.0 1.2
-这里假设的是三个数字参数
-设置完之后可以设置断点，使用break 100
-就是在第100行设置断点
-然后使用r去执行
-当运行到断点时，需要打印某个变量，例如i，那么就用
-p i
-p是print的简写
-然后按n就是分步执行 next的简写
-c就是继续执行 continue的简写
-如果想指定文件设置断点使用
-break test.cpp:20
-...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/RANSAC%E9%80%9A%E4%BF%97%E8%AE%B2%E8%A7%A3/" >
-            
-                <span>RANSAC通俗讲解</span>
-        </a>
-        <div class="abstract-content">
-            转载自https://www.cnblogs.com/xingshansi/p/6763668.html
-作者：桂。
-时间：2017-04-25 21:05:07
-链接：http://www.cnblogs.com/xingshansi/p/6763668.html
-
-
-前言
-
-仍然是昨天的问题，别人问到最小二乘、霍夫变换、RANSAC在直线拟合上的区别。昨天梳理了霍夫变换，今天打算抽空梳理一下RANSAC算法，主要包括：
-1）RANSAC理论介绍
-2）RANSAC应用简介；
-内容为自己的学习记录，其中很多地方借鉴了别人，最后一起给出链接。
-
-一、RANSAC理论介绍
-普通最小二乘是保守...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1911,9 +1895,31 @@ break test.cpp:20
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 114
+        Total : 116
         </div>
         <!-- search  -->
         
@@ -1926,6 +1932,16 @@ break test.cpp:20
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E3%80%87%E3%80%8B-%E4%B8%83%E4%B8%AA%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/" >c-CUDA编程《〇》-七个基本步骤</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2020/08/06/UE4%E6%80%BB%E7%BB%93/" >UE4总结</a>
+        </li>
     
     
         <li class="archive-post-item">

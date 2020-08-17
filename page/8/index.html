@@ -359,6 +359,59 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E4%B9%9D%E3%80%8B-%E8%BE%93%E5%85%A5%E4%B8%8E%E8%BE%93%E5%87%BA/" >
+            
+                <span>PCL入门《九》-输入与输出</span>
+        </a>
+        <div class="abstract-content">
+            今天讲解一下PCL的输入输出。
+首先是输入，从pcd文件中读取点云
+pcl::PointCloud&lt;PointT&gt;::Ptr cloud(new pcl::PointCloud&lt;PointT&gt;);
+if (pcl::io::loadPCDFile&lt;PointT&gt;(pcd_file, *cloud) == -1)
+{
+    std::cout &lt;&lt; &quot;Cloud reading failed.&quot; &lt;&lt; std::endl;
+    return (-1);
+}其中输入就是文件路径，还有一个点云的对象，记住不是...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/fsck-Linux%E7%A1%AC%E7%9B%98%E4%BF%AE%E5%A4%8D/" >
+            
+                <span>fsck----Linux硬盘修复</span>
+        </a>
+        <div class="abstract-content">
+            
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/vector%E7%9A%84%E8%89%AF%E5%A5%BD%E4%B9%A0%E6%83%AFreserve/" >
             
                 <span>vector的良好习惯reserve</span>
@@ -562,56 +615,6 @@ new file 和 modified
         <div class="abstract-content">
             今天跑一个keras的程序，在别人电脑上都没问题，到了我的电脑上就出错了，提示的是
 attempting to perform BLAS operation using StreamExecutor without BLAS support其实原因就是找不到合适的gpu，要么是没找对gpu，要么就是显存不够，可以通过显示设置gpu使用CUDA_VISIBLE_DEVICES=0来指定使用0号gpu，如果只有一个gpu的话，使用CUDA_VISIBLE_DEVICES=1切换成使用cpu也可以解决。还有一种方法，其实才是最正规的方法，就是限制程序使用显存的大小import tensorfl...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E6%9E%81%E7%AE%80%E8%A7%A3%E9%87%8Ainception-V1-V2-V3-V4/" >
-            
-                <span>极简解释inception-V1-V2-V3-V4</span>
-        </a>
-        <div class="abstract-content">
-            Inception v1inception的核心就是把google net的某一些大的卷积层换成11, 33,55的小卷积，这样能够大大的减小权值参数数量。直接上一张完整的图片可以看到，卷积了几步之后就开始出现并行的过程，换成几个11， 33， 55的卷积并列。然后再把分别卷积的结果作为层数维度上的合并。比方说这一层本来是一个2828大小的卷积核，一共输出224层，换成inception以后就是64层11， 128层33，32层55。这样算到最后依然是224层，但是参数个数明显减少了，从2828224 = 9834496变成了1164+33128+5532 = 2089，减小了几个数量级...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E6%AD%A3%E5%88%99%E5%8C%96%E6%96%B9%E6%B3%95%EF%BC%9AL1%E5%92%8CL2-regularization%E3%80%81%E6%95%B0%E6%8D%AE%E9%9B%86%E6%89%A9%E5%A2%9E%E3%80%81dropout/" >
-            
-                <span>正则化方法：L1和L2-regularization、数据集扩增、dropout</span>
-        </a>
-        <div class="abstract-content">
-            转载自：http://blog.csdn.net/u012162613/article/details/44261657
-本文是《Neural networks and deeplearning》概览中第三章的一部分，讲机器学习/深度学习算法中常用的正则化方法。（本文会不断补充）
-
-
-正则化方法：防止过拟合，提高泛化能力在训练数据不够多时，或者overtraining时，常常会导致overfitting（过拟合）。其直观的表现如下图所示，随着训练过程的进行，模型复杂度增加，在trainingdata上的error渐渐减小，但是在验证集上的error却反而渐渐增大——因为训练出来的网络过拟...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1986,9 +1989,31 @@ attempting to perform BLAS operation using StreamExecutor without BLAS support�
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 114
+        Total : 116
         </div>
         <!-- search  -->
         
@@ -2001,6 +2026,16 @@ attempting to perform BLAS operation using StreamExecutor without BLAS support�
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E3%80%87%E3%80%8B-%E4%B8%83%E4%B8%AA%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/" >c-CUDA编程《〇》-七个基本步骤</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2020/08/06/UE4%E6%80%BB%E7%BB%93/" >UE4总结</a>
+        </li>
     
     
         <li class="archive-post-item">

@@ -359,6 +359,74 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/python%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/" >
+            
+                <span>python常用函数</span>
+        </a>
+        <div class="abstract-content">
+            find : 查找字符串所在位置，常用来做截取。
+name=’a_b_c’
+name.find(‘_’)=1
+可以设置从第几个字符开始，例如
+name.find(‘_’,2)=3
+可以看到跳过了第一个_，但是计数方法还是从头开始。
+lambda: 匿名函数，快速定义一个函数，无序繁琐的固定结构，可以直接在代码中使用。
+fun_a=lambda x: x+1
+
+
+print fun_a(5)输出的结果就是6
+
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/opencv%E9%BC%A0%E6%A0%87%E7%BB%8F%E8%BF%87%E8%AF%BB%E5%8F%96%E5%9D%90%E6%A0%87%E4%BB%A5%E5%8F%8A%E5%88%92%E5%8A%A8%E7%94%BB%E6%A1%86/" >
+            
+                <span>opencv鼠标经过读取坐标以及划动画框</span>
+        </a>
+        <div class="abstract-content">
+            本代码copy自：
+http://www.cnblogs.com/lidabo/p/3437587.html  
+#include &lt;opencv2/opencv.hpp&gt;
+#include &lt;opencv2/core/core.hpp&gt;  
+#include &lt;opencv2/highgui/highgui.hpp&gt;  
+#include &lt;stdio.h&gt;  
+
+using namespace cv;  
+
+cv::Mat org,dst,img,tmp;  
+//event:id of mouse click event;
+//x,y...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/opencv-matchTemplate%E5%87%BD%E6%95%B0%E7%9A%84%E8%A7%A3%E6%9E%90/" >
             
                 <span>opencv-matchTemplate函数的解析</span>
@@ -604,68 +672,6 @@ Lisp的变量定义是用的define，其实已经相当于c里面的宏定义了
 所以这个也很好理解了，piradiusradius
 再举一个带上操作符的例子
 (define (square x) (x*x)...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/Ubuntu%E8%93%9D%E5%B1%8F%E8%BF%9B%E4%B8%8D%E4%BA%86%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" >
-            
-                <span>Ubuntu蓝屏进不了图形界面的解决办法</span>
-        </a>
-        <div class="abstract-content">
-            Ubuntu有时强制关机会损坏图形界面，但是不用着急，可以通过命令行自动重装桌面。方法如下：
-Ctrl+Alt+F4进入命令行模式
-依次执行：
-sudo dpkg –configure -a
-sudo apt-get install xserver-xorg-lts-utopic sudo dpkg-repack xserver-xorg-lts-utopic
-（有些系统的名字可能不一样，但是前缀都是一样的，可以先输入前缀按tab键提示找到最像的）
-sudo reboot
-重起之后熟悉的桌面又回来了  
-
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E5%9B%9B%E3%80%8B%E6%A0%B9%E6%8D%AE%E5%90%91%E9%87%8F%E5%81%9A%E7%82%B9%E4%BA%91%E6%97%8B%E8%BD%AC/" >
-            
-                <span>PCL入门《四》根据向量做点云旋转</span>
-        </a>
-        <div class="abstract-content">
-            如果已知旋转前某个向量n1(x1,y1,z1)和旋转后的向量n2(x2,y2,z2)实际上已知了三个点，(0,0,0) (x1,y1,z1)(x2,y2,z2)那么可以求出他们构成的平面的法向量，也就是同时垂直于n1和n2的这个向量，并且经过n1和n2的交点，也就是原点。这个向量就是他们的旋转轴。
-
-那么已知三点怎么求平面的法向量呢，我们可以代入公式
-
-其中x3,y3,z3我们设为原点，那么就是0,0,0.
-void MatrixRotation::calculate_axis()
-{
-  float x1,x2,y1,y2,z1,z2;
-  x1=normal_start_.norma...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2040,9 +2046,31 @@ void MatrixRotation::calculate_axis()
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 114
+        Total : 116
         </div>
         <!-- search  -->
         
@@ -2055,6 +2083,16 @@ void MatrixRotation::calculate_axis()
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E3%80%87%E3%80%8B-%E4%B8%83%E4%B8%AA%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/" >c-CUDA编程《〇》-七个基本步骤</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2020/08/06/UE4%E6%80%BB%E7%BB%93/" >UE4总结</a>
+        </li>
     
     
         <li class="archive-post-item">

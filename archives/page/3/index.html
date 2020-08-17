@@ -346,6 +346,67 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/%E8%85%90%E8%9A%80%E3%80%81%E8%86%A8%E8%83%80%E4%BB%A5%E5%8F%8A%E5%BC%80%E9%97%AD%E6%93%8D%E4%BD%9C%E7%AD%89%E5%BD%A2%E6%80%81%E5%AD%A6%E5%A4%84%E7%90%86/" >
+            
+                <span>腐蚀、膨胀以及开闭操作等形态学处理</span>
+        </a>
+        <div class="abstract-content">
+            &lt;http://blog.csdn.net/u011021773/article/details/53065120&gt;
+
+
+
+    上一篇我讲过什么叫做卷积，而且提到了卷积与滤波其实不完全相同，因为部分滤波是非线性的，比方说中值滤波，就是取每个局部地区的中位数，也就是中间大小的数。如果展开了类比，如果取局部最大值或者局部最小值会是什么样的呢？大值滤波？小值滤波？
+哈哈，其实取大值滤波的官方学名叫做膨胀，小值滤波叫做腐蚀。一句话概括， **膨胀就是取局部最大值的滤波，腐蚀就是取局部最小值的滤波。** 
+话不多讲，来上一段膨胀的代码：
+
+
+Mat MyDilate(Mat src...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/%E7%94%BB%E5%B0%84%E7%BA%BF%E6%B3%95%E5%88%A4%E6%96%AD%E7%82%B9%E6%98%AF%E5%90%A6%E5%9C%A8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E5%86%85/" >
+            
+                <span>画射线法判断点是否在多边形内</span>
+        </a>
+        <div class="abstract-content">
+            这次讲一个图形学的问题，毕竟在做图像处理的时候经常也会用到这个来确定范围。这个问题就是已知多边形的各条边，如何确定某个点是否在多边形内部呢？
+我们来观察几幅图。
+
+  
+  
+根据观察我们发现，蓝色的线段终止于图形内部，红色线段终止于图形外部。（废话，这是我根据内外话的颜色）其实真正观察出来的是什么呢？所有的蓝色线段和图形的交点都是奇数个，所有红色线段和图形的交点都是偶数个。看！这说明了什么？是不是可以画一条射线，判断和图形的交点个数？
+射线怎么画，我们只需要画一条水平线就行了，也就是y=待求点的y，然后判断与每条边的交点，每条边的计算方法用两点式就可以了，把y带进去，判断交点x是否在两...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/%E7%94%A8CMake%E5%9C%A8windows%E4%B8%8B%E7%BC%96%E8%AF%91vs%E7%9A%84opencv%E7%A8%8B%E5%BA%8F/" >
             
                 <span>用CMake在windows下编译vs的opencv程序</span>
@@ -609,61 +670,6 @@ Kmeans可以很形象的用图形变现出来，是个理解无监督学习非�
   
 这个表格的右半部份是gabor滤波的参数，其中含义是当周期T为2PI的时候，sigma与lamda做自变量得出来的size为表中所示。
 如：第一...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/pooling%E6%B1%A0%E5%8C%96%E6%93%8D%E4%BD%9C%E7%9A%84%E4%BB%A3%E7%A0%81%E8%AF%A6%E8%A7%A3/" >
-            
-                <span>pooling池化操作的代码详解</span>
-        </a>
-        <div class="abstract-content">
-            池化这个操作原理非常简单，相信大家都很容易搞懂，那么这篇博客就主要从代码来谈谈吧。
-首先还是简单介绍一下原理（不是我偷懒想要简单介绍，是因为这个东西介绍起来本身就很简单）
-所谓的池化目的就是抽象，把一大片面积总结成一个数，比方说一副100100的图，我们每5050的区域就取一个最大值，共计能取4个最大值，那么这个2*2的最大值图像就是池化后的图像了。
-
-上图是一个2020的图经过size为10步长也为10的池化，最后生成了一个22的图。其实最后生成的图与池化的size并没有什么直接关系，真正影响他的是池化的步长，也就是说这一操作不仅可以像上图那样紧挨着移动，还可以隔着几格移动，例如步长如...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/inode%E8%A7%A3%E9%87%8A%EF%BC%88%E8%A7%A3%E5%86%B3linux%E6%9C%89%E7%A9%BA%E9%97%B4%E5%8D%B4%E6%8F%90%E7%A4%BA%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E4%B8%8D%E8%B6%B3%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%89/" >
-            
-                <span>inode解释（解决linux有空间却提示磁盘空间不足的问题）</span>
-        </a>
-        <div class="abstract-content">
-            文件名 -&gt; inode -&gt; device block
-转自：http://www.ruanyifeng.com/blog/2011/12/inode.htmlhttp://blog.s135.com/post/295/http://hi.baidu.com/leejun_2005/blog/item/d9aa13a53b3af6e99152ee7e.html  
-一、inode是什么？
-理解inode，要从文件储存说起。
-文件储存在硬盘上，硬盘的最小存储单位叫做”扇区”（Sector）。每个扇区储存512字节（相当于0.5KB）。
-操作系统读取硬盘的时候，不会一个个扇区地...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1944,9 +1950,31 @@ Kmeans可以很形象的用图形变现出来，是个理解无监督学习非�
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 114
+        Total : 116
         </div>
         <!-- search  -->
         
@@ -1959,6 +1987,16 @@ Kmeans可以很形象的用图形变现出来，是个理解无监督学习非�
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E3%80%87%E3%80%8B-%E4%B8%83%E4%B8%AA%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/" >c-CUDA编程《〇》-七个基本步骤</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2020/08/06/UE4%E6%80%BB%E7%BB%93/" >UE4总结</a>
+        </li>
     
     
         <li class="archive-post-item">

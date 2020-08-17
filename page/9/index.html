@@ -359,6 +359,56 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/%E6%9E%81%E7%AE%80%E8%A7%A3%E9%87%8Ainception-V1-V2-V3-V4/" >
+            
+                <span>极简解释inception-V1-V2-V3-V4</span>
+        </a>
+        <div class="abstract-content">
+            Inception v1inception的核心就是把google net的某一些大的卷积层换成11, 33,55的小卷积，这样能够大大的减小权值参数数量。直接上一张完整的图片可以看到，卷积了几步之后就开始出现并行的过程，换成几个11， 33， 55的卷积并列。然后再把分别卷积的结果作为层数维度上的合并。比方说这一层本来是一个2828大小的卷积核，一共输出224层，换成inception以后就是64层11， 128层33，32层55。这样算到最后依然是224层，但是参数个数明显减少了，从2828224 = 9834496变成了1164+33128+5532 = 2089，减小了几个数量级...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/%E6%AD%A3%E5%88%99%E5%8C%96%E6%96%B9%E6%B3%95%EF%BC%9AL1%E5%92%8CL2-regularization%E3%80%81%E6%95%B0%E6%8D%AE%E9%9B%86%E6%89%A9%E5%A2%9E%E3%80%81dropout/" >
+            
+                <span>正则化方法：L1和L2-regularization、数据集扩增、dropout</span>
+        </a>
+        <div class="abstract-content">
+            转载自：http://blog.csdn.net/u012162613/article/details/44261657
+本文是《Neural networks and deeplearning》概览中第三章的一部分，讲机器学习/深度学习算法中常用的正则化方法。（本文会不断补充）
+
+
+正则化方法：防止过拟合，提高泛化能力在训练数据不够多时，或者overtraining时，常常会导致overfitting（过拟合）。其直观的表现如下图所示，随着训练过程的进行，模型复杂度增加，在trainingdata上的error渐渐减小，但是在验证集上的error却反而渐渐增大——因为训练出来的网络过拟...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/NMS%E2%80%94%E2%80%94%E9%9D%9E%E6%9E%81%E5%A4%A7%E5%80%BC%E6%8A%91%E5%88%B6/" >
             
                 <span>NMS——非极大值抑制</span>
@@ -547,64 +597,6 @@ RECURSIVE  ...
         </a>
         <div class="abstract-content">
             #均方差代价函数 + sigmoidC=(y−a)22C=\frac {(y−a)^2} 2C=2(y−a)2​其中，z=wx+b,而a是经历了激活函数的z，a=σ(z)。那么这个的梯度，对w和b分别求导，得到：∂C∂w=(a−y)σ′(z)x=aσ′(z)\frac{∂C} {∂w}=(a−y)σ′(z)x=aσ′(z)∂w∂C​=(a−y)σ′(z)x=aσ′(z)∂C∂b=(a−y)σ′(z)=aσ′(z)\frac{∂C} {∂b} =(a−y)σ′(z)=aσ′(z)∂b∂C​=(a−y)σ′(z)=aσ′(z)也就是说梯度的大小和激活函数的倒数有着直接的正相关关系。假设我们选...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/Ubuntu18-04-Caffe-%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4%E8%AE%B0%E5%BD%95%EF%BC%88%E8%B6%85%E8%AF%A6%E5%B0%BD%EF%BC%89/" >
-            
-                <span>Ubuntu18-04-Caffe-安装步骤记录（超详尽）</span>
-        </a>
-        <div class="abstract-content">
-            转载自https://blog.csdn.net/yhaolpz/article/details/71375762
-历时一周终于在 ubuntu16.04 系统成功安装 caffe并编译，网上有很多教程，但是某些步骤并没有讲解详尽，导致配置过程总是出现各种各样匪夷所思的问题，尤其对于新手而言更是欲哭无泪，在我饱受折磨后决定把安装步骤记录下来，尽量详尽清楚明白，避免后来小白重蹈覆辙。
-安装硬件： intel i5 + NVIDIA 740 M
-安装流程细分为如下10个步骤，细化步骤粒度更易避免出错：
-1、安装依赖包2、禁用 nouveau3、配置环境变量4、下载 CUDA 8.05、安装 ...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/caffe%E6%B5%8B%E8%AF%95%E7%A8%8B%E5%BA%8F%E3%80%8A%E4%B8%80%E3%80%8Bsoftmax/" >
-            
-                <span>caffe测试程序《一》softmax</span>
-        </a>
-        <div class="abstract-content">
-            最近训练了一个人脸识别模型，使用的是VGGFace2，使用了1000类来训练，今天介绍一下训练好的模型如何使用。
-首先是deploy文件，注意这个deploy不是train.prototxt，一定是单独的deploy.prototxt，他的开头和结尾和train.prototxt是不一样的。
-具体在于data层，deploy的data层就是input
-input: &quot;data&quot;
-input_dim: 1
-input_dim: 3
-input_dim: 112
-input_dim: 96这样就指定好了，不需要大括号，规定一下这是输入层，以及他的维度就可以了。
-然后结尾把...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1979,9 +1971,31 @@ input_dim: 96这样就指定好了，不需要大括号，规定一下这是输�
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 114
+        Total : 116
         </div>
         <!-- search  -->
         
@@ -1994,6 +2008,16 @@ input_dim: 96这样就指定好了，不需要大括号，规定一下这是输�
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E3%80%87%E3%80%8B-%E4%B8%83%E4%B8%AA%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/" >c-CUDA编程《〇》-七个基本步骤</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2020/08/06/UE4%E6%80%BB%E7%BB%93/" >UE4总结</a>
+        </li>
     
     
         <li class="archive-post-item">
