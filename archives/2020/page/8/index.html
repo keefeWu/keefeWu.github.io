@@ -346,6 +346,59 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/c-%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/" >
+            
+                <span>c++读取文件</span>
+        </a>
+        <div class="abstract-content">
+            
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E4%B9%9D%E3%80%8B-%E8%BE%93%E5%85%A5%E4%B8%8E%E8%BE%93%E5%87%BA/" >
+            
+                <span>PCL入门《九》-输入与输出</span>
+        </a>
+        <div class="abstract-content">
+            今天讲解一下PCL的输入输出。
+首先是输入，从pcd文件中读取点云
+pcl::PointCloud&lt;PointT&gt;::Ptr cloud(new pcl::PointCloud&lt;PointT&gt;);
+if (pcl::io::loadPCDFile&lt;PointT&gt;(pcd_file, *cloud) == -1)
+{
+    std::cout &lt;&lt; &quot;Cloud reading failed.&quot; &lt;&lt; std::endl;
+    return (-1);
+}其中输入就是文件路径，还有一个点云的对象，记住不是...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/fsck-Linux%E7%A1%AC%E7%9B%98%E4%BF%AE%E5%A4%8D/" >
             
                 <span>fsck----Linux硬盘修复</span>
@@ -548,53 +601,6 @@ new file 和 modified
 结合论文[1]和Rob Hess的开源SIFT代码(发现OpenCV2.3的源码里也是用的RobHess的SIFT代码)对SIFT算法进行了研究，下面是小结：
 在计算机视觉的领域中，图像匹配是很多问题最重要的一个方面，包括物体和场景识别，通过多幅图像进行3D重构，立体匹配和运动跟踪。SIFT特征对于图像的旋转和尺度变化具有不变性，对于光照改变和摄像机角度变化具有部分的不变性。SIFT算法生成图像特征的主要步骤有以下几个：
 （1）尺度空间极值检测：搜索所有尺度上的图像位置。通过高斯微分函数来识别潜在的对于尺度和旋转不变的兴趣点。...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E8%A7%A3%E5%86%B3keras%E7%9A%84attempting-to-perform-BLAS-operation-using-StreamExecutor-without-BLAS-support%E9%97%AE%E9%A2%98/" >
-            
-                <span>解决keras的attempting-to-perform-BLAS-operation-using-StreamExecutor-without-BLAS-support问题</span>
-        </a>
-        <div class="abstract-content">
-            今天跑一个keras的程序，在别人电脑上都没问题，到了我的电脑上就出错了，提示的是
-attempting to perform BLAS operation using StreamExecutor without BLAS support其实原因就是找不到合适的gpu，要么是没找对gpu，要么就是显存不够，可以通过显示设置gpu使用CUDA_VISIBLE_DEVICES=0来指定使用0号gpu，如果只有一个gpu的话，使用CUDA_VISIBLE_DEVICES=1切换成使用cpu也可以解决。还有一种方法，其实才是最正规的方法，就是限制程序使用显存的大小import tensorfl...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E6%9E%81%E7%AE%80%E8%A7%A3%E9%87%8Ainception-V1-V2-V3-V4/" >
-            
-                <span>极简解释inception-V1-V2-V3-V4</span>
-        </a>
-        <div class="abstract-content">
-            Inception v1inception的核心就是把google net的某一些大的卷积层换成11, 33,55的小卷积，这样能够大大的减小权值参数数量。直接上一张完整的图片可以看到，卷积了几步之后就开始出现并行的过程，换成几个11， 33， 55的卷积并列。然后再把分别卷积的结果作为层数维度上的合并。比方说这一层本来是一个2828大小的卷积核，一共输出224层，换成inception以后就是64层11， 128层33，32层55。这样算到最后依然是224层，但是参数个数明显减少了，从2828224 = 9834496变成了1164+33128+5532 = 2089，减小了几个数量级...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1897,9 +1903,31 @@ attempting to perform BLAS operation using StreamExecutor without BLAS support�
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 116
+        Total : 118
         </div>
         <!-- search  -->
         
@@ -1915,7 +1943,17 @@ attempting to perform BLAS operation using StreamExecutor without BLAS support�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E3%80%87%E3%80%8B-%E4%B8%83%E4%B8%AA%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/" >c-CUDA编程《〇》-七个基本步骤</a>
+            <span class="archive-post-date">08/20</span><a class="archive-post-title" href= "/2020/08/20/pytorch%E8%AF%A6%E8%A7%A3-%E4%B8%80-%E6%95%B0%E6%8D%AE%E6%B5%81/" >pytorch详解<一>数据流</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" >c++-CUDA编程二维矩阵的性能优化</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E3%80%87%E3%80%8B-%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" >c-CUDA编程《〇》-七个基本步骤</a>
         </li>
     
     

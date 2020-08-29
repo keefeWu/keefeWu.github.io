@@ -359,6 +359,60 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/07/03/opencv%E5%AE%9E%E7%8E%B0%E4%BA%8C%E7%BB%B4%E7%A0%81%E6%A3%80%E6%B5%8B/" >
+            
+                <span>opencv实现二维码检测</span>
+        </a>
+        <div class="abstract-content">
+            opencv调用opencv从4代之后推出了二维码识别接口.调用方法是这样的.
+1234import cv2img &#x3D; cv2.imread(&#39;data&#x2F;qrcode.jpg&#39;)qrcode &#x3D; cv2.QRCodeDetector()result, points, code &#x3D; qrcode.detectAndDecode(img)
+返回值有三个,第一个result就是解码后的内容,例如我这个二维码的结果是”https://space.bilibili.com/37270391&quot;,当然也可以是个纯数字.第二个points...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/07/03</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "opencv">opencv</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/04/14/gitlab%E6%90%AD%E5%BB%BA/" >
+            
+                <span>gitlab搭建</span>
+        </a>
+        <div class="abstract-content">
+            123456789101112export GITLAB_HOME&#x3D;你想要挂载数据的目录sudo docker stop gitlab;sudo docker rm gitlab;sudo docker run --detach \  --hostname 机器的ip或者域名注意后面还有那个冒号: \  --publish 443:443 --publish 80:80 --publish 22222:22 \  --name gitlab \  --restart always \  --volume $GITLAB_HOME&#x2F;gitlab&#x2F;config:...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/14</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/04/09/linux%E8%BF%90%E7%BB%B4-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" >
             
                 <span>linux运维-常用命令</span>
@@ -588,71 +642,6 @@ threads.emplace_back(std::move(...
             <!-- date  -->
             <div class="abstract-date">
                 <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/19</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E5%9F%BA%E4%BA%8E%E6%9A%97%E9%80%9A%E9%81%93%E7%9A%84%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE/" >
-            
-                <span>基于暗通道的图像去雾</span>
-        </a>
-        <div class="abstract-content">
-            该算法基于雾图像成像模型：其中，I(X)就是待去雾的图像，J(x)是我们要恢复的无雾的图像，A是环境光，t(x)为透射率。现在的已知I(X)，求目标值J(x)。其中环境光A的计算，参考暗通道去雾算法。定义F(x,y)为图像的雾浓度，对应于模型中的A(1-t(x))。
-计算F(x,y)第一步：
-
-function SD = MyCloud( IM )
-%MYCLOUD Summary of this function goes here
-%   Detailed explanation goes here
-
-row=30;
-line=30;
-p=0.2;
-
-
-
-
-[h, w, c] = s...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/adaboost%E7%9A%84%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3/" >
-            
-                <span>adaboost的通俗理解</span>
-        </a>
-        <div class="abstract-content">
-            首先先讲个故事吧，三人成虎的故事应该都听说过吧。就是当三个人都来说同一件事情的时候，假的也成了真的。这个算法其实就是利用的这个原理，首先构造多个决策器，然后由多个决策器共同投票来确定一件事情的真伪。  
-下面直接上列子：
-  
-  
-这里有0-9十条数据，这十条数据就是供给我们训练的。首先将这十件事情的权重都设为0.1。我们现在需要确定一个阈值（即分界点），把这十条数据分成误差率最小的两类。
-假设我们将阈值设成0（即大于0的为一类，小于等于0的为第二类），那么理想情况应该是左边都是1，右边都是-1（也可以反过来，取错误率低于0.5的一种分法），然而现实是左边都是1满足了，而右边有3、4、...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
             </div>
             <!-- tags  -->
             
@@ -2044,9 +2033,31 @@ p=0.2;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 116
+        Total : 118
         </div>
         <!-- search  -->
         
@@ -2062,7 +2073,17 @@ p=0.2;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E3%80%87%E3%80%8B-%E4%B8%83%E4%B8%AA%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/" >c-CUDA编程《〇》-七个基本步骤</a>
+            <span class="archive-post-date">08/20</span><a class="archive-post-title" href= "/2020/08/20/pytorch%E8%AF%A6%E8%A7%A3-%E4%B8%80-%E6%95%B0%E6%8D%AE%E6%B5%81/" >pytorch详解<一>数据流</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" >c++-CUDA编程二维矩阵的性能优化</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E3%80%87%E3%80%8B-%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" >c-CUDA编程《〇》-七个基本步骤</a>
         </li>
     
     

@@ -359,6 +359,62 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/%E6%95%B2%E7%A8%8B%E5%BA%8F%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%80%97%E6%AF%94%E9%97%AE%E9%A2%98/" >
+            
+                <span>敲程序时遇到的一些逗比问题</span>
+        </a>
+        <div class="abstract-content">
+            1、Kinect的深度图像尺寸和彩色图像尺寸是不一样的。有一次我直接获取了彩色图像的尺寸来处理深度图，结果遍历的时候总是出现段错误，而且错误的坐标还经常不一样。弄得我一脸纠结，后来发现实际上深度图像的尺寸远小于彩色图像，所以需要单独获取深度图的大小，不能够偷懒。为什么错误的坐标经常会不一样呢，因为数组越界实际上不一定不能访问，访问了也不一定没有值，因为有可能那个地址正好给了其他变量，这个可能性是很大的，所以这种时候是可以访问的，但是当你访问了一个彻底没有定义过的地址的时候，就会报错。
+2、我用的freenet2这个库来读取的kinect的数据，开始用百度上查的16ushort类型接受的，...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/python%E6%9F%A5%E7%9C%8Bimport%E7%9A%84%E7%9B%AE%E5%BD%95/" >
+            
+                <span>python查看import的目录</span>
+        </a>
+        <div class="abstract-content">
+            如果想查询某个指定库的目录，可以通过如下方法得到
+import a_module
+print a_module.__file__例如，我想用opencv,那个库的名字叫做cv2，如果我想找到他的地址，那么我就应该这样：
+import cv2
+print cv2.__file__可以看到执行这两行就会打印出地址：
+/usr/local/lib/python2.7/dist-packages/cv2/cv2.so  
+如果想查询import的包含目录，那么可以通过
+import os
+print os.path这个方法打印所有引用的目录
+
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/python%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/" >
             
                 <span>python常用函数</span>
@@ -609,69 +665,6 @@ radius=1
 test_num=100000
 #random generate 10000 points in a sqare width is 2,and the center is in origin
 sqare_x=2*np.random.random_s...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/KDTree%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3/" >
-            
-                <span>KDTree简单理解</span>
-        </a>
-        <div class="abstract-content">
-            KDTree作为一个树的结构，通常用来做高维的分割。在分割成为树的时候，保证下一层节点的 比较位 如果小于当前的 比较位，则向左生长，否则向右生长。所谓的比较位就是当前层数%总的维度，例如三维坐标，第一层就是x，第二层就是y，第三层就是z。直接看图
-  
-图中每一层的比较位用加粗表示了，看第一层，比较位是第一位，也就是3，（2,3,7）中2&gt;3，所以像左生长，(4,3,4)中4&gt;3所以向右生长。
-到了第二层，这里只看(2,3,7),他的比较位是y也就是3了，那么(2,1,3)中1&lt;3所以像左生长，(2,,4,5)中4&gt;3所以想向右生长。
-至于KDTree是怎么训练...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/SICP%E9%98%85%E8%AF%BB%E7%90%86%E8%A7%A3%E3%80%8A%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AC%AC%E4%B8%80%E8%8A%82%E3%80%8B/" >
-            
-                <span>SICP阅读理解《第一章第一节》</span>
-        </a>
-        <div class="abstract-content">
-            第一节首先介绍了Lisp的最基本用法，表达式：
-  
-也就是符号在前，数字在后的一种顺序，很好理解，还可以出现连＋或者连*的
-  
-一个符号，后面的数字都采用这个符号来执行，打上括号就可以组合了
-  
-这里就是两套组合再做加法，3*5+10-6=19
-Lisp的变量定义是用的define，其实已经相当于c里面的宏定义了，如果不知道什么叫宏定义就理解成变量定义吧，只不过它是相当于把变量的值完完全全赋给了名字，包括括号等操作符
-  
-这里就定义了size代表2
-  
-所以这个也很好理解了，piradiusradius
-再举一个带上操作符的例子
-(define (square x) (x*x)...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -2068,9 +2061,31 @@ Lisp的变量定义是用的define，其实已经相当于c里面的宏定义了
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 116
+        Total : 118
         </div>
         <!-- search  -->
         
@@ -2086,7 +2101,17 @@ Lisp的变量定义是用的define，其实已经相当于c里面的宏定义了
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E3%80%87%E3%80%8B-%E4%B8%83%E4%B8%AA%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/" >c-CUDA编程《〇》-七个基本步骤</a>
+            <span class="archive-post-date">08/20</span><a class="archive-post-title" href= "/2020/08/20/pytorch%E8%AF%A6%E8%A7%A3-%E4%B8%80-%E6%95%B0%E6%8D%AE%E6%B5%81/" >pytorch详解<一>数据流</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" >c++-CUDA编程二维矩阵的性能优化</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E3%80%87%E3%80%8B-%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" >c-CUDA编程《〇》-七个基本步骤</a>
         </li>
     
     

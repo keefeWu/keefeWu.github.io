@@ -346,6 +346,73 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/SICP%E9%98%85%E8%AF%BB%E7%90%86%E8%A7%A3%E3%80%8A%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AC%AC%E4%B8%80%E8%8A%82%E3%80%8B/" >
+            
+                <span>SICP阅读理解《第一章第一节》</span>
+        </a>
+        <div class="abstract-content">
+            第一节首先介绍了Lisp的最基本用法，表达式：
+  
+也就是符号在前，数字在后的一种顺序，很好理解，还可以出现连＋或者连*的
+  
+一个符号，后面的数字都采用这个符号来执行，打上括号就可以组合了
+  
+这里就是两套组合再做加法，3*5+10-6=19
+Lisp的变量定义是用的define，其实已经相当于c里面的宏定义了，如果不知道什么叫宏定义就理解成变量定义吧，只不过它是相当于把变量的值完完全全赋给了名字，包括括号等操作符
+  
+这里就定义了size代表2
+  
+所以这个也很好理解了，piradiusradius
+再举一个带上操作符的例子
+(define (square x) (x*x)...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/Ubuntu%E8%93%9D%E5%B1%8F%E8%BF%9B%E4%B8%8D%E4%BA%86%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" >
+            
+                <span>Ubuntu蓝屏进不了图形界面的解决办法</span>
+        </a>
+        <div class="abstract-content">
+            Ubuntu有时强制关机会损坏图形界面，但是不用着急，可以通过命令行自动重装桌面。方法如下：
+Ctrl+Alt+F4进入命令行模式
+依次执行：
+sudo dpkg –configure -a
+sudo apt-get install xserver-xorg-lts-utopic sudo dpkg-repack xserver-xorg-lts-utopic
+（有些系统的名字可能不一样，但是前缀都是一样的，可以先输入前缀按tab键提示找到最像的）
+sudo reboot
+重起之后熟悉的桌面又回来了  
+
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E5%9B%9B%E3%80%8B%E6%A0%B9%E6%8D%AE%E5%90%91%E9%87%8F%E5%81%9A%E7%82%B9%E4%BA%91%E6%97%8B%E8%BD%AC/" >
             
                 <span>PCL入门《四》根据向量做点云旋转</span>
@@ -559,62 +626,6 @@ void contrastOrBrightAdjust(InputArray &amp;src,OutputArray &amp;dst,int contras
   for(int y = 0; y &lt; src.rows; y++ )
   {
 ...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E4%B8%80%E4%BA%9B%E6%95%B0%E5%AD%A6%E5%90%8D%E8%AF%8D%E7%9A%84%E8%A7%A3%E9%87%8A/" >
-            
-                <span>一些数学名词的解释</span>
-        </a>
-        <div class="abstract-content">
-            大数定理：就是暴力求解，根据大量的数据得出的概率，例如根据抛1000次硬币得出正面的频率接近0.5，来估计正面的概率是0.5.
-中心极限定理：一件事情如果有很多因素影响，如果每件因素的影响都非常小的话，那么这件事情就会向正态分布趋近。
-
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%BC%95%E8%A8%80%E9%A2%98/" >
-            
-                <span>贝叶斯引言题</span>
-        </a>
-        <div class="abstract-content">
-            在知乎上看到一个比较复杂一点的例题，可以作为贝叶斯的引入：
-一种癌症，得了这个癌症的人被检测出为阳性的几率为90%，未得这种癌症的人被检测出阴性的几率为90%，而人群中得这种癌症的几率为1%，一个人被检测出阳性，问这个人得癌症的几率为多少？  
-分析一下，首先设癌症为A1，那么不得癌症就是A2，阳性为B1，阴性（不是阳性）为B2。
-整理一下已知条件：
-得癌症的人中阳性的几率是0.9，这个0.9是只统计了所有得了癌症的人，也就是说有了得癌症这个先验条件，我们写作
-P（B1/A1）= 0.9 ①
-未得癌症的人中阴性的几率是0.9，同理可以写作：
-P(B2/A2) = 0.9 ②
-人群中得癌症...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1917,9 +1928,31 @@ P(B2/A2) = 0.9 ②
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 116
+        Total : 118
         </div>
         <!-- search  -->
         
@@ -1935,7 +1968,17 @@ P(B2/A2) = 0.9 ②
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E3%80%87%E3%80%8B-%E4%B8%83%E4%B8%AA%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/" >c-CUDA编程《〇》-七个基本步骤</a>
+            <span class="archive-post-date">08/20</span><a class="archive-post-title" href= "/2020/08/20/pytorch%E8%AF%A6%E8%A7%A3-%E4%B8%80-%E6%95%B0%E6%8D%AE%E6%B5%81/" >pytorch详解<一>数据流</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" >c++-CUDA编程二维矩阵的性能优化</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E3%80%87%E3%80%8B-%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" >c-CUDA编程《〇》-七个基本步骤</a>
         </li>
     
     

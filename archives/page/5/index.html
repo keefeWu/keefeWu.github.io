@@ -346,6 +346,72 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/python%E6%9F%A5%E7%9C%8Bimport%E7%9A%84%E7%9B%AE%E5%BD%95/" >
+            
+                <span>python查看import的目录</span>
+        </a>
+        <div class="abstract-content">
+            如果想查询某个指定库的目录，可以通过如下方法得到
+import a_module
+print a_module.__file__例如，我想用opencv,那个库的名字叫做cv2，如果我想找到他的地址，那么我就应该这样：
+import cv2
+print cv2.__file__可以看到执行这两行就会打印出地址：
+/usr/local/lib/python2.7/dist-packages/cv2/cv2.so  
+如果想查询import的包含目录，那么可以通过
+import os
+print os.path这个方法打印所有引用的目录
+
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/python%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/" >
+            
+                <span>python常用函数</span>
+        </a>
+        <div class="abstract-content">
+            find : 查找字符串所在位置，常用来做截取。
+name=’a_b_c’
+name.find(‘_’)=1
+可以设置从第几个字符开始，例如
+name.find(‘_’,2)=3
+可以看到跳过了第一个_，但是计数方法还是从头开始。
+lambda: 匿名函数，快速定义一个函数，无序繁琐的固定结构，可以直接在代码中使用。
+fun_a=lambda x: x+1
+
+
+print fun_a(5)输出的结果就是6
+
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/opencv%E9%BC%A0%E6%A0%87%E7%BB%8F%E8%BF%87%E8%AF%BB%E5%8F%96%E5%9D%90%E6%A0%87%E4%BB%A5%E5%8F%8A%E5%88%92%E5%8A%A8%E7%94%BB%E6%A1%86/" >
             
                 <span>opencv鼠标经过读取坐标以及划动画框</span>
@@ -589,73 +655,6 @@ sqare_x=2*np.random.random_s...
 图中每一层的比较位用加粗表示了，看第一层，比较位是第一位，也就是3，（2,3,7）中2&gt;3，所以像左生长，(4,3,4)中4&gt;3所以向右生长。
 到了第二层，这里只看(2,3,7),他的比较位是y也就是3了，那么(2,1,3)中1&lt;3所以像左生长，(2,,4,5)中4&gt;3所以想向右生长。
 至于KDTree是怎么训练...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/SICP%E9%98%85%E8%AF%BB%E7%90%86%E8%A7%A3%E3%80%8A%E7%AC%AC%E4%B8%80%E7%AB%A0%E7%AC%AC%E4%B8%80%E8%8A%82%E3%80%8B/" >
-            
-                <span>SICP阅读理解《第一章第一节》</span>
-        </a>
-        <div class="abstract-content">
-            第一节首先介绍了Lisp的最基本用法，表达式：
-  
-也就是符号在前，数字在后的一种顺序，很好理解，还可以出现连＋或者连*的
-  
-一个符号，后面的数字都采用这个符号来执行，打上括号就可以组合了
-  
-这里就是两套组合再做加法，3*5+10-6=19
-Lisp的变量定义是用的define，其实已经相当于c里面的宏定义了，如果不知道什么叫宏定义就理解成变量定义吧，只不过它是相当于把变量的值完完全全赋给了名字，包括括号等操作符
-  
-这里就定义了size代表2
-  
-所以这个也很好理解了，piradiusradius
-再举一个带上操作符的例子
-(define (square x) (x*x)...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/Ubuntu%E8%93%9D%E5%B1%8F%E8%BF%9B%E4%B8%8D%E4%BA%86%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" >
-            
-                <span>Ubuntu蓝屏进不了图形界面的解决办法</span>
-        </a>
-        <div class="abstract-content">
-            Ubuntu有时强制关机会损坏图形界面，但是不用着急，可以通过命令行自动重装桌面。方法如下：
-Ctrl+Alt+F4进入命令行模式
-依次执行：
-sudo dpkg –configure -a
-sudo apt-get install xserver-xorg-lts-utopic sudo dpkg-repack xserver-xorg-lts-utopic
-（有些系统的名字可能不一样，但是前缀都是一样的，可以先输入前缀按tab键提示找到最像的）
-sudo reboot
-重起之后熟悉的桌面又回来了  
-
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1958,9 +1957,31 @@ sudo reboot
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 116
+        Total : 118
         </div>
         <!-- search  -->
         
@@ -1976,7 +1997,17 @@ sudo reboot
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E3%80%87%E3%80%8B-%E4%B8%83%E4%B8%AA%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/" >c-CUDA编程《〇》-七个基本步骤</a>
+            <span class="archive-post-date">08/20</span><a class="archive-post-title" href= "/2020/08/20/pytorch%E8%AF%A6%E8%A7%A3-%E4%B8%80-%E6%95%B0%E6%8D%AE%E6%B5%81/" >pytorch详解<一>数据流</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" >c++-CUDA编程二维矩阵的性能优化</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E3%80%87%E3%80%8B-%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" >c-CUDA编程《〇》-七个基本步骤</a>
         </li>
     
     

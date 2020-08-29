@@ -346,6 +346,57 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/adaboost%E7%9A%84%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3/" >
+            
+                <span>adaboost的通俗理解</span>
+        </a>
+        <div class="abstract-content">
+            首先先讲个故事吧，三人成虎的故事应该都听说过吧。就是当三个人都来说同一件事情的时候，假的也成了真的。这个算法其实就是利用的这个原理，首先构造多个决策器，然后由多个决策器共同投票来确定一件事情的真伪。  
+下面直接上列子：
+  
+  
+这里有0-9十条数据，这十条数据就是供给我们训练的。首先将这十件事情的权重都设为0.1。我们现在需要确定一个阈值（即分界点），把这十条数据分成误差率最小的两类。
+假设我们将阈值设成0（即大于0的为一类，小于等于0的为第二类），那么理想情况应该是左边都是1，右边都是-1（也可以反过来，取错误率低于0.5的一种分法），然而现实是左边都是1满足了，而右边有3、4、...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%B7%E7%A7%AF%E5%91%A2/" >
+            
+                <span>什么是卷积呢</span>
+        </a>
+        <div class="abstract-content">
+            话不多说，首先我先上一张动图!这幅图展示的就是一个二维卷积的过程，也就是一般二维图像的滤波过程。首先左边的55的绿色区域代表的是待卷积对象，这里理解为一幅图像的一个维度，例如灰度图就是图像的灰度值，RGB彩色图就是RGB中的某一个通道；中间在移动的黄色区域是卷积核（注意右下角的红字才是卷积核的一部分，中间的黑字是属于绿色原图的，不信你看卷积核在移动的时候中间的黑字是不变的）；右边的粉红区域是卷积后的图（因为它也是33的可不要理解为它跟卷积核一样大小，其实它的大小是原图的大小减去步长2，这里的步长是1，也就是每次移动一格，所以卷积后的大小就是5-12=3），仔细观察发现卷积核每动一下右边就...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/%E8%85%90%E8%9A%80%E3%80%81%E8%86%A8%E8%83%80%E4%BB%A5%E5%8F%8A%E5%BC%80%E9%97%AD%E6%93%8D%E4%BD%9C%E7%AD%89%E5%BD%A2%E6%80%81%E5%AD%A6%E5%A4%84%E7%90%86/" >
             
                 <span>腐蚀、膨胀以及开闭操作等形态学处理</span>
@@ -607,69 +658,6 @@ Mat MyDilate(Mat src...
 】
 数据预处理部分：
 【...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/kmeans-%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/" >
-            
-                <span>kmeans(最简单的机器学习算法)</span>
-        </a>
-        <div class="abstract-content">
-            http://blog.csdn.net/u011021773/article/details/53959108  
-Kmeans算法是机器学习最经典最简单的一种算法，它属于无监督学习类，又叫做聚类。是指没有给出正确答案，只是自己根据相关特性进行分类的一种方法，学习的目的就是找出最相关的特性。
-Kmeans可以很形象的用图形变现出来，是个理解无监督学习非常直观的例子。
-随机给出二十个点，我们要做的就是把这二十个点分成n类。如图所示：
-
-  
-上面图的白圈就是我们随机生成的点，可以看到先面图根据他们的位置自动分成了三类，标注成了三种颜色。
-我们再来上一张分成四类的图：
-  
-  
-好了，效...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/Gabor%E6%BB%A4%E6%B3%A2%E7%9A%84%E5%B1%82%E5%B1%82%E6%80%BB%E7%BB%93/" >
-            
-                <span>Gabor滤波的层层总结</span>
-        </a>
-        <div class="abstract-content">
-            http://blog.csdn.net/u011021773/article/details/54232169  
-声明：这篇博客是我学习gabor滤波的笔记，根据进度层层总结，在完全学会前会看起来很混乱，但是我保证在终止连载以后一定马上整理成Gabor的介绍博客。
-我学习的起因是阅读了《Human Age Estimation Using Bio-inspired Features》这篇文章。
-核的大小：
-文章里面出现了这样一个表格：
-  
-这个表格的右半部份是gabor滤波的参数，其中含义是当周期T为2PI的时候，sigma与lamda做自变量得出来的size为表中所示。
-如：第一...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1972,9 +1960,31 @@ Kmeans可以很形象的用图形变现出来，是个理解无监督学习非�
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 116
+        Total : 118
         </div>
         <!-- search  -->
         
@@ -1990,7 +2000,17 @@ Kmeans可以很形象的用图形变现出来，是个理解无监督学习非�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E3%80%87%E3%80%8B-%E4%B8%83%E4%B8%AA%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4/" >c-CUDA编程《〇》-七个基本步骤</a>
+            <span class="archive-post-date">08/20</span><a class="archive-post-title" href= "/2020/08/20/pytorch%E8%AF%A6%E8%A7%A3-%E4%B8%80-%E6%95%B0%E6%8D%AE%E6%B5%81/" >pytorch详解<一>数据流</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" >c++-CUDA编程二维矩阵的性能优化</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/17</span><a class="archive-post-title" href= "/2020/08/17/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E3%80%87%E3%80%8B-%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" >c-CUDA编程《〇》-七个基本步骤</a>
         </li>
     
     
