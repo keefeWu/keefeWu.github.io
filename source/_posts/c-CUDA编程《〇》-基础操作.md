@@ -209,3 +209,10 @@ cpyParm.extent = extent;
 cpyParm.kind = cudaMemcpyHostToDevice;
 cudaMemcpy3D(&cpyParm);
 ```
+## cudaMemcpyPeer
+GPU变量之间传递数据的函数
+```
+__host__ ​cudaError_t cudaMemcpyPeer ( void* dst, int  dstDevice, const void* src, int  srcDevice, size_t count )
+```
+他可以直接被`cudaMemcpy`替代,但是他的优势在于可以指定设备id,假设你只有一块gpu,那么设备id都是0,用哪个都一样,如果是不同设备的话,就需要用这个函数,来指定不同的设备.他的第二个参数和第四个参数分别指定了目标和源头的设备id,第五个参数是数据长度.就是malloc的那个长度.
+记得使用前还是要在device上分配内存大小的,这个函数只管拷贝,不管分配的.
