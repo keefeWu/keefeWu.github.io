@@ -1,7 +1,7 @@
 ---
 title: c++-CUDA编程《一》-计算矩阵加减乘除
 date: 2020-02-08 15:10:59
-tags:
+tags: cuda
 ---
 
     #include "calculator.h"
