@@ -346,6 +346,106 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/10/27/%E6%95%B0%E5%AD%A6/" >
+            
+                <span>数学</span>
+        </a>
+        <div class="abstract-content">
+            有限个无穷大的乘积是无穷大,但无限个并不是令fn(x)=x/n，则对于某一个特定的n而言，x-&gt;+∞时fn(x)趋于正无穷。
+但是！！对任意x∈R，fn(x)的无穷乘积都是0！！
+自然，fn(x)的无穷乘积在x-&gt;+∞时的极限仍然是0
+等价无穷小1-cosx等于1/2 x² 
+
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/10/27</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/10/27/%E8%8B%B1%E8%AF%AD%E7%9F%AD%E5%8F%A5/" >
+            
+                <span>英语短句</span>
+        </a>
+        <div class="abstract-content">
+            Their calculations were based on a notional. 他们的计算是基于理论上的In this precise moment. 此时此刻I have no notion what you meant.我根本不明白你是什么意思You don’t have a notion of time.你没有时间观念Hard work always pays off.天道酬勤He was fairly easily persuaded.他非常容易被说服Ant that entails a judgement on whether security would be en...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/10/27</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/10/26/408/" >
+            
+                <span>408</span>
+        </a>
+        <div class="abstract-content">
+            计算机组成原理IEEE 75432位浮点数,指数为2的指数次方以下序号真实使用时是反过来的
+
+1:符号位 -1^x
+2-9:指数位 我们从阶码的0000-0000开始对应-127~+127共计255个数，所以就有了：阶码=阶码真值+127。
+10-32:有效数字 只存储了小数部分,最终形式一定是1.x 但是这里只存了x最终算真值的时候应该是 -1^(符号位)(也就是0是正数1是负数) * 2^(指数位-127) * 1.(有效数字位)例如:c800 0000H就是1100 1000 0000 0000 0000 0000 0000 0000符号位是1,就是负数阶码也就是指数位是10010...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/10/26</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/09/25/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E4%BA%8C%E3%80%8B%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB/" >
+            
+                <span>c-CUDA编程《二》层级关系</span>
+        </a>
+        <div class="abstract-content">
+            gpu里的线程层级如上图所示,最基本的为线程thread,然后多个thread组成一个block,多个block组成一个grid所以我们就引申出来了Idx和Dim两个不同变量,其中Idx用来返回当前这一级的位置,Dim返回它下辖的子集个数例如blockDim.x就是,他的x区域的下瞎个数,grid block thread这三个就像王国,公国,伯爵领一样的关系,blockDim.x就是这个公国下面的x区域有几个伯爵领,blockIdx.x就是这个公国自己的x区域的代号,也可以理解为师旅团,那么blockIdx.x可以理解为晋西北(x区域)386旅,blockDim.x就是晋西北(x区域)...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/09/25</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/08/20/pytorch%E8%AF%A6%E8%A7%A3-%E4%B8%80-%E6%95%B0%E6%8D%AE%E6%B5%81/" >
             
                 <span>pytorch详解&lt;一&gt;数据流</span>
@@ -526,138 +626,10 @@ UPROPERTY这玩意很有意思,类似于编译了,就是某个对象前面加上
         </div>
     </article>
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/04/09/linux%E8%BF%90%E7%BB%B4-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" >
-            
-                <span>linux运维-常用命令</span>
-        </a>
-        <div class="abstract-content">
-            网络相关查看网络链接情况1netstat -an|grep ESTABLISHED
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/09</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "运维">运维</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/04/07/fsck----Linux%E7%A1%AC%E7%9B%98%E4%BF%AE%E5%A4%8D/" >
-            
-                <span>fsck----Linux硬盘修复</span>
-        </a>
-        <div class="abstract-content">
-            有时候硬盘由于强制关机之类的操作造成了一定的损坏，造成部分分区挂载不上，我们可以使用fsck来修复
-全称 file system consistency check，是linux自带的一个很强大的工具，基本上强行关机造成的损坏都可以修复
-用法如下：
-首先使用一些disk查看工具，看看自己要修复的分区是哪一个
-比方说是sdc3那么就执行
-sudo fsck /dev/sdc3  
-就可以了
-之后如果坏了会问你某某坏了，是否需要修复，点击回车yes就行了
-当然，前提是硬盘要处于卸载状态，不能挂载才能执行这个命令。
-
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/07</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/04/07/c++%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/" >
-            
-                <span>c++读取文件</span>
-        </a>
-        <div class="abstract-content">
-            c++标准流读取txt文件，虽然很容易搜索到，但是由于很常用，我还是记录在自己的博客里。
-首先是头文件
-#include &lt;iostream&gt;
-#include &lt;fstream&gt;
-#include &lt;string&gt;第一个是输入输出流，因为接下来文件读取和写入都是用的这个流，也就是&gt;&gt;和&lt;&lt;
-第二个就是包含了文件读取的类的头文件
-第三个是字符串的头文件，因为都出来首先是字符串格式的
-接下来读取的代码
-std::ifstream fin(data_file);
-if(!fin)
-{
-    printf(&quot;Read da...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/07</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/04/07/JNI-java%E8%B0%83%E7%94%A8c++%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%80%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" >
-            
-                <span>JNI-java调用c++程序的最常用方法</span>
-        </a>
-        <div class="abstract-content">
-            java与c、c++通信中有一个最常用的方法，就是JNI的方式。首先让c++生成动态链接库，然后用java来调用。下面重点演示linux下的做法。
-首先用eclipse建立一个java类：
-
-类名就叫JNIDemo
-接着写上如下代码：
-
-package com.jni.demo;  
-public class JNIDemo {  
-    //定义一个本地方法  
-    public native String entrance(String P1,String P2,String P3);  
-    public static void main(String[] args){ ...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/07</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <span class="page-number current">1</span><a class="page-number" href="/archives/2020/page/2/">2</a><a class="page-number" href="/archives/2020/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2020/page/12/">12</a><a class="extend next" rel="next" href="/archives/2020/page/2/">NEXT &amp;#62;</a>
+        <span class="page-number current">1</span><a class="page-number" href="/archives/2020/page/2/">2</a><a class="page-number" href="/archives/2020/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2020/page/13/">13</a><a class="extend next" rel="next" href="/archives/2020/page/2/">NEXT &amp;#62;</a>
     </nav>
     
 </main>
@@ -1967,9 +1939,59 @@ public class JNIDemo {
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 118
+        Total : 122
         </div>
         <!-- search  -->
         
@@ -1982,6 +2004,26 @@ public class JNIDemo {
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span><a class="archive-post-title" href= "/2020/10/27/%E6%95%B0%E5%AD%A6/" >数学</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span><a class="archive-post-title" href= "/2020/10/27/%E8%8B%B1%E8%AF%AD%E7%9F%AD%E5%8F%A5/" >英语短句</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/26</span><a class="archive-post-title" href= "/2020/10/26/408/" >408</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/25</span><a class="archive-post-title" href= "/2020/09/25/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E4%BA%8C%E3%80%8B%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB/" >c-CUDA编程《二》层级关系</a>
+        </li>
     
     
         <li class="archive-post-item">

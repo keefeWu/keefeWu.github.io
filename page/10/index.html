@@ -359,6 +359,105 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/%E5%8F%82%E6%95%B0%E4%BC%98%E5%8C%96%E5%87%BD%E6%95%B0%E7%9B%B4%E8%A7%82%E6%98%BE%E7%A4%BA%E5%9B%BE/" >
+            
+                <span>参数优化函数直观显示图</span>
+        </a>
+        <div class="abstract-content">
+            转载自：https://imgur.com/a/Hqolp
+
+Long ValleyAlgos without scaling based on gradient information really struggle to breaksymmetry here - SGD gets no where and Nesterov Accelerated Gradient / Momentumexhibits oscillations until they build up velocity in the optimizationdirection.Algos that scale step...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/%E4%BB%8ERCNN%E5%88%B0FAST-RCNN%E3%80%81FASTER-RCNN%E5%86%8D%E5%88%B0MASK-RCNN/" >
+            
+                <span>从RCNN到FAST-RCNN、FASTER-RCNN再到MASK-RCNN</span>
+        </a>
+        <div class="abstract-content">
+            RCNN首先RCNN的R是region的意思，也就是region selective search + CNN具体解释就是先使用区域搜索方法找出若干个可能是物体的区域,一般通过纹理颜色直方图之类的来挑选出来。然后交给改进版的alexnet来提取特征（这里输入应该是通过resize方法适应网络的），在第五个池化层把输出交给SVM，SVM判断是不是物体，以及物体的种类。然后使用一个线性回归对bounding box处理，找出更加紧凑的边界。
+FAST RCNN之前每次搜索出来的区域都是重新计算特征的，就是resize然后交给网络去计算，现在使用一个cnn，来直接处理原图，使用（roipool...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/" >
+            
+                <span>机器学习-损失函数</span>
+        </a>
+        <div class="abstract-content">
+            ####softmaxsoftmax作为分类网络的最后一层，输出所有分类的概率，比方说存在猫狗鼠等十种分类，那么就会输出十个数字，分别按顺序的代表可能是猫狗鼠的概率。算法是这样的ai=ezi∑1nzka_i=\frac{e^{z_i}}{\sum_1^n{z_k}}ai​=∑1n​zk​ezi​​，也就是e的当前这项值次方除以e的每项值次方的和。这样保证了所有加起来为一。
+
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/linux%E8%BF%90%E7%BB%B4-N%E5%8D%A1%E7%94%B5%E8%84%91%E8%A3%85Ubuntu%E5%8D%A1%E4%BD%8F%E9%97%AE%E9%A2%98/" >
+            
+                <span>linux运维-N卡电脑装Ubuntu卡住问题</span>
+        </a>
+        <div class="abstract-content">
+            因为ubuntu识别出N卡之后会自动装一个错误的驱动，所以运气好的能够登录，卡在桌面，运气不好的直接无法进入。那么怎么办呢？首先，在启动的时候狂敲shift直到能够进入那个选择ubuntu安装还是进入的那个菜单，然后按e进入临时grub编辑界面，（记住是临时的，也就是说这次没弄好，下次重启又要改一次），然后找到quiet
+splash，在后面添加acpi_osi=linux nomodeset，然后按F10保存开机。进去之后呢就要装显卡驱动了，这个时候是不能有桌面显示的，所以先进入命令行模式
+ctrl+alt+F1然后结束掉桌面
+sudo service lightdm stop然后安装...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/linux%E8%BF%90%E7%BB%B4-doxygen%E5%AE%89%E8%A3%85/" >
             
                 <span>linux运维-doxygen安装</span>
@@ -493,6 +592,12 @@ bool InitCUDA()
             </div>
             <!-- tags  -->
             
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "cuda">cuda</a>
+    
+</div>
+            
         </div>
     </article>
     
@@ -525,105 +630,10 @@ void SoftmaxLayer&lt;Dtype&gt;::Forward_cpu(const vector&lt;Blob&lt;Dtype&gt;*&g
         </div>
     </article>
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-RCNN/" >
-            
-                <span>目标检测-RCNN</span>
-        </a>
-        <div class="abstract-content">
-            )rcnn首先会做一个regionproposal，也就是任意的找到一些疑似完整物体的区域，这一步是任意的，根据梯度信息找到一些边缘，然后就圈出来了。这一步会找到非常多的区域作为候选框，给接下来的分类提供素材。论文说的是找了两千多个
-接着把那些候选框一个一个输入神经网络，算出特征
-接着把算出的特征交给svm去做分类，得到分类与置信度。
-最后每个类别在训练出四个向量，保证预测的时候特征 _这四个向量可以得到x,y,w,h，这样坐标的缩放和偏移量也就算出来了。所谓的候选区域推荐其实就是根据梯度信息找到一些边界，然后选出一个个疑似完整的物体。 而RCNN的region proposal用的是s...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-SPPNet/" >
-            
-                <span>目标检测-SPPNet</span>
-        </a>
-        <div class="abstract-content">
-            RCNN横空出世之后，人们开始把目标检测的重心放在了神经网络上。但是RCNN有个非常明显的缺点，就是速度慢，以为有2000个候选框需要计算，所以跑了2000次前向传播。这样跑一张图片就需要五十多秒。何凯明老师提出了一种新的思想，大大的提升了性能，这个方法叫做空间金字塔池化。这个空间金字塔池化使用了比例池化,可以不关心输入大小,也能够输出固定维度的特征,从而代替全连接层.其实就是规定把图片分成几份，传统的池化是规定多少大小为一份，而spp是直接约定分成几份，至于一份的大小就可变了。另外还有一个改进是特征共享，原先2000个proposal分别进入神经网络去算出2000个特征，这样效率是非常...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-Fast-RCNN/" >
-            
-                <span>目标检测-Fast-RCNN</span>
-        </a>
-        <div class="abstract-content">
-            哈喽大家好，我是蒙特卡洛家的树，时间来到2015年，经历了一年的发展，官方版的快速RCNN问世了。这次出的这个fastrcnn主要借鉴了SPP的方法，共享了featuremap，大大提升了RCNN的效率，另外他自己也有一些创新。就是舍弃了之前的SVM和bbox回归两步，直接在神经网络中完成分类和回归。他的过程分这么几步。首先是CNN，整张图片输入到神经网络中,算出一个大的featuremap。然后每个proposal按照比例在featuremap上裁剪丢入空间金字塔池化层。这时候算出来的不再作为线性的特征了，而是把他当做一个正常的池化，输出的是二维的featuremap，接下来经过一个全...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-Faster-RCNN/" >
-            
-                <span>目标检测-Faster-RCNN</span>
-        </a>
-        <div class="abstract-content">
-            哈喽大家好，我是蒙特卡洛家的树。时间到了2016年，fastrcnn问世一年，何凯明老师就立刻提出了更快的算法，fast的名字被占用了，所以干脆就叫fasterrcnn了。之前fastrcnn上说他跑一帧只需要0.几秒，其实这里玩了一个文字游戏，因为这里跑一帧只是神经网络部分，并没有涵盖regionproposal的时间。而fast rcnn最耗时的部分就是regionproposal部分，那一步就已经是秒级别的了，所以要优化速度不得不从这里开刀。而何凯明老师提出的fasterrcnn就正是从这里入手，大大优化regionproposal的速度。使得全部过程在GPU上跑可以达到一秒五帧了...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/page/9/">&amp;#60; PREV</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/11/">NEXT &amp;#62;</a>
+        <a class="extend prev" rel="prev" href="/page/9/">&amp;#60; PREV</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/11/">NEXT &amp;#62;</a>
     </nav>
     
 </main>
@@ -2027,9 +2037,59 @@ void SoftmaxLayer&lt;Dtype&gt;::Forward_cpu(const vector&lt;Blob&lt;Dtype&gt;*&g
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 118
+        Total : 122
         </div>
         <!-- search  -->
         
@@ -2042,6 +2102,26 @@ void SoftmaxLayer&lt;Dtype&gt;::Forward_cpu(const vector&lt;Blob&lt;Dtype&gt;*&g
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span><a class="archive-post-title" href= "/2020/10/27/%E6%95%B0%E5%AD%A6/" >数学</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span><a class="archive-post-title" href= "/2020/10/27/%E8%8B%B1%E8%AF%AD%E7%9F%AD%E5%8F%A5/" >英语短句</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/26</span><a class="archive-post-title" href= "/2020/10/26/408/" >408</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/25</span><a class="archive-post-title" href= "/2020/09/25/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E4%BA%8C%E3%80%8B%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB/" >c-CUDA编程《二》层级关系</a>
+        </li>
     
     
         <li class="archive-post-item">

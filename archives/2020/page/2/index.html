@@ -346,6 +346,134 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/04/09/linux%E8%BF%90%E7%BB%B4-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" >
+            
+                <span>linux运维-常用命令</span>
+        </a>
+        <div class="abstract-content">
+            网络相关查看网络链接情况1netstat -an|grep ESTABLISHED
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/09</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "运维">运维</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/04/07/fsck----Linux%E7%A1%AC%E7%9B%98%E4%BF%AE%E5%A4%8D/" >
+            
+                <span>fsck----Linux硬盘修复</span>
+        </a>
+        <div class="abstract-content">
+            有时候硬盘由于强制关机之类的操作造成了一定的损坏，造成部分分区挂载不上，我们可以使用fsck来修复
+全称 file system consistency check，是linux自带的一个很强大的工具，基本上强行关机造成的损坏都可以修复
+用法如下：
+首先使用一些disk查看工具，看看自己要修复的分区是哪一个
+比方说是sdc3那么就执行
+sudo fsck /dev/sdc3  
+就可以了
+之后如果坏了会问你某某坏了，是否需要修复，点击回车yes就行了
+当然，前提是硬盘要处于卸载状态，不能挂载才能执行这个命令。
+
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/07</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/04/07/c++%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/" >
+            
+                <span>c++读取文件</span>
+        </a>
+        <div class="abstract-content">
+            c++标准流读取txt文件，虽然很容易搜索到，但是由于很常用，我还是记录在自己的博客里。
+首先是头文件
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;string&gt;第一个是输入输出流，因为接下来文件读取和写入都是用的这个流，也就是&gt;&gt;和&lt;&lt;
+第二个就是包含了文件读取的类的头文件
+第三个是字符串的头文件，因为都出来首先是字符串格式的
+接下来读取的代码
+std::ifstream fin(data_file);
+if(!fin)
+{
+    printf(&quot;Read da...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/07</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/04/07/JNI-java%E8%B0%83%E7%94%A8c++%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%80%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" >
+            
+                <span>JNI-java调用c++程序的最常用方法</span>
+        </a>
+        <div class="abstract-content">
+            java与c、c++通信中有一个最常用的方法，就是JNI的方式。首先让c++生成动态链接库，然后用java来调用。下面重点演示linux下的做法。
+首先用eclipse建立一个java类：
+
+类名就叫JNIDemo
+接着写上如下代码：
+
+package com.jni.demo;  
+public class JNIDemo {  
+    //定义一个本地方法  
+    public native String entrance(String P1,String P2,String P3);  
+    public static void main(String[] args){ ...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/07</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/04/07/C++static%E7%B1%BB%E6%88%90%E5%91%98%EF%BC%8Cstatic%E7%B1%BB%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0/" >
             
                 <span>C++static类成员，static类成员函数</span>
@@ -528,137 +656,10 @@ im2colcaffe里的卷积运算实际上是把待输入图像和卷积核都转换
         </div>
     </article>
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/26/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%B8%89%E3%80%8Bblob/" >
-            
-                <span class="stick-top iconfont-archer">&#xe63d;</span>
-                
-                <span>caffe源码阅读《三》blob</span>
-        </a>
-        <div class="abstract-content">
-            今天来阅读的是caffe的blob部分，这个blob它是有cpp的，因为这个blob是caffe核心的数据存储结构，后面所有的操作都会用到这个地方的，所以这里是caffe官方来实现的。首先看hpp文件。他是有个Blob的类
-123456789&#x2F;** * @brief A wrapper around SyncedMemory holders serving as the basic *        computational unit through which Layer%s, Net%s, and Solver%s *        interact. * * TODO(...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/26</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "caffe">caffe</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/25/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E4%BA%8C%E3%80%8Blayer/" >
-            
-                <span class="stick-top iconfont-archer">&#xe63d;</span>
-                
-                <span>caffe源码阅读《二》layer</span>
-        </a>
-        <div class="abstract-content">
-            首先layer这个类是一个基类，所以他是没有cpp实现的，可以看一下它的cpp代码
-1234567#include &quot;caffe&#x2F;layer.hpp&quot;namespace caffe &#123;INSTANTIATE_CLASS(Layer);&#125;  &#x2F;&#x2F; namespace caffe
-除了注册函数之外一无所有，所以他的全部宝藏都在hpp文件里，我们直接在include目录查看他的hpp文件。
-打开hpp文件，首先看到的是一个很有意思的注释
-1234&#x2F;**Forward declare boost::thread in...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/25</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "caffe">caffe</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/19/maskrcnn%E8%AE%AD%E7%BB%83%E9%85%8D%E7%BD%AE/" >
-            
-                <span>maskrcnn训练配置</span>
-        </a>
-        <div class="abstract-content">
-            训练1234rm log.txtcp maskrcnn_benchmark&#x2F;config&#x2F;paths_catalog.py &#x2F;maskrcnn-benchmark&#x2F;maskrcnn_benchmark&#x2F;config&#x2F;cp configs&#x2F;e2e_mask_rcnn_R_50_FPN_1x.yaml &#x2F;maskrcnn-benchmark&#x2F;configs&#x2F;python tools&#x2F;train_net.py --config-file &quot;configs&#x2F;e2e_m...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/19</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E5%9F%BA%E4%BA%8E%E6%9A%97%E9%80%9A%E9%81%93%E7%9A%84%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE/" >
-            
-                <span>基于暗通道的图像去雾</span>
-        </a>
-        <div class="abstract-content">
-            该算法基于雾图像成像模型：其中，I(X)就是待去雾的图像，J(x)是我们要恢复的无雾的图像，A是环境光，t(x)为透射率。现在的已知I(X)，求目标值J(x)。其中环境光A的计算，参考暗通道去雾算法。定义F(x,y)为图像的雾浓度，对应于模型中的A(1-t(x))。
-计算F(x,y)第一步：
-
-function SD = MyCloud( IM )
-%MYCLOUD Summary of this function goes here
-%   Detailed explanation goes here
-
-row=30;
-line=30;
-p=0.2;
-
-
-
-
-[h, w, c] = s...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/archives/2020/">&amp;#60; PREV</a><a class="page-number" href="/archives/2020/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2020/page/3/">3</a><a class="page-number" href="/archives/2020/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2020/page/12/">12</a><a class="extend next" rel="next" href="/archives/2020/page/3/">NEXT &amp;#62;</a>
+        <a class="extend prev" rel="prev" href="/archives/2020/">&amp;#60; PREV</a><a class="page-number" href="/archives/2020/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2020/page/3/">3</a><a class="page-number" href="/archives/2020/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2020/page/13/">13</a><a class="extend next" rel="next" href="/archives/2020/page/3/">NEXT &amp;#62;</a>
     </nav>
     
 </main>
@@ -1968,9 +1969,59 @@ p=0.2;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 118
+        Total : 122
         </div>
         <!-- search  -->
         
@@ -1983,6 +2034,26 @@ p=0.2;
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span><a class="archive-post-title" href= "/2020/10/27/%E6%95%B0%E5%AD%A6/" >数学</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span><a class="archive-post-title" href= "/2020/10/27/%E8%8B%B1%E8%AF%AD%E7%9F%AD%E5%8F%A5/" >英语短句</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/26</span><a class="archive-post-title" href= "/2020/10/26/408/" >408</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/25</span><a class="archive-post-title" href= "/2020/09/25/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E4%BA%8C%E3%80%8B%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB/" >c-CUDA编程《二》层级关系</a>
+        </li>
     
     
         <li class="archive-post-item">

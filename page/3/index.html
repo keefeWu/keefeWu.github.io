@@ -359,6 +359,119 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/04/07/C++static%E7%B1%BB%E6%88%90%E5%91%98%EF%BC%8Cstatic%E7%B1%BB%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0/" >
+            
+                <span>C++static类成员，static类成员函数</span>
+        </a>
+        <div class="abstract-content">
+            转载自：https://blog.csdn.net/u014453898/article/details/64124269
+0.static修饰类中成员，表示类的共享数据
+1.static类成员
+在C++primer里面说过，static类成员不像普通的类数据成员，static类数据成员独立于一切类对象处在。static类数据成员是与类关联的，但不与该类定义的对象有任何关系。这句话什么意思？就是static不会想普通类数据成员一样每一个类对象都有一份，全部类对象是共享一个static类成员的，例如A类对象修改了static成员为1，那么B对象对应的static类对象成员的值也会是1.
+注...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/07</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/04/07/C++%E5%A4%9A%E7%BA%BF%E7%A8%8B/" >
+            
+                <span>C++多线程</span>
+        </a>
+        <div class="abstract-content">
+            头文件
+#include &lt;thread&gt;示例代码：
+Search_param search_param[6];
+std::vectorstd::thread threads;
+std::vector ret_param;
+for(int i = 0; i &lt; 6; i++)
+{
+search_param[i] = {1, “abc”, ret_param[i]};
+std::thread find_border_thread(find_border, std::ref(search_param[i]));
+threads.emplace_back(std::move(...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/04/07</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/28/caffe%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E3%80%8A%E5%9B%9B%E3%80%8Bnet/" >
+            
+                <span>caffe源码阅读《四》net</span>
+        </a>
+        <div class="abstract-content">
+            caffe的net是一个网络架构，串联起所有的blob，支撑着整个神经网络前向和反向传播的一个结构。他也是分为hpp和cpp文件的。首先看注释
+12345678&#x2F;** * @brief Connects Layer%s together into a directed acyclic graph (DAG) *        specified by a NetParameter. * * TODO(dox): more thorough description. *&#x2F;template &lt;typename Dtype&gt;class Net
+把各个层连接在一起...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/28</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "caffe">caffe</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/19/maskrcnn%E8%AE%AD%E7%BB%83%E9%85%8D%E7%BD%AE/" >
+            
+                <span>maskrcnn训练配置</span>
+        </a>
+        <div class="abstract-content">
+            训练1234rm log.txtcp maskrcnn_benchmark&#x2F;config&#x2F;paths_catalog.py &#x2F;maskrcnn-benchmark&#x2F;maskrcnn_benchmark&#x2F;config&#x2F;cp configs&#x2F;e2e_mask_rcnn_R_50_FPN_1x.yaml &#x2F;maskrcnn-benchmark&#x2F;configs&#x2F;python tools&#x2F;train_net.py --config-file &quot;configs&#x2F;e2e_m...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/19</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/%E5%9F%BA%E4%BA%8E%E6%9A%97%E9%80%9A%E9%81%93%E7%9A%84%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE/" >
             
                 <span>基于暗通道的图像去雾</span>
@@ -534,163 +647,10 @@ Mat MyDilate(Mat src...
         </div>
     </article>
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E6%B7%B7%E6%B7%86%E7%9F%A9%E9%98%B5%EF%BC%88confusion-matrix%EF%BC%89/" >
-            
-                <span>混淆矩阵（confusion-matrix）</span>
-        </a>
-        <div class="abstract-content">
-            混淆矩阵是一个统计预测结果与实际结果关系时用到的直观的矩阵，直接上图。
-
-
-
-动物识别
-狮子
-老虎
-老鼠
-猫
-狗
-
-
-
-狮子
-0.45
-0.25
-0.05
-0.18
-0.07
-
-
-老虎
-0.16
-0.39
-0.09
-0.24
-0.12
-
-
-老鼠
-0.03
-0.04
-0.62
-0.16
-0.15
-
-
-猫
-0.18
-0.25
-0.10
-0.38
-0.09
-
-
-狗
-0.09
-0.11
-0.18
-0.26
-0.36
-
-
-这个图的每一行代表某一种动物被识别成不同动物的概率，比方说狮子被识别成狮子的概率试0.45，当成老虎的概率试0.25，当成老鼠的概率试0.05，当成猫的概率试0.18.当成狗的概...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E5%85%B3%E4%BA%8ELBP%EF%BC%88Local-Binary-Pattern%EF%BC%89%E7%89%B9%E5%BE%81/" >
-            
-                <span>关于LBP（Local-Binary-Pattern）特征</span>
-        </a>
-        <div class="abstract-content">
-            LBP是英文Local BinaryPattern的缩写，顾名思义，他是一个局部的二值特征。所谓局部，就是他的提取方法是根据他附近点的信息来计算的，所谓二值，就是特征只有0和1了。
-具体操作其实也非常简单，就是做一个判断的滤波器，什么叫判断的滤波器呢？就是判断附近的点是不是比中间的点大，如果大就是1，小就是0，等于的话就看规定了，可以规定0也可以规定1，但是规定一定要统一，不能一会是0一会是1，（不过这样变得代码也不好写啊，估计没有哪个会神经的让它不统一吧）。
-)  
-如上两张图，图一是原图矩阵，图二是LBP处理后的矩阵。就拿画红框的区域来分析，中间的点是194，那么从左上必到右下依次是...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E5%85%B3%E4%BA%8ELBP%EF%BC%88Local-Binary-Pattern%EF%BC%89%E7%89%B9%E5%BE%81%E3%80%8A%E4%BA%8C%E3%80%8B-%E5%87%A0%E7%A7%8D%E5%8F%98%E7%A7%8D/" >
-            
-                <span>关于LBP（Local-Binary-Pattern）特征《二》-几种变种</span>
-        </a>
-        <div class="abstract-content">
-            旋转不变的LBP：
-关于旋转不变，其实很好解决，那就是让不管如何旋转结果都一样就可以了（废话），至于怎么一样，我们定义一个规则，通常定义取最小值，也就是对于每幅图，不同角度都做一遍LBP，对于每个点取几遍中的最小值就可以了。实际操作起来其实可以不用做几遍LBP。因为每个点的相对关系做一遍都已经知道了，剩下的就是给他们重新排列一下就可以了。代码随后补上。
-
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E5%8F%8C%E7%BA%BF%E6%80%A7%E5%B7%AE%E5%80%BC/" >
-            
-                <span>双线性差值</span>
-        </a>
-        <div class="abstract-content">
-            在涉及到坐标的程序中，（不局限于图像处理）经常会遇到计算出来的坐标不是整数的时候，那么那个小数的坐标左上左下右上右下最多有四个点，究竟取哪个点的值呢，亦或者自己计算一个相对公平的值，这里提供了一种叫做双线性差值的方法。
-双线性差值无非就是用两次线性差值而已，线性差值很好理解，就是等比平均。比方说一条线段中间一点的值就是左右两个端点的平均值。如果是靠近左右二八开那么就用二八加权平均，离的近的权值大。双线性差值也是用的图样的原理，只不过上升到二维平面了，如图所示：
-
-图中黑点就是计算出来的位置，它位于四个绿点的中间，这种情况我们先算出某一纬度的两个端点，然后再用那两个端点进行差值。如图我们先...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/page/2/">&amp;#60; PREV</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/4/">NEXT &amp;#62;</a>
+        <a class="extend prev" rel="prev" href="/page/2/">&amp;#60; PREV</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/4/">NEXT &amp;#62;</a>
     </nav>
     
 </main>
@@ -2094,9 +2054,59 @@ Mat MyDilate(Mat src...
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 118
+        Total : 122
         </div>
         <!-- search  -->
         
@@ -2109,6 +2119,26 @@ Mat MyDilate(Mat src...
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span><a class="archive-post-title" href= "/2020/10/27/%E6%95%B0%E5%AD%A6/" >数学</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span><a class="archive-post-title" href= "/2020/10/27/%E8%8B%B1%E8%AF%AD%E7%9F%AD%E5%8F%A5/" >英语短句</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/26</span><a class="archive-post-title" href= "/2020/10/26/408/" >408</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/25</span><a class="archive-post-title" href= "/2020/09/25/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E4%BA%8C%E3%80%8B%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB/" >c-CUDA编程《二》层级关系</a>
+        </li>
     
     
         <li class="archive-post-item">

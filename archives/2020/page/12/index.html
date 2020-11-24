@@ -346,6 +346,162 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/01/21/linux%E8%BF%90%E7%BB%B4-%E4%BD%BF%E7%94%A8pigz%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%8E%8B%E7%BC%A9/" >
+            
+                <span>linux运维-使用pigz多线程压缩</span>
+        </a>
+        <div class="abstract-content">
+            因为tar zip是单线程的压缩，压缩起来很慢，这个使用使用pigz工具辅助就会使用多线程了。安装
+sudo apt install pigz压缩
+tar cvf - test.txt | pigz &gt; test.tar.gz解压到指定目录
+转自：http://unix.stackexchange.com/questions/198958/unpigz-and-untar-to-a-specific-directory  
+1234567891011121314151617I found three solutions:With GNU tar, using the awesome...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/01/21</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "运维">运维</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/01/09/%E8%AE%BE%E7%BD%AEsupervisor/" >
+            
+                <span>设置supervisor</span>
+        </a>
+        <div class="abstract-content">
+            简介supervisor可以作为守护进程，让程序死了能够拉起来，简单易操作。需要进行如下几个步骤
+
+安装supervisor
+设置需要拉起的命令
+让supervisor开机自启
+
+安装supervisor安装直接使用
+1sudo apt install supervisor
+就可以了，简单易操作
+设置需要拉起的命令如果不出意外，在/etc下会出现supervisor目录，然后在conf.d里面自己建立一个文件用来配置，因为在 /etc/supervisor/supervisord.conf里它添加了conf.d里面所有的文件，所以大胆的去添加就可以了
+123456789101112131...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/01/09</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "运维">运维</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "守护进程">守护进程</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "supervisor">supervisor</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/01/09/%E5%8D%B8%E8%BD%BDnvidia%E9%A9%B1%E5%8A%A8/" >
+            
+                <span>卸载nvidia驱动</span>
+        </a>
+        <div class="abstract-content">
+            卸载nvidia驱动卸载NV驱动和安装一样，首先ctrl+Alt+F2进入命令行状态，然后停止lightdm
+1sudo service lightdm stop
+或者
+1sudo &#x2F;etc&#x2F;init.d&#x2F;lightdm stop
+卸载命令位置/usr/bin/nvidia-uninstall，以下命令即可卸载。
+1sudo &#x2F;usr&#x2F;bin&#x2F;nvidia-uninstall
+不找这个命令的位置，也可以
+1sudo apt-get install autoremove --purge nvidia*
+卸载cudacuda的默认安...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/01/09</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "运维">运维</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "nvidia">nvidia</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "cuda">cuda</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/01/07/linux%E8%BF%90%E7%BB%B4-apt%E6%BA%90%E9%94%99%E8%AF%AF/" >
+            
+                <span>linux运维-apt源错误</span>
+        </a>
+        <div class="abstract-content">
+            解决E: Unmet dependencies. Try ‘apt-get -f install’ with no packages (or specify a solution).的一种方法
+最近准备装一个软件，更新了apt源却失效了，导致没装成功，其他的软件也装不了了。
+解决办法：
+手动去源列表里面删除刚刚添加的那一项
+在/etc/apt/sources.list地方
+然后
+sudo apt-get -f install
+就恢复正常了
+
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/01/07</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "运维">运维</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "apt">apt</a>
+    
+</div>
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/01/07/%E5%90%91caffe%E7%9A%84docker%E4%B8%AD%E6%B7%BB%E5%8A%A0opencv%E5%B9%B6%E4%BF%9D%E5%AD%98/" >
             
                 <span>向caffe的docker中添加opencv并保存</span>
@@ -575,74 +731,10 @@ array([0, ...
         </div>
     </article>
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/01/05/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B-YOLO/" >
-            
-                <span>目标检测-YOLO</span>
-        </a>
-        <div class="abstract-content">
-            　　RCNN系列出来后对整个目标检测起到了颠覆性的作用，但是由于过于复杂的流程，使得代码实现以及运行速度都很慢。此时，一位二次元大叔站了出来，提出了我们要舍弃这种繁琐， yolo！yolo问世的时代是在fasterrcnn之后，所以论文主要是和rcnn系列做对比，其实这也应证了rcnn系列在目标检测领域的的地位，出的新算法都来和他们对比。那么yolo和fastrcnn比有什么优势呢。
-　　第一个是快速，yolo没有region proposal那一步，在Titanx上可以达到45帧。
-　　第二个是全局化,yolo是整张图输入的，对于全局信息，尤其是背景的判断要比fastrcnn好。因为f...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/01/05</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "目标检测">目标检测</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "论文解读">论文解读</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "算法">算法</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "图像处理">图像处理</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "YOLO">YOLO</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/01/01/hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" >
-            
-                <span>hexo 博客搭建</span>
-        </a>
-        <div class="abstract-content">
-            备份因为hexo提交到git上只有生成的html文件，没有源码文件，导致一旦换了电脑就直接gg了，所以我找了一个插件GitHub
-使用方法npm install hexo-git-backup --save
-在_config.yml中添加一项backup:&emsp;&emsp;type: git&emsp;&emsp;repository:&emsp;&emsp;&emsp;&emsp;github: git@github.com:xxx/xxx.git,branchName之后每次用hexo b就可以备份上传了注意一点，这里的分支一定要和master分支区分开，master就专门用来...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/01/01</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/archives/2020/page/11/">&amp;#60; PREV</a><a class="page-number" href="/archives/2020/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2020/page/10/">10</a><a class="page-number" href="/archives/2020/page/11/">11</a><span class="page-number current">12</span>
+        <a class="extend prev" rel="prev" href="/archives/2020/page/11/">&amp;#60; PREV</a><a class="page-number" href="/archives/2020/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2020/page/10/">10</a><a class="page-number" href="/archives/2020/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/archives/2020/page/13/">13</a><a class="extend next" rel="next" href="/archives/2020/page/13/">NEXT &amp;#62;</a>
     </nav>
     
 </main>
@@ -1952,9 +2044,59 @@ array([0, ...
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 118
+        Total : 122
         </div>
         <!-- search  -->
         
@@ -1967,6 +2109,26 @@ array([0, ...
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span><a class="archive-post-title" href= "/2020/10/27/%E6%95%B0%E5%AD%A6/" >数学</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span><a class="archive-post-title" href= "/2020/10/27/%E8%8B%B1%E8%AF%AD%E7%9F%AD%E5%8F%A5/" >英语短句</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/26</span><a class="archive-post-title" href= "/2020/10/26/408/" >408</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/25</span><a class="archive-post-title" href= "/2020/09/25/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E4%BA%8C%E3%80%8B%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB/" >c-CUDA编程《二》层级关系</a>
+        </li>
     
     
         <li class="archive-post-item">

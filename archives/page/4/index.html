@@ -346,6 +346,115 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/%E5%85%B3%E4%BA%8ELBP%EF%BC%88Local-Binary-Pattern%EF%BC%89%E7%89%B9%E5%BE%81/" >
+            
+                <span>关于LBP（Local-Binary-Pattern）特征</span>
+        </a>
+        <div class="abstract-content">
+            LBP是英文Local BinaryPattern的缩写，顾名思义，他是一个局部的二值特征。所谓局部，就是他的提取方法是根据他附近点的信息来计算的，所谓二值，就是特征只有0和1了。
+具体操作其实也非常简单，就是做一个判断的滤波器，什么叫判断的滤波器呢？就是判断附近的点是不是比中间的点大，如果大就是1，小就是0，等于的话就看规定了，可以规定0也可以规定1，但是规定一定要统一，不能一会是0一会是1，（不过这样变得代码也不好写啊，估计没有哪个会神经的让它不统一吧）。
+)  
+如上两张图，图一是原图矩阵，图二是LBP处理后的矩阵。就拿画红框的区域来分析，中间的点是194，那么从左上必到右下依次是...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/%E5%85%B3%E4%BA%8ELBP%EF%BC%88Local-Binary-Pattern%EF%BC%89%E7%89%B9%E5%BE%81%E3%80%8A%E4%BA%8C%E3%80%8B-%E5%87%A0%E7%A7%8D%E5%8F%98%E7%A7%8D/" >
+            
+                <span>关于LBP（Local-Binary-Pattern）特征《二》-几种变种</span>
+        </a>
+        <div class="abstract-content">
+            旋转不变的LBP：
+关于旋转不变，其实很好解决，那就是让不管如何旋转结果都一样就可以了（废话），至于怎么一样，我们定义一个规则，通常定义取最小值，也就是对于每幅图，不同角度都做一遍LBP，对于每个点取几遍中的最小值就可以了。实际操作起来其实可以不用做几遍LBP。因为每个点的相对关系做一遍都已经知道了，剩下的就是给他们重新排列一下就可以了。代码随后补上。
+
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/%E5%8F%8C%E7%BA%BF%E6%80%A7%E5%B7%AE%E5%80%BC/" >
+            
+                <span>双线性差值</span>
+        </a>
+        <div class="abstract-content">
+            在涉及到坐标的程序中，（不局限于图像处理）经常会遇到计算出来的坐标不是整数的时候，那么那个小数的坐标左上左下右上右下最多有四个点，究竟取哪个点的值呢，亦或者自己计算一个相对公平的值，这里提供了一种叫做双线性差值的方法。
+双线性差值无非就是用两次线性差值而已，线性差值很好理解，就是等比平均。比方说一条线段中间一点的值就是左右两个端点的平均值。如果是靠近左右二八开那么就用二八加权平均，离的近的权值大。双线性差值也是用的图样的原理，只不过上升到二维平面了，如图所示：
+
+图中黑点就是计算出来的位置，它位于四个绿点的中间，这种情况我们先算出某一纬度的两个端点，然后再用那两个端点进行差值。如图我们先...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/caffe%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%E5%B0%8F%E7%BB%93%EF%BC%88%E7%95%AA%E5%A4%96%E7%AF%87%EF%BC%89/" >
+            
+                <span>caffe常用指令小结（番外篇）</span>
+        </a>
+        <div class="abstract-content">
+            http://blog.csdn.net/u011021773/article/details/53782969  
+训练：/caffe/build/tools/caffe train –solver=solver.prototxt
+以下指令皆是附加参数，跟在训练后面即可
+【
+输出到日志：2&gt;&amp;1 | tee $LOG（其中LOG文件名为时间则 LOG=./log/train-date
++%Y-%m-%d-%H-%M-%S.log
+读取保存文件继续训练： -snapshot=./snape/snape_iter_200000.solverstate
+】
+数据预处理部分：
+【...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/kmeans-%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/" >
             
                 <span>kmeans(最简单的机器学习算法)</span>
@@ -510,144 +619,10 @@ print ‘I LOVE KAK/‘A’
         </div>
     </article>
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E7%BB%86%E8%AF%B4new%E4%B8%8Emalloc%E7%9A%8410%E7%82%B9%E5%8C%BA%E5%88%AB/" >
-            
-                <span>细说new与malloc的10点区别</span>
-        </a>
-        <div class="abstract-content">
-            细说new与malloc的10点区别转载自http://www.cnblogs.com/QG-whz/p/5140930.html
-阅读目录
-
-前言
-new与malloc的10点区别
-1. 申请的内存所在位置
-2.返回类型安全性
-3.内存分配失败时的返回值
-4.是否需要指定内存大小
-5.是否调用构造函数/析构函数
-6.对数组的处理
-7.new与malloc是否可以相互调用
-8.是否可以被重载
-9. 能够直观地重新分配内存
-10. 客户处理内存分配不足
-
-
-总结
-
-正文
-回到顶部
-前言几个星期前去面试C++研发的实习岗位，面试官问了个问题：
-
-new与malloc有什么区别？
-
-这是个老生...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/linux%E5%91%BD%E4%BB%A4/" >
-            
-                <span>linux命令</span>
-        </a>
-        <div class="abstract-content">
-            ldd:查看某个库的依赖库。如ldd libxxx.so则会打印这个libxxx.so依赖的所有库，用于检查编译时候只添加了头文件而未添加依赖的动态库造成的undefined symbol错误。
-ps aux：查看所有进程的id，方便杀死某个后台进程，通常连接kill (id) 可以通过关键字搜索 ps -aux |grep python搜索所有带python的进程
-tail：将文本文件内容实时打印出来，通常用来打印日志，例如：tail -f log.out
-cat /proc/sys/vm/swappiness : 查看启用交换分区时空闲内存还剩多少 默认是60，就是说内存占用率在40...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/opencv%E4%B8%ADRect%E7%B1%BB%E7%9A%84%E7%A5%9E%E5%A5%87%E7%94%A8%E6%B3%95/" >
-            
-                <span>opencv中Rect类的神奇用法</span>
-        </a>
-        <div class="abstract-content">
-            转载自http://blog.csdn.net/q6324266/article/details/52403744
-最近发现OpenCV中的Rect类非常神奇，其中很多函数使用起来极其方便。一下列举一些比较实用的函数：
-
-size()函数返回矩形的尺寸大小。返回类型为cv::Size。
-
-area()函数返回矩形的面积，也就是矩形包含的像素点个数。也就是矩形的（宽*高）的值。  
-
-contains(Point)能检测点是否在矩形内。  
-
-inside（Rect）检测矩形是否在矩形内。  
-
-tl()返回矩形左上角的点坐标。即top-left。
-
-br()返回矩形右下角点坐标。即bot...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E6%95%B2%E7%A8%8B%E5%BA%8F%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%80%97%E6%AF%94%E9%97%AE%E9%A2%98/" >
-            
-                <span>敲程序时遇到的一些逗比问题</span>
-        </a>
-        <div class="abstract-content">
-            1、Kinect的深度图像尺寸和彩色图像尺寸是不一样的。有一次我直接获取了彩色图像的尺寸来处理深度图，结果遍历的时候总是出现段错误，而且错误的坐标还经常不一样。弄得我一脸纠结，后来发现实际上深度图像的尺寸远小于彩色图像，所以需要单独获取深度图的大小，不能够偷懒。为什么错误的坐标经常会不一样呢，因为数组越界实际上不一定不能访问，访问了也不一定没有值，因为有可能那个地址正好给了其他变量，这个可能性是很大的，所以这种时候是可以访问的，但是当你访问了一个彻底没有定义过的地址的时候，就会报错。
-2、我用的freenet2这个库来读取的kinect的数据，开始用百度上查的16ushort类型接受的，...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/archives/page/3/">&amp;#60; PREV</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/archives/page/5/">5</a><a class="page-number" href="/archives/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/12/">12</a><a class="extend next" rel="next" href="/archives/page/5/">NEXT &amp;#62;</a>
+        <a class="extend prev" rel="prev" href="/archives/page/3/">&amp;#60; PREV</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/archives/page/5/">5</a><a class="page-number" href="/archives/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/13/">13</a><a class="extend next" rel="next" href="/archives/page/5/">NEXT &amp;#62;</a>
     </nav>
     
 </main>
@@ -1957,9 +1932,59 @@ br()返回矩形右下角点坐标。即bot...
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 118
+        Total : 122
         </div>
         <!-- search  -->
         
@@ -1972,6 +1997,26 @@ br()返回矩形右下角点坐标。即bot...
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span><a class="archive-post-title" href= "/2020/10/27/%E6%95%B0%E5%AD%A6/" >数学</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span><a class="archive-post-title" href= "/2020/10/27/%E8%8B%B1%E8%AF%AD%E7%9F%AD%E5%8F%A5/" >英语短句</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/26</span><a class="archive-post-title" href= "/2020/10/26/408/" >408</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/25</span><a class="archive-post-title" href= "/2020/09/25/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E4%BA%8C%E3%80%8B%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB/" >c-CUDA编程《二》层级关系</a>
+        </li>
     
     
         <li class="archive-post-item">

@@ -359,6 +359,115 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E4%BA%94%E3%80%8B%E4%BD%BF%E7%94%A8VOXEL%E7%A8%80%E7%96%8F%E7%82%B9%E4%BA%91/" >
+            
+                <span>PCL入门《五》使用VOXEL稀疏点云</span>
+        </a>
+        <div class="abstract-content">
+            在使用PCL的处理点云时，很多时候我们不需要有太过高的分辨率，因为点云过多会造成计算变慢，并且更加消耗计算资源，所以我们需要把点云变稀，voxel就是一个很好的方法。
+voxel就是三维的pixel，也就是把点云画出网格，然后每个网格内保留一个点就可以了。网格的大小可以自己定义，这就相当于一个downsample（下采样）
+)  
+大概的样子就是这样，我显示出了所有的点，如果某一个格子内没有点就可以不显示了，你也可以把格子调的很密，颜色也可以保留。
+话不多说，直接上代码：
+首先必要的引用的是
+#include &lt;pcl/io/pcd_io.h&gt;
+#include &lt;pc...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E5%85%AD%E3%80%8B%E4%BD%BF%E7%94%A8Region-growing%E8%BF%9B%E8%A1%8C%E5%B9%B3%E9%9D%A2%E5%88%86%E5%89%B2/" >
+            
+                <span>PCL入门《六》使用Region-growing进行平面分割</span>
+        </a>
+        <div class="abstract-content">
+            很多时候我们需要分割平面，检测每个平面，这个时候可以使用PCL自带的区域增长方法。  
+话不多说直接上代码：
+pcl::search::Search&lt;pcl::PointXYZ&gt;::Ptr tree = boost::shared_ptr&lt;pcl::search::Search&lt;pcl::PointXYZ&gt; &gt; (new pcl::search::KdTree&lt;pcl::PointXYZ&gt;);
+pcl::PointCloud &lt;pcl::Normal&gt;::Ptr normals (new pcl::PointCloud &lt;...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/Linux-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%BE%AA%E7%8E%AF%E6%89%A7%E8%A1%8C%E7%A8%8B%E5%BA%8F/" >
+            
+                <span>Linux-命令行循环执行程序</span>
+        </a>
+        <div class="abstract-content">
+            经常在执行程序的时候希望传递不同的参数来测试，而这些参数就是某个目录里的所有文件，那么完全可以使用一些简单的bash命令来循环执行。比方说如下，我们就简单的写一个循环输出所有文件名的指令吧。
+for f in $(ls .);do echo $f;done;这个命令就是用f等于一个列表，那个列表就是ls.出来的结果，也就是当前目录所有的文件，然后do后面跟指令，如果你把echo换成你的程序，那么就是程序+一个参数，也就是某一个文件名，那么就会不停的循环执行这个程序，每一传得参数都是列表里的文件名，每一次都不一样，直到传完为止。
+例如当前目录有a.jpg b.jpg两个文件，那么如果你有个...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E4%B8%83%E3%80%8B-%E5%8F%AF%E8%A7%86%E5%8C%96PCLVisualizer/" >
+            
+                <span>PCL入门《七》-可视化PCLVisualizer</span>
+        </a>
+        <div class="abstract-content">
+            PCL的点云可视化的一种最常用的方法就是PCLVisualizer
+它是基于VTK的可视化类，需要引入头文件
+#include &lt;pcl/visualization/pcl_visualizer.h&gt;通常用法是
+pcl::visualization::PCLVisualizer::Ptr viewer (new pcl::visualization::PCLVisualizer (&quot;3D Viewer&quot;));
+viewer-&gt;addPointCloud (cloud, &quot;cloud&quot;);
+viewer-&gt;spin();这就构...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href = "/2020/02/08/Opencv-3-3-0-%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/" >
             
                 <span>Opencv-3-3-0-常用函数</span>
@@ -548,119 +657,10 @@ Eigen::Matrix4f cal...
         </div>
     </article>
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/%E5%A6%82%E4%BD%95%E5%BF%AB%E9%80%9F%E4%B8%8B%E8%BD%BDarxiv%E8%AE%BA%E6%96%87%EF%BC%8C%E4%BD%BF%E7%94%A8arxiv%E4%B8%AD%E5%9B%BD%E5%AE%98%E6%96%B9%E9%95%9C%E5%83%8F%E6%9C%8D%E5%8A%A1%E5%99%A8/" >
-            
-                <span>如何快速下载arxiv论文，使用arxiv中国官方镜像服务器</span>
-        </a>
-        <div class="abstract-content">
-            转载自 简书
-简单的说，就是arxiv 在中国有官方镜像http://cn.arxiv.org，通过使用chrome 插件将 arxiv的链接自动重定向到中国镜像网站链接即可，这样当你点击一篇文章的arxiv链接后就可以自动到cn.arxiv.org，速度很快。
-背景arXiv（https://arxiv.org/）是一个收集计算机科学、物理学、数学和生物学等多个学科的论文预印本网站，主站点在康奈尔大学，在全球多个地方设置有镜像网站。对于深度学习专业，可以说绝大多数论文都是从 arxiv 上获取的，因此能够快速的访问 arxiv 非常重要。由于国内多方面原因导致经常直接访问速度比较慢，因...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/C-%E5%A4%9A%E7%BA%BF%E7%A8%8B/" >
-            
-                <span>C++多线程</span>
-        </a>
-        <div class="abstract-content">
-            
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/PCL%E5%85%A5%E9%97%A8%E3%80%8A%E5%85%AB%E3%80%8B-RANSAC%E7%9A%84%E5%AE%9E%E7%8E%B0/" >
-            
-                <span>PCL入门《八》-RANSAC的实现</span>
-        </a>
-        <div class="abstract-content">
-            之前发国一篇文章讲解了ransac的基本原理，PCL也有相应的代码的实现，今天来讲以下如何使用。
-先看PCL官网的示例：
-#include &lt;iostream&gt;
-#include &lt;pcl/ModelCoefficients.h&gt;
-#include &lt;pcl/io/pcd_io.h&gt;
-#include &lt;pcl/point_types.h&gt;
-#include &lt;pcl/sample_consensus/method_types.h&gt;
-#include &lt;pcl/sample_consensus/model_types.h&...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/02/08/pyqt%E5%85%A5%E9%97%A8%EF%BC%88%E5%B8%A6%E9%BC%A0%E6%A0%87%E5%93%8D%E5%BA%94%E4%BA%8B%E4%BB%B6%E7%9A%84QLabel%EF%BC%89/" >
-            
-                <span>pyqt入门（带鼠标响应事件的QLabel）</span>
-        </a>
-        <div class="abstract-content">
-            最近项目需要，简单的写起了一个界面，装了一个pyqt5.1，以下记录一下。
-我主要使用的功能是Qlabel，它不但可以显示文字，还可以显示图片。但是它自身是没有鼠标监听功能的，所以我自己重新封装了一层。
-首先是引用部分，我引用了一大堆，反正都有用，我还没有完全摸清楚，将来再补充
-#coding:utf-8
-from PyQt5.QtWidgets import QApplication, QLabel, QSlider  
-from PyQt5 import QtWidgets  
-import PyQt5.QtCore 
-from PyQt5.QtCore import Qt
-from...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/02/08</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
     <!-- paginator  -->
     
     <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/page/6/">&amp;#60; PREV</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/8/">NEXT &amp;#62;</a>
+        <a class="extend prev" rel="prev" href="/page/6/">&amp;#60; PREV</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/8/">NEXT &amp;#62;</a>
     </nav>
     
 </main>
@@ -2064,9 +2064,59 @@ from...
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 118
+        Total : 122
         </div>
         <!-- search  -->
         
@@ -2079,6 +2129,26 @@ from...
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span><a class="archive-post-title" href= "/2020/10/27/%E6%95%B0%E5%AD%A6/" >数学</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span><a class="archive-post-title" href= "/2020/10/27/%E8%8B%B1%E8%AF%AD%E7%9F%AD%E5%8F%A5/" >英语短句</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/26</span><a class="archive-post-title" href= "/2020/10/26/408/" >408</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/25</span><a class="archive-post-title" href= "/2020/09/25/c-CUDA%E7%BC%96%E7%A8%8B%E3%80%8A%E4%BA%8C%E3%80%8B%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB/" >c-CUDA编程《二》层级关系</a>
+        </li>
     
     
         <li class="archive-post-item">
